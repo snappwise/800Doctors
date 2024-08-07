@@ -1729,16 +1729,6 @@ input[type="text"]:focus-visible,
   margin-right: auto;
 }
 
-.my-0{
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .ml-2{
   margin-left: 0.5rem;
 }
@@ -1880,6 +1870,11 @@ input[type="text"]:focus-visible,
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-light-blue-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 250 255 / var(--tw-bg-opacity));
 }
 
 .object-contain{
