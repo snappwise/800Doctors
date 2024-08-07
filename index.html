@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../static/stylesheets/output.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <button type="button"
+        class="cta-whatsapp" id="whatsappBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+            <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+        </svg>
+    </button>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#">
+                <img src="./static/assets/logos/main-logo.png" class="navbar-logo" alt="800 Doctors Logo">
+            </a>
+            <div class="navbar-controls">
+                <a href="tel:+97800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
+                <button data-collapse-toggle="navbar-sticky" type="button" class="navbar-menu-btn"
+                    aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-sticky">
+                <ul class="navbar-links-wrapper">
+                    <li>
+                        <a href="../index.html" class="navbar-link active" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">Services</a>
+                    </li>
+                    <!-- <li>
+                    <button id="dropdownHoverButton" data-dropdown-toggle="productsDropdown"
+                        data-dropdown-trigger="hover" data-dropdown-placement="bottom-start"
+                        class="navbar-link-dropdown" type="button"><span class="relative">Banquets</span><svg
+                            class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+
+                    <div id="productsDropdown"
+                        class="z-10 hidden bg-White divide-y rounded-lg divide-neutral-100 shadow w-56 bg-white">
+                        <ul class="text-base p-1.5 text-neutral-700 dark:text-neutral-200 rounded-lg"
+                            aria-labelledby="dropdownHoverButton">
+                            <li>
+                                <a href="./1kg.html" class="navbar-link rounded">Venue 1</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </li> -->
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">Healthcare Packages</a>
+                    </li>
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">Blogs</a>
+                    </li>
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">About Us</a>
+                    </li>
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="../index.html" class="navbar-link" aria-current="page">Careers</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="hero-content">
+                <h1 class="main-heading"><span class="text-primary-700">Expert Care</span>,<br>Right to Your Door.</h1>
+                <p>800Doctor provides immediate, high-quality medical care at your convenience. Our
+                    licensed professionals offer personalized healthcare services, available 24/7, 365 days a year,
+                    ensuring you get the best care without leaving your home.</p>
+                <div class="hero-cta">
+                    <a class="cta-primary" href="">Book an Appointment</a>
+                    <a class="cta-outline" href="">Explore Services</a>
+                </div>
+                <div class="stat-row">
+                    <div class="stat">
+                        <span class="stat-number">294</span>
+                        <p class="stat-description">Patients Served</p>
+                    </div>
+                    <div class="stat border-r-transparent">
+                        <span class="stat-number">294</span>
+                        <p class="stat-description">Doctors Enrolled</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="./static/assets/images/hero-img.png" alt="" class="h-full w-full object-contain">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-container">
+            <div class="section-image">
+                <img src="./static/assets/images/about-img.png" alt="">
+            </div>
+            <div class="section-content">
+                <h2 class="section-heading">About Us</h2>
+                <h1 class="sub-heading">Exceptional Care, <br>Anytime, Anywhere</h1>
+                <p>800DOCTOR is a leading premium healthcare provider specializing in doctor-on-call and non-clinic
+                    based medical services in Dubai and the UAE. Since 2007, we've pioneered doctor-at-home and
+                    nurse-at-home services, growing into an extensive team of medical experts offering a wide range of
+                    home healthcare solutions.</p>
+                <a href="" class="cta-primary mt-2">Know More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Our Services</h2>
+                <p>Quality Healthcare Delivered to Your Doorstep</p>
+            </div>
+            <div class="service-cards-container">
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/ksjqunte.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Doctor Consultation</h3>
+                    <p class="service-card-description">Offering the best medical advice for various health concerns
+                        from experienced General
+                        Practitioners in your home, workplace, or hotel room.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/zlfoslfu.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Home Nursing</h3>
+                    <p class="service-card-description">Short & long-term home nursing services from registered
+                        nurses for post-surgical care, elderly care, and care for unwell children at your home.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/hxxgmfis.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Preventive Healthcare</h3>
+                    <p class="service-card-description">Mobile healthcare solutions for executives, with a range of
+                        packages to care for groups of office staff. Our medical professionals are here for you.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/mnqrvvmg.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Physiotherapy</h3>
+                    <p class="service-card-description">Experienced physiotherapists visit your home, office, or hotel
+                        room for privacy and comfort, helping you regain pain-free movement.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/lqcyrjta.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Medical Facilitation</h3>
+                    <p class="service-card-description">Wheelchair-friendly transport with a dedicated nurse for
+                        domestic travel or trained nurses to escort you abroad for medical treatment.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="https://cdn.lordicon.com/bbwgsdcx.json" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">Occupational Therapy</h3>
+                    <p class="service-card-description">Support from therapists to help you regain movement and complete
+                        everyday tasks, all in the comfort and privacy of your home.</p>
+                    <a href="" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-row items-center justify-center">
+                <a href="" class="cta-outline mt-12 mx-auto w-fit group">More Services<i
+                        class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="working">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">How It Works</h2>
+                <p>Simple Steps to Access Quality Home Healthcare</p>
+            </div>
+            <div class="working-cards-container">
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">1</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">Contact Us</h3>
+                    <p class="working-card-description">Call 800DOCTOR (800 362867), book an appointment online, or
+                        request a callback.</p>
+                </div>
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">2</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">Schedule Your Appointment</h3>
+                    <p class="working-card-description">Choose a convenient date, time, and location for your
+                        consultation or service.</p>
+                </div>
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">3</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">We Come to You</h3>
+                    <p class="working-card-description">Our team will arrive at your specified location within 60
+                        minutes.</p>
+                </div>
+            </div>
+            <div class="flex flex-row items-center justify-center">
+                <a href="" class="cta-outline mt-12 mx-auto w-fit group">Contact Us<i
+                        class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Our Partners</h2>
+                <p>Trusted by companies of all sizes</p>
+            </div>
+            <div class="partner-grid">
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/alsaada.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/better_communities.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/damac.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/dmcc.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/dubai_electricity_and_water_authority.webp" alt=""
+                        class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/emirates_nbd.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/esaad.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/gems_rewards.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo hidden lg:block">
+
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/gotriage.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/hayi.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/imdad.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/pure_heal.webp" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="./static/assets/partners/the_entertainer.webp" alt="" class="object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faqs">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading">Frequently asked questions</h2>
+                <p>Everything you need to know about the services and packages.</p>
+            </div>
+            <div id="faq-accordion" data-accordion="collapse"
+                data-active-classes="bg-light-blue-100 text-neutral-700 hover:bg-light-blue-100 hover:text-neutral-700 hover:rounded-b-none"
+                data-inactive-classes="bg-transparent text-neutral-600">
+                <h2 id="accordion-heading-1">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-1"
+                        aria-expanded="true" aria-controls="accordion-body-1">
+                        <span>What is home healthcare?</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-1" class="hidden" aria-labelledby="accordion-heading-1">
+                    <div class="faq-answer">
+                        <p>Home care, home nursing services, doctor-at-home service, or home healthcare involve home
+                            visits by doctors, nurses, physiotherapists, and other medical professionals. These services
+                            are provided to persons or families in their house, apartment, office, or hotel room to
+                            promote, maintain, or restore their health and wellbeing.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-2">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-2"
+                        aria-expanded="false" aria-controls="accordion-body-2">
+                        <span>What do you mean by personalized healthcare?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-2" class="hidden" aria-labelledby="accordion-heading-2">
+                    <div class="faq-answer">
+                        <p>Personalized healthcare means you can choose the medical professional, date, time, and place
+                            for your treatment. Additionally, our medical professionals take the time to get to know you
+                            so they can create customized care plans to address your specific needs and concerns.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-3">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-3"
+                        aria-expanded="false" aria-controls="accordion-body-3">
+                        <span>Do you provide emergency services?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-3" class="hidden" aria-labelledby="accordion-heading-3">
+                    <div class="faq-answer">
+                        <p>No. 800Doctor provides personalized routine healthcare services and consultations for
+                            patients who can’t leave their residences, office, or hotel. These services include
+                            doctor-on-call, nurse-at-home, on-call physiotherapists, paediatricians on-call, and more.
+                            For emergency first response services, you can call 999 and request an ambulance.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-4">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-4"
+                        aria-expanded="false" aria-controls="accordion-body-4">
+                        <span>Do you only provide healthcare services for sick people?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-4" class="hidden" aria-labelledby="accordion-heading-4">
+                    <div class="faq-answer">
+                        <p>No. Our healthcare service is for both the sick and the able. We aim to make personalized
+                            healthcare available to everyone regardless of health condition, as we provide medical
+                            examinations, diagnoses, preventive care, and other services that cover your various needs.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-5">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-5"
+                        aria-expanded="false" aria-controls="accordion-body-5">
+                        <span>Are your doctors licensed in the UAE?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-5" class="hidden" aria-labelledby="accordion-heading-5">
+                    <div class="faq-answer">
+                        <p>Yes. All our partner medical professionals have the DHA/MOH license to practice in the UAE.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-6">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-6"
+                        aria-expanded="false" aria-controls="#accordion-body-6">
+                        <span>How long will it take for you to reach me?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-6" class="hidden" aria-labelledby="accordion-heading-6">
+                    <div class="faq-answer">
+                        <p>Our team will reach you within 45 to 60 minutes of making the appointment.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-7">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-7"
+                        aria-expanded="false" aria-controls="accordion-body-7">
+                        <span>Is my personal and medical information kept confidential?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-7" class="hidden" aria-labelledby="accordion-heading-7">
+                    <div class="faq-answer">
+                        <p>800Doctor treats all patient information with confidentiality. We take the utmost care when
+                            collecting your information. Please read our Data Protection Policy to learn more.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-8">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-8"
+                        aria-expanded="false" aria-controls="accordion-body-8">
+                        <span>How do you ensure the safety of the patient and their family during home visits?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-8" class="hidden" aria-labelledby="accordion-heading-8">
+                    <div class="faq-answer">
+                        <p>All our partner medical professionals strictly follow Patient Safety Protocols designed by
+                            experts to safeguard the health and safety of the patients. We also conduct a thorough
+                            background check and verification on all our partner nurses and medical professionals before
+                            we hire them. Additionally, we give you details regarding the identity of our partner
+                            nurses, doctors on call, and other medical professionals for transparency. In case you have
+                            a complaint and want to register the same, please call 800362867or email us at
+                            info@800doctor.com along with the relevant details.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-9">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-9"
+                        aria-expanded="false" aria-controls="accordion-body-9">
+                        <span>Can you customize the services according to my needs?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-9" class="hidden" aria-labelledby="accordion-heading-9">
+                    <div class="faq-answer">
+                        <p>Our medical professionals first conduct an assessment before forming a treatment plan for the
+                            patient.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-10">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-10"
+                        aria-expanded="false" aria-controls="accordion-body-10">
+                        <span>What happens if my regular caregiver is unavailable?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-10" class="hidden" aria-labelledby="accordion-heading-10">
+                    <div class="faq-answer">
+                        <p>In case your preferred caregiver is unavailable, our support center will contact you to
+                            inform you of the alternatives available at that time and arrange for a replacement of your
+                            choice.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-11">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-11"
+                        aria-expanded="false" aria-controls="accordion-body-11">
+                        <span>What kind of vaccinations do you give?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-11" class="hidden" aria-labelledby="accordion-heading-11">
+                    <div class="faq-answer">
+                        <p>We offer a variety of vaccinations (including seasonal). Please stay tuned to our social
+                            media accounts and email newsletters for updates on our periodic health bulletins.
+                        </p>
+                    </div>
+                </div>
+
+                <h2 id="accordion-heading-12">
+                    <button type="button" class="faq-heading" data-accordion-target="#accordion-body-12"
+                        aria-expanded="false" aria-controls="accordion-body-12">
+                        <span>How much do you charge for a consultation?</span>
+                        <svg data-accordion-icon class="w-3 h-3 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-12" class="hidden" aria-labelledby="accordion-heading-12">
+                    <div class="faq-answer">
+                        <p>We offer various healthcare packages at different rates for all kinds of health checks. You
+                            can choose the package that suits your needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">What Our Clients Say</h2>
+                <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
+            </div>
+            <div class="swiper testimonial-swiper overflow-hidden relative ">
+                <div class="testimonial-wrapper swiper-wrapper">
+                    <div class="swiper-slide testimonial-card ">
+                        <div class="stars text-primary-700">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="person-testimony">
+                            "The convenience of having a qualified doctor visit my home is unmatched. Their service is
+                            exceptional."
+                        </p>
+                        <div>
+                            <p class="person-name">Jenny Wilson</p>
+                            <p class="person-location">Sharjah</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide testimonial-card ">
+                        <div class="stars text-primary-700">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="person-testimony">
+                            "800DOCTOR's prompt and professional care made my recovery at home smooth and stress-free.
+                            Highly recommended!"
+                        </p>
+                        <div>
+                            <p class="person-name">John D.</p>
+                            <p class="person-location">Dubai</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide testimonial-card ">
+                        <div class="stars text-primary-700">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="person-testimony">
+                            "The doctor's attention to detail and compassion made a huge difference in my treatment.
+                            Excellent service!"
+                        </p>
+                        <div>
+                            <p class="person-name">Aisha K.</p>
+                            <p class="person-location">Abu Dhabi</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide testimonial-card ">
+                        <div class="stars text-primary-700">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="person-testimony">
+                            "I am grateful for the timely and efficient medical care provided by 800DOCTOR. Truly a
+                            lifesaver!"
+                        </p>
+                        <div>
+                            <p class="person-name">Mohammed A.</p>
+                            <p class="person-location">Ajman</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide testimonial-card ">
+                        <div class="stars text-primary-700">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="person-testimony">
+                            "The home visit service by 800DOCTOR is very professional and convenient. Highly
+                            appreciated!"
+                        </p>
+                        <div>
+                            <p class="person-name">Sara L.</p>
+                            <p class="person-location">Ras Al Khaimah</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer id="footer">
+        <div class="section-container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="./static/assets/logos/main-logo.png" alt="">
+                    </div>
+                    <div class="footer-logo h-12">
+                        <img src="./static/assets/logos/advet-health-logo.png" alt="">
+                    </div>
+                    <p>800DOCTOR is one of the pioneers dedicated entirely to doctor-on-call services and home health
+                        care in the UAE.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="">About</a></li>
+                        <li><a href="">Services</a></li>
+                        <li><a href="">Packages</a></li>
+                        <li><a href="">Career</a></li>
+                        <li><a href="">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Help</h4>
+                    <ul class="footer-links">
+                        <li><a href="">Contact Us</a></li>
+                        <li><a href="">Terms & Conditions</a></li>
+                        <li><a href="">Privacy Policy</a></li>
+                        <li><a href="">Patient Rights & Responsibilities</a></li>
+                    </ul>
+                </div>
+                <div class="footer-subscribe">
+                    <div class="footer-newsletter">
+                        <h4 class="footer-heading">Newsletter</h4>
+                        <form action="" class="footer-newsletter-form">
+                            <input type="email" name="" id="" placeholder="Enter Your email address">
+                            <button class="cta-primary w-full">Subscribe Now</button>
+                        </form>
+                    </div>
+                    <div class="footer-socials">
+                        <h4 class="footer-heading">Join Us on Social Media</h4>
+                        <div class="footer-social-icons">
+                            <a class="footer-social-icon" href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    class="bi bi-instagram h-4 w-4 lg:h-5 lg:w-5" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+                                </svg>
+                            </a>
+                            <a class="footer-social-icon" href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    class="bi bi-facebook h-4 w-4 lg:h-5 lg:w-5" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+                                </svg>
+                            </a>
+                            <a class="footer-social-icon" href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                                </svg>
+                            </a>
+                            <a class="footer-social-icon" href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    class="bi bi-linkedin h-4 w-4 lg:h-5 lg:w-5" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <p class="copyright">
+                &copy; Copyright 2024. All rights reserved by 800Doctor.
+            </p>
+        </div>
+    </footer>
+
+    <script src="./static/scripts/whatsapp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./static/scripts/swiper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>
