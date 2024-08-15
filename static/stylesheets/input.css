@@ -321,6 +321,161 @@
   .copyright {
     @apply text-center text-sm;
   }
+
+  /* rights and responsibility page */
+  .rights-content{
+    @apply grid grid-cols-12 md:gap-6 md:space-y-0 space-y-6;
+  }
+
+  .rights-content-english , .rights-content-arabic {
+    @apply p-4 col-span-12 lg:col-span-6;
+  }
+
+  .rights-content-heading{
+    @apply font-semibold mb-4;
+  }
+
+  .rights-content-list{
+    @apply space-y-6;
+  }
+
+  /* contact page */
+  /* bg-white border-none rounded-lg focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400 px-4 py-2.5 placeholder:text-sm text-sm; */
+  .form-container{
+    @apply flex flex-col justify-between gap-6  col-span-12 lg:col-span-6 ;
+  }
+
+  .input-container{
+    @apply flex flex-col gap-2;
+  }
+
+  .input-container-label{
+    @apply text-black text-sm;
+  }
+
+   input.psk{
+    @apply border border-solid focus:border-none focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400  ;
+  }
+   textarea.psk{
+    @apply border border-solid rounded-lg focus:border-none focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400  ;
+  }
+
+  /* GALLERY PAGE*/
+  .tab-btn {
+    @apply px-4 py-2.5 text-center w-full border-primary-700 border-[1px] rounded-lg;
+  }
+
+  .gallery-tabs{
+    @apply flex sm:items-center flex-col sm:flex-row gap-3 text-sm font-medium mb-6 overflow-x-auto;
+  }
+
+  .gallery-category-grid{
+    @apply grid grid-cols-1 md:grid-cols-4 gap-4;
+  }
+
+  .gallery-image-row{
+    @apply flex flex-col space-y-4;
+  }
+
+  .gallery-image-row a img{
+    @apply h-auto max-w-full ;
+  }
+
+  .gallery-carousel-wrapper{
+    @apply relative h-60 overflow-hidden rounded-lg md:h-96;
+  }
+
+  .gallery-carousel-image{
+    @apply object-cover h-full w-full;
+  }
+
+
+  /* SERVICES PAGE */
+
+  .service-card-container{
+    @apply grid grid-cols-12 gap-8  md:gap-4 lg:gap-8 ;
+  }
+
+  .services-outer-container{
+    @apply grid grid-cols-12 gap-6;
+  }
+
+  .service-page-card{
+    @apply  col-span-10 col-start-2 md:col-span-4 lg:col-span-4  rounded-lg bg-white border border-gray-200 overflow-hidden
+  }
+
+  .service-page-card-heading{
+    @apply mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white;
+  }
+
+  .service-page-card-desc{
+    @apply mb-3 ;
+  }
+
+  .service-form-image{
+    @apply col-span-12 lg:col-span-6;
+  }
+
+
+  /* HEALTHCARE PACKAGES */
+
+  .package-outer-card-container{
+    @apply flex flex-col gap-4 mt-10;
+  }
+
+  .healthcare-package-card-container{
+    @apply grid grid-cols-12 gap-8;
+  }
+
+  .healthcare-package-card{
+    @apply  col-span-10 col-start-2 md:col-span-6 lg:col-span-4 h-min;
+  }
+
+  .wellness-package-grid-container{
+    @apply grid grid-cols-12 gap-8;
+  }
+
+  .wellness-package-image{
+    @apply h-full w-full object-cover col-span-12 md:col-span-6 lg:col-span-4;
+  }
+
+  .wellness-package-cards-container{
+    @apply grid grid-cols-12 col-span-12 gap-6 md:col-span-6 lg:col-span-8;
+  }
+
+  .wellness-package-card{
+    @apply col-span-12 md:col-span-12 lg:col-span-6 h-fit border-2;
+  }
+
+/* INDIVIDUAL PACKAGE */
+
+.individual-package-outer-container{
+  @apply grid grid-cols-12 gap-8;
+}
+
+.individual-package-left-container{
+  @apply p-6 rounded-sm bg-gray-100 text-black col-span-12 lg:col-span-6 flex flex-col gap-6;
+}
+
+.individual-package-left-container-image{
+  @apply h-52 w-52 object-cover border-2 border-l-2 border-blue-600 px-2  border-r-0 border-t-0 border-b-0;
+}
+
+.features-container{
+@apply grid grid-cols-12 gap-0 space-y-8 sm:space-y-0 sm:gap-8;
+}
+
+.feature-box{
+  @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4  flex flex-col gap-3 justify-center items-center;
+}
+
+ 
+
+  
+
+
+
+
 }
 
 @layer utilities {
@@ -332,3 +487,4 @@
       5px 7px 19px 0px rgba(0, 97, 255, 0.04);
   }
 }
+
