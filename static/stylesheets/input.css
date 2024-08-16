@@ -74,7 +74,7 @@
   input[type="time"],
   select,
   textarea {
-    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm w-full;
+    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm min-w-full;
   }
 
   input[type="checkbox"] {
@@ -420,11 +420,11 @@
   }
 
   .dual-input .input-container {
-    @apply col-span-2 lg:col-span-1;
+    @apply col-span-2 lg:col-span-1 w-full;
   }
 
   .input-container {
-    @apply flex flex-col gap-2 col-span-2 lg:col-span-1;
+    @apply flex flex-col gap-2 col-span-2 lg:col-span-1 w-full;
   }
 
   /* Services Page */
