@@ -74,7 +74,7 @@
   input[type="time"],
   select,
   textarea {
-    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm;
+    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm w-full;
   }
 
   input[type="checkbox"] {
