@@ -61,13 +61,28 @@
     @apply w-full h-full;
   }
 
+  label {
+    @apply text-sm;
+  }
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
   input[type="number"],
+  input[type="checkbox"],
+  input[type="date"],
+  input[type="time"],
   select,
   textarea {
-    @apply bg-white border-none rounded-lg focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400 px-4 py-2.5 placeholder:text-sm text-sm;
+    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm;
+  }
+
+  input[type="checkbox"] {
+    @apply p-0 rounded;
+  }
+
+  .input-check-label {
+    @apply flex gap-2 items-center;
   }
 
   .main-heading {
@@ -102,7 +117,7 @@
     @apply inline-flex items-center justify-center font-medium text-primary-700 bg-transparent hover:bg-primary-50 border border-primary-700 focus:ring-2 focus:outline-none focus:border-primary-300 focus:ring-primary-300 rounded-lg text-sm px-6 py-3 text-center;
   }
 
-  .cta-whatsapp{
+  .cta-whatsapp {
     @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-30;
   }
 }
@@ -151,12 +166,15 @@
   #home,
   #services,
   #partners,
-  #footer {
+  #footer,
+  #features {
     @apply bg-light-blue-50;
   }
 
   #home .section-container,
-  #about .section-container {
+  #about .section-container,
+  .service-page-contact,
+  .service-info-container {
     @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
   }
 
@@ -197,12 +215,16 @@
   }
 
   .service-cards-container,
-  .working-cards-container {
+  .working-cards-container,
+  .healthcare-cards-container {
     @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8;
   }
 
   .service-card,
-  .working-card {
+  .working-card,
+  .service-page-card,
+  .healthcare-package-card,
+  .wellness-package-card {
     @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-2;
   }
 
@@ -210,15 +232,17 @@
     @apply cursor-pointer hover:bg-primary-700 transition-all;
   }
 
-  .service-card-heading, .working-card-heading {
+  .service-card-heading,
+  .working-card-heading {
     @apply group-hover:text-white;
   }
 
-  .service-card-description, .working-card-description {
+  .service-card-description,
+  .working-card-description {
     @apply group-hover:text-neutral-100;
   }
 
-  .service-card-icon-container{
+  .service-card-icon-container {
     @apply rounded-full bg-white p-2.5 h-20 w-20 flex items-center justify-center lg:mb-3;
   }
 
@@ -234,7 +258,7 @@
     @apply h-5 w-5 group-hover:-rotate-[40deg] transition-all;
   }
 
-  .working-card{
+  .working-card {
     @apply border border-primary-700;
   }
 
@@ -242,16 +266,16 @@
     @apply rounded-lg bg-primary-700 text-white p-2.5 h-12 w-12 flex items-center justify-center mb-2;
   }
 
-  .partner-grid{
+  .partner-grid {
     @apply grid grid-cols-8 gap-4 md:gap-6 lg:gap-10;
   }
 
-  .partner-logo{
+  .partner-logo {
     @apply col-span-4 md:col-span-2 lg:col-span-1;
   }
 
-  .partner-logo img{
-    @apply object-contain aspect-video
+  .partner-logo img {
+    @apply object-contain aspect-video;
   }
 
   .testimonial-card {
@@ -323,159 +347,164 @@
   }
 
   /* rights and responsibility page */
-  .rights-content{
+  .rights-content {
     @apply grid grid-cols-12 md:gap-6 md:space-y-0 space-y-6;
   }
 
-  .rights-content-english , .rights-content-arabic {
+  .rights-content-english,
+  .rights-content-arabic {
     @apply p-4 col-span-12 lg:col-span-6;
   }
 
-  .rights-content-heading{
+  .rights-content-heading {
     @apply font-semibold mb-4;
   }
 
-  .rights-content-list{
+  .rights-content-list {
     @apply space-y-6;
   }
 
-  /* contact page */
-  /* bg-white border-none rounded-lg focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400 px-4 py-2.5 placeholder:text-sm text-sm; */
-  .form-container{
-    @apply flex flex-col justify-between gap-6  col-span-12 lg:col-span-6 ;
-  }
-
-  .input-container{
-    @apply flex flex-col gap-2;
-  }
-
-  .input-container-label{
-    @apply text-black text-sm;
-  }
-
-   input.psk{
-    @apply border border-solid focus:border-none focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400  ;
-  }
-   textarea.psk{
-    @apply border border-solid rounded-lg focus:border-none focus:ring-primary-400 focus-within:ring-primary-400 focus-visible:ring-primary-400  ;
-  }
-
   /* GALLERY PAGE*/
+
+  .carousel-control-prev{
+    @apply absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+  }
+
+  .carousel-control-prev-btn, .carousel-control-next-btn{
+    @apply inline-flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full text-white bg-neutral-900/30  group-hover:bg-neutral-900/60  group-focus:ring-2 group-focus:ring-neutral-900/70 group-focus:outline-none;
+  }
+
+  .carousel-control-next{
+    @apply absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+  }
+
+  .carousel-control-dots{
+    @apply absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
+  }
+
+  .carousel-control-dot{
+    @apply w-2 h-2 rounded-full;
+  }
   .tab-btn {
     @apply px-4 py-2.5 text-center w-full border-primary-700 border-[1px] rounded-lg;
   }
 
-  .gallery-tabs{
+  .gallery-tabs {
     @apply flex sm:items-center flex-col sm:flex-row gap-3 text-sm font-medium mb-6 overflow-x-auto;
   }
 
-  .gallery-category-grid{
+  .gallery-category-grid {
     @apply grid grid-cols-1 md:grid-cols-4 gap-4;
   }
 
-  .gallery-image-row{
+  .gallery-image-row {
     @apply flex flex-col space-y-4;
   }
 
-  .gallery-image-row a img{
-    @apply h-auto max-w-full ;
+  .gallery-image-row a img {
+    @apply h-auto max-w-full;
   }
 
-  .gallery-carousel-wrapper{
-    @apply relative h-60 overflow-hidden rounded-lg md:h-96;
+  .gallery-carousel-wrapper {
+    @apply relative h-60 overflow-hidden rounded-lg md:h-[450px];
   }
 
-  .gallery-carousel-image{
-    @apply object-cover h-full w-full;
+  .gallery-carousel-image {
+    @apply object-cover  h-full w-full;
   }
 
+  /* Package Booking Page */
 
-  /* SERVICES PAGE */
-
-  .service-card-container{
-    @apply grid grid-cols-12 gap-8  md:gap-4 lg:gap-8 ;
+  .dual-input {
+    @apply grid grid-cols-2 md:gap-6 md:space-y-0 space-y-6;
   }
 
-  .services-outer-container{
-    @apply grid grid-cols-12 gap-6;
+  .dual-input .input-container {
+    @apply col-span-2 lg:col-span-1;
   }
 
-  .service-page-card{
-    @apply  col-span-10 col-start-2 md:col-span-4 lg:col-span-4  rounded-lg bg-white border border-gray-200 overflow-hidden
+  .input-container {
+    @apply flex flex-col gap-2;
   }
 
-  .service-page-card-heading{
-    @apply mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white;
+  /* Services Page */
+
+  .service-page-form,
+  .form-container {
+    @apply flex flex-col justify-between gap-6 col-span-2 lg:col-span-1;
   }
 
-  .service-page-card-desc{
-    @apply mb-3 ;
+  .service-page-form-container {
+    @apply grid grid-cols-12 md:gap-6 md:space-y-0 space-y-6;
   }
 
-  .service-form-image{
-    @apply col-span-12 lg:col-span-6;
+  .service-page-card, .healthcare-package-card, .wellness-package-card {
+    @apply p-0 gap-0;
   }
 
+  .service-page-card img, .healthcare-package-card img {
+    @apply h-44 lg:h-56 object-cover rounded-t-xl;
+  }
+
+  .service-page-card-content, .healthcare-package-card-content {
+    @apply p-5 md:p-7 flex flex-col gap-2;
+  }
+
+  .service-page-card .cta-primary, .healthcare-package-card .cta-primary, .wellness-package-card .cta-primary {
+    @apply mt-1.5 lg:mt-3;
+  }
+
+  .service-page-form-image {
+    @apply col-span-2 lg:col-span-1;
+  }
+
+  .service-page-form-image img {
+    @apply h-full w-full object-cover rounded-lg max-h-96 lg:max-h-full object-center;
+  }
 
   /* HEALTHCARE PACKAGES */
 
-  .package-outer-card-container{
-    @apply flex flex-col gap-4 mt-10;
+  .cards-wrapper{
+    @apply flex flex-col gap-6 my-8 lg:my-10;
   }
 
-  .healthcare-package-card-container{
-    @apply grid grid-cols-12 gap-8;
+  .healthcare-package-card {
+    @apply h-min;
   }
 
-  .healthcare-package-card{
-    @apply  col-span-10 col-start-2 md:col-span-6 lg:col-span-4 h-min;
+  .know-more-heading{
+    @apply flex items-center justify-between w-full py-2 focus:bg-white bg-white text-primary-600 hover:text-primary-700 gap-3 font-medium text-sm;
   }
 
-  .wellness-package-grid-container{
-    @apply grid grid-cols-12 gap-8;
+  .know-more-content{
+    @apply py-2 text-sm;
   }
 
-  .wellness-package-image{
-    @apply h-full w-full object-cover col-span-12 md:col-span-6 lg:col-span-4;
+  .wellness-package-image {
+    @apply h-full w-full object-cover hidden lg:block lg:col-span-4 rounded-lg;
   }
 
-  .wellness-package-cards-container{
+  .wellness-package-cards-container {
     @apply grid grid-cols-12 col-span-12 gap-6 md:col-span-6 lg:col-span-8;
   }
 
-  .wellness-package-card{
-    @apply col-span-12 md:col-span-12 lg:col-span-6 h-fit border-2;
+  .wellness-package-card {
+    @apply h-fit border border-primary-600;
   }
 
-/* INDIVIDUAL PACKAGE */
+  /* Individual Service */
 
-.individual-package-outer-container{
-  @apply grid grid-cols-12 gap-8;
-}
+  .service-info-description {
+    @apply p-4 lg:p-6 bg-light-blue-50 col-span-2 lg:col-span-1 flex flex-col gap-6 rounded-lg;
+  }
 
-.individual-package-left-container{
-  @apply p-6 rounded-sm bg-gray-100 text-black col-span-12 lg:col-span-6 flex flex-col gap-6;
-}
+  .features-container {
+    @apply grid grid-cols-12 gap-0 space-y-8 sm:space-y-0 sm:gap-8;
+  }
 
-.individual-package-left-container-image{
-  @apply h-52 w-52 object-cover border-2 border-l-2 border-blue-600 px-2  border-r-0 border-t-0 border-b-0;
-}
-
-.features-container{
-@apply grid grid-cols-12 gap-0 space-y-8 sm:space-y-0 sm:gap-8;
-}
-
-.feature-box{
-  @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4  flex flex-col gap-3 justify-center items-center;
-}
-
- 
-
-  
-
-
-
-
+  .feature-box {
+    @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4  flex flex-col gap-3 justify-center items-center;
+  }
 }
 
 @layer utilities {
@@ -487,4 +516,3 @@
       5px 7px 19px 0px rgba(0, 97, 255, 0.04);
   }
 }
-
