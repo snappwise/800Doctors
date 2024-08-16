@@ -2144,11 +2144,18 @@ input[type="date"],
 /* HEALTHCARE PACKAGES */
 
 .cards-wrapper{
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+@media (min-width: 768px){
+  .cards-wrapper{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 @media (min-width: 1024px){
