@@ -14,66 +14,72 @@
 </head>
 
 <body>
-    <section id="contact">
+
+    <section id="getInTouch">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Please fill this for booking a health package</h2>
                 <p>We'd love to hear from you. Please fill out this form</p>
             </div>
-            <form class="form-container">
-                <div class="input-container">
-                    <label for="name">Full Name</label>
-                    <input id="name" placeholder="Full Name" type="text">
+            <div class="package-info-container">
+                <div class="image-container">
+                    <img src="../static/assets\images\doc.jpg"
+                        alt="doc image">
                 </div>
-                <div class="dual-input">
+                <form class="form-container">
                     <div class="input-container">
-                        <label for="email">Email</label>
-                        <input id="email" placeholder="you@company.com" type="text">
+                        <label for="name">Full Name</label>
+                        <input id="name" placeholder="Full Name" type="text">
+                    </div>
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="email">Email</label>
+                            <input id="email" placeholder="you@company.com" type="text">
+                        </div>
+                        <div class="input-container">
+                            <label for="phno">Phone Number</label>
+                            <input id="phno" placeholder="123456789" type="number">
+                        </div>
                     </div>
                     <div class="input-container">
-                        <label for="phno">Phone Number</label>
-                        <input id="phno" placeholder="123456789" type="number">
-                    </div>
-                </div>
-                <div class="input-container">
-                    <label for="package">Select Package</label>
-                    <select id="package">
-                        <option selected>Choose Package</option>
-                        <option value="Routine Well-Man Package">Routine Well-Man Package</option>
-                        <option value="Executive Well-Man Package">Executive Well-Man Package</option>
-                        <option value="Routine Well-Woman Package">Routine Well-Woman Package</option>
-                        <option value="Diabetes Assessment Package">Diabetes Assessment Package</option>
-                        <option value="Basic Wellness">Basic Wellness</option>
-                        <option value="Gold Care">Gold Care</option>
-                        <option value="Anemia Profile Screening">Anemia Profile Screening</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label for="address">Address</label>
-                    <textarea id="address" placeholder="Enter your address" rows="5"></textarea>
-                </div>
-                <div class="input-container">
-                    <label for="conditions">Pre-Existing Conditions</label>
-                    <textarea id="conditions" placeholder="Enter Pre-Existing Conditions" rows="5"></textarea>
-                </div>
-                <div class="dual-input">
-                    <div class="input-container">
-                        <label for="date">Preffered Date</label>
-                        <input id="date" type="date">
+                        <label for="package">Select Package</label>
+                        <select id="package">
+                            <option selected>Choose Package</option>
+                            <option value="Routine Well-Man Package">Routine Well-Man Package</option>
+                            <option value="Executive Well-Man Package">Executive Well-Man Package</option>
+                            <option value="Routine Well-Woman Package">Routine Well-Woman Package</option>
+                            <option value="Diabetes Assessment Package">Diabetes Assessment Package</option>
+                            <option value="Basic Wellness">Basic Wellness</option>
+                            <option value="Gold Care">Gold Care</option>
+                            <option value="Anemia Profile Screening">Anemia Profile Screening</option>
+                        </select>
                     </div>
                     <div class="input-container">
-                        <label for="time">Preferred Time</label>
-                        <input id="time" type="time">
+                        <label for="address">Address</label>
+                        <textarea id="address" placeholder="Enter your address" rows="5"></textarea>
                     </div>
-                </div>
-                <div class="input-check-label">
-                    <input id="terms" class="rounded" type="checkbox">
-                    <label for="terms">You agree to our friendly <a class="underline" href="#">Privacy Policy</a>
-                    </label>
-                </div>
-                <a class="cta-primary w-full lg:w-1/2 " href="">Book Now</a>
-            </form>
-        </div>
+                    <div class="input-container">
+                        <label for="conditions">Pre-Existing Conditions</label>
+                        <textarea id="conditions" placeholder="Enter Pre-Existing Conditions" rows="5"></textarea>
+                    </div>
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="date">Preffered Date</label>
+                            <input id="date" type="date">
+                        </div>
+                        <div class="input-container">
+                            <label for="time">Preferred Time</label>
+                            <input id="time" type="time">
+                        </div>
+                    </div>
+                    <div class="input-check-label">
+                        <input id="terms" class="rounded" type="checkbox">
+                        <label for="terms">You agree to our friendly <a class="underline" href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <a class="cta-primary" href="">Book Now</a>
+                </form>
+            </div>
     </section>
     
     <script src="../static/scripts/whatsapp.js"></script>

@@ -62,7 +62,7 @@
   }
 
   label {
-    @apply text-sm lg:text-sm;
+    @apply text-xs lg:text-sm;
   }
 
   input[type="text"],
@@ -74,7 +74,7 @@
   input[type="time"],
   select,
   textarea {
-    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm min-w-full;
+    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm;
   }
 
   input[type="checkbox"] {
@@ -174,7 +174,8 @@
   #home .section-container,
   #about .section-container,
   .service-page-contact,
-  .service-info-container {
+  .service-info-container, 
+  .package-info-container {
     @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
   }
 
@@ -414,6 +415,9 @@
   }
 
   /* Package Booking Page */
+  .package-info-container{
+    @apply items-start;
+  }
 
   .dual-input {
     @apply grid grid-cols-2 md:gap-6 md:space-y-0 space-y-6;
@@ -429,8 +433,7 @@
 
   /* Services Page */
 
-  .service-page-form,
-  .form-container {
+  .service-page-form, .form-container {
     @apply flex flex-col justify-between gap-6 col-span-2 lg:col-span-1;
   }
 
@@ -454,11 +457,11 @@
     @apply mt-1.5 lg:mt-3;
   }
 
-  .service-page-form-image {
+  .image-container {
     @apply col-span-2 lg:col-span-1;
   }
 
-  .service-page-form-image img {
+  .image-container img {
     @apply h-full w-full object-cover rounded-lg max-h-96 lg:max-h-full object-center;
   }
 
