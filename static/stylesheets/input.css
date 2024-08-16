@@ -489,7 +489,11 @@
   }
 
   .wellness-package-image {
-    @apply lg:h-full lg:w-full lg:object-cover hidden lg:block lg:col-span-4 row-span-2 lg:rounded-lg overflow-hidden;
+    @apply h-full w-full col-span-12 lg:col-span-4 lg:row-span-2 rounded-lg overflow-hidden aspect-square lg:aspect-auto max-h-[600px] self-center;
+  }
+
+  .wellness-package-image img{
+    @apply object-cover h-full w-full object-top;
   }
 
   .wellness-package-cards-container {
