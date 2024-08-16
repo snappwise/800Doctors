@@ -81,6 +81,11 @@
     @apply p-0 rounded;
   }
 
+  input[type="date"],
+  input[type="time"]{
+    @apply w-full;
+  }
+
   .input-check-label {
     @apply flex gap-2 items-center;
   }
@@ -218,7 +223,7 @@
   .service-cards-container,
   .working-cards-container,
   .healthcare-cards-container {
-    @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8;
+    @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8 items-start;
   }
 
   .service-card,
@@ -354,7 +359,7 @@
 
   .rights-content-english,
   .rights-content-arabic {
-    @apply p-4 col-span-12 lg:col-span-6;
+    @apply col-span-12 lg:col-span-6;
   }
 
   .rights-content-heading {
@@ -472,7 +477,7 @@
   }
 
   .healthcare-package-card {
-    @apply h-min;
+    @apply h-min row-span-1;
   }
 
   .know-more-heading{
@@ -484,7 +489,7 @@
   }
 
   .wellness-package-image {
-    @apply h-full w-full object-cover hidden lg:block lg:col-span-4 rounded-lg;
+    @apply lg:h-full lg:w-full lg:object-cover hidden lg:block lg:col-span-4 row-span-2 lg:rounded-lg overflow-hidden;
   }
 
   .wellness-package-cards-container {
@@ -492,7 +497,7 @@
   }
 
   .wellness-package-card {
-    @apply h-fit border border-primary-600;
+    @apply border border-primary-600 row-span-1 self-center;
   }
 
   /* Individual Service */
