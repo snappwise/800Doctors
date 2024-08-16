@@ -62,7 +62,7 @@
   }
 
   label {
-    @apply text-sm;
+    @apply text-sm lg:text-sm;
   }
 
   input[type="text"],
