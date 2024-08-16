@@ -321,6 +321,27 @@
   .copyright {
     @apply text-center text-sm;
   }
+
+  .tab-btn {
+    @apply px-4 py-2.5 text-center w-full border-primary-700 border-[1px] rounded-lg;
+  }
+
+  .gallery-tabs{
+    @apply flex sm:items-center flex-col sm:flex-row gap-3 text-sm font-medium mb-6 overflow-x-auto;
+  }
+
+  .gallery-category-grid{
+    @apply grid grid-cols-1 md:grid-cols-4 gap-4;
+  }
+
+  .gallery-image-row{
+    @apply flex flex-col space-y-4;
+  }
+
+  .gallery-image-row a img{
+    @apply h-auto max-w-full ;
+  }
+
 }
 
 @layer utilities {

@@ -1700,6 +1700,65 @@ input[type="text"]:focus-visible,
   line-height: 1.25rem;
 }
 
+.tab-btn{
+  width: 100%;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(0 97 255 / var(--tw-border-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  text-align: center;
+}
+
+.gallery-tabs{
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+@media (min-width: 640px){
+  .gallery-tabs{
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.gallery-category-grid{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 768px){
+  .gallery-category-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.gallery-image-row{
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-image-row > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.gallery-image-row a img{
+  height: auto;
+  max-width: 100%;
+}
+
 .sr-only{
   position: absolute;
   width: 1px;
@@ -1727,16 +1786,6 @@ input[type="text"]:focus-visible,
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
-}
-
-.my-0{
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-.my-2{
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .ml-2{
@@ -1873,6 +1922,11 @@ input[type="text"]:focus-visible,
   background-color: rgb(219 232 254 / var(--tw-bg-opacity));
 }
 
+.bg-primary-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(6 117 255 / var(--tw-bg-opacity));
+}
+
 .bg-transparent{
   background-color: transparent;
 }
@@ -1919,6 +1973,11 @@ input[type="text"]:focus-visible,
   color: rgb(64 64 64 / var(--tw-text-opacity));
 }
 
+.text-primary-600{
+  --tw-text-opacity: 1;
+  color: rgb(6 117 255 / var(--tw-text-opacity));
+}
+
 .text-primary-700{
   --tw-text-opacity: 1;
   color: rgb(0 97 255 / var(--tw-text-opacity));
@@ -1949,6 +2008,10 @@ input[type="text"]:focus-visible,
 .hover\:bg-light-blue-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(219 232 254 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-primary-700\/10:hover{
+  background-color: rgb(0 97 255 / 0.1);
 }
 
 .hover\:text-neutral-700:hover{
