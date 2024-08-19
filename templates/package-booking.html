@@ -27,9 +27,15 @@
                         alt="doc image">
                 </div>
                 <form class="form-container">
-                    <div class="input-container">
-                        <label for="name">Full Name</label>
-                        <input id="name" placeholder="Full Name" type="text">
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="firstName">First Name</label>
+                            <input id="firstName" placeholder="First Name" type="text">
+                        </div>
+                        <div class="input-container">
+                            <label for="lastName">Last Name</label>
+                            <input id="lastName" placeholder="Last Name" type="text">
+                        </div>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
@@ -56,11 +62,11 @@
                     </div>
                     <div class="input-container">
                         <label for="address">Address</label>
-                        <textarea id="address" placeholder="Enter your address" rows="5"></textarea>
+                        <textarea maxlength="999" id="address" placeholder="Enter your address" rows="5"></textarea>
                     </div>
                     <div class="input-container">
                         <label for="conditions">Pre-Existing Conditions</label>
-                        <textarea id="conditions" placeholder="Enter Pre-Existing Conditions" rows="5"></textarea>
+                        <textarea maxlength="999" id="conditions" placeholder="Enter Pre-Existing Conditions" rows="5"></textarea>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
