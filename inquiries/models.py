@@ -11,7 +11,7 @@ class enquryBase(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     user_email = models.EmailField()
-    country_code = models.CharField(max_length=10)
+    country_code = models.CharField(max_length=10, default="+971", blank=True)
     phone_number = models.CharField(max_length=20)
     agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
