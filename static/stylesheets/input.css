@@ -317,11 +317,11 @@
   }
 
   .faq-heading {
-    @apply flex items-center justify-between w-full p-4 md:p-5 mt-1.5 font-medium hover:bg-light-blue-100 hover:rounded-xl text-left hover:text-neutral-700 gap-3 rounded-t-xl border-b border-b-light-blue-100;
+    @apply flex items-center justify-between w-full p-4 md:p-5 font-medium  text-left hover:text-neutral-700 gap-3 border-b border-b-light-blue-100;
   }
 
   .faq-answer {
-    @apply p-4 md:p-5 border-0 border-b-2 border-b-light-blue-50 bg-light-blue-50 rounded-b-xl;
+    @apply p-4 md:p-5 border-0 border-b-2 border-b-light-blue-50 ;
   }
 
   .footer-content {
