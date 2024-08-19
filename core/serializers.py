@@ -34,6 +34,8 @@ class healthcareCategoriesSerializer(serializers.ModelSerializer):
 
 
 class healthcarePackagesSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source="category.category_name", read_only=True)
+
     class Meta:
         model = healthcarePackages
         exclude = ["id"]
