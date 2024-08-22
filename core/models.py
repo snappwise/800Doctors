@@ -25,7 +25,7 @@ class Services(seoBase):
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     service_name = models.CharField(max_length=150)
-    icon_link = models.ImageField(upload_to="icons/")
+    icon_link = models.URLField(max_length=200, blank=True, null=True)
     service_card_description = models.TextField(max_length=300)
     service_photo = models.ImageField(upload_to="service_photos/")
     service_details = RichTextField()
@@ -46,8 +46,8 @@ class Services(seoBase):
 
 @receiver(pre_delete, sender=Services)
 def mymodel_delete_services(sender, instance, **kwargs):
-    instance.icon_link.delete(False)
-    instance.service_photo.delete(False)
+    if instance.service_photo and hasattr(instance.service_photo, 'delete'):
+        instance.service_photo.delete(False)
 
 
 @receiver(post_init, sender=Services)
@@ -58,10 +58,13 @@ def backup_image_path_services(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Services)
 def delete_old_image_services(sender, instance, **kwargs):
-    if hasattr(instance, "_current_imagen_file1"):
+    # Check for the first image field (if it was an ImageField previously)
+    if hasattr(instance, "_current_imagen_file1") and isinstance(instance._current_imagen_file1, models.fields.files.FieldFile):
         if instance._current_imagen_file1 != instance.icon_link:
             instance._current_imagen_file1.delete(save=False)
-    if hasattr(instance, "_current_imagen_file2"):
+
+    # Check for the second image field
+    if hasattr(instance, "_current_imagen_file2") and isinstance(instance._current_imagen_file2, models.fields.files.FieldFile):
         if instance._current_imagen_file2 != instance.service_photo:
             instance._current_imagen_file2.delete(save=False)
 
@@ -102,6 +105,8 @@ class healthcarePackages(seoBase):
     package_description = models.TextField(max_length=300)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    know_more = models.CharField(max_length=400, default="Default text for know more")  # New field
+
 
     def __str__(self):
         return str(self.package_name)

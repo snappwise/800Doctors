@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf import settings
 from django.views.static import serve
 from core.views import ServicesView, healthcarePackagesView, FaqsView, TestimonialsView, JourneyView
@@ -34,4 +34,6 @@ urlpatterns = [
     path("faqs/", FaqsView.as_view(), name="faqs"),
     path("testimonials/", TestimonialsView.as_view(), name="testimonials"),
     path("journey/", JourneyView.as_view(), name="journey"),
+    path('', include('content.urls')),
+    path('', include('core.urls')),
 ]

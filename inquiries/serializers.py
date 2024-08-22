@@ -10,7 +10,7 @@ from django.utils import timezone
 class generalEnquirySerializer(serializers.ModelSerializer):
     class Meta:
         model = generalEnquiry
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return generalEnquiry.objects.create(**validated_data)
@@ -31,7 +31,7 @@ class healthcareEnquirySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = healthcareEnquiry
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return healthcareEnquiry.objects.create(**validated_data)
@@ -55,7 +55,7 @@ class serviceEnquirySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = serviceEnquiry
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return serviceEnquiry.objects.create(**validated_data)

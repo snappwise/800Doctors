@@ -12,7 +12,7 @@ from core.models import (
 class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Services
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return Services.objects.create(**validated_data)
@@ -24,7 +24,7 @@ class ServicesSerializer(serializers.ModelSerializer):
 class healthcareCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = healthcareCategories
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return healthcareCategories.objects.create(**validated_data)
@@ -38,7 +38,7 @@ class healthcarePackagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = healthcarePackages
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return healthcarePackages.objects.create(**validated_data)
@@ -50,7 +50,7 @@ class healthcarePackagesSerializer(serializers.ModelSerializer):
 class FaqsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faqs
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return Faqs.objects.create(**validated_data)
@@ -62,7 +62,7 @@ class FaqsSerializer(serializers.ModelSerializer):
 class TestimonialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Testimonials
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return Testimonials.objects.create(**validated_data)
@@ -74,7 +74,7 @@ class TestimonialsSerializer(serializers.ModelSerializer):
 class JourneySerializer(serializers.ModelSerializer):
     class Meta:
         model = Journey
-        exclude = ["id"]
+        fields = '__all__'
 
     def create(self, validated_data):
         return Journey.objects.create(**validated_data)

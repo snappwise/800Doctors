@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'stylesheets/output.css'%}">
+    <title>Services</title>
+</head>
+
+<body>
+    <section id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Services</h2>
+                <p>Comprehensive Home Healthcare Tailored To Your Needs</p>
+            </div>
+            <div class="service-cards-container">
+                {% for service in services %}
+                    <div class="service-page-card card-shadow">
+                        <img src="{{ service.service_photo.url }}" alt="{{ service.service_name }}"/>
+                        <div class="service-page-card-content">
+                            <h5 class="card-heading">{{ service.service_name }}</h5>
+                            <p class="service-page-card-desc">{{ service.service_card_description }}</p>
+                            <a class="cta-primary" href="{% url 'service_detail' service.id %}">Book Now</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <section id="getInTouch">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Get in touch</h2>
+                <p>We'd love to hear from you. Please fill out this form.</p>
+            </div>
+            <div class="service-page-contact">
+                <div class="image-container">
+                    <img src="{% static 'assets/images/doc.jpg'%}" alt="doc image">
+                </div>
+                <form class="form-container" id="enquiryForm" method="post">
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="first-name">First name</label>
+                            <input id="first-name" name="first_name" placeholder="First name" type="text" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="last-name">Last name</label>
+                            <input id="last-name" name="last_name" placeholder="Last name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" placeholder="you@company.com" type="email" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="phno">Phone Number</label>
+                        <input id="phno" name="phone_number" placeholder="123456789" type="tel" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="message">Message</label>
+                        <textarea maxlength="999" id="message" name="message" placeholder="Enter Your Message" rows="5" required></textarea>
+                    </div>
+                    <div class="input-check-label">
+                        <input id="terms" name="terms" type="checkbox" required>
+                        <label class="input-container-label" for="terms">You agree to our friendly
+                            <a class="underline" href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <!-- Add the reCAPTCHA widget here -->
+                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                    <button type="submit" class="cta-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Include reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('enquiryForm');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+        
+                // Get the reCAPTCHA response token
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    alert('Please complete the reCAPTCHA.');
+                    return;
+                }
+        
+                const formData = new FormData(form);
+        
+                const data = {
+                    first_name: formData.get('first_name'),
+                    last_name: formData.get('last_name'),
+                    user_email: formData.get('email'),
+                    phone_number: formData.get('phone_number'),
+                    message: formData.get('message'),
+                    terms: formData.get('terms') ? 'on' : 'off',
+                    'g-recaptcha-response': recaptchaResponse  // Include the reCAPTCHA response token
+                };
+        
+                console.log('Sending data:', data);  // Log the data being sent
+        
+                fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.message || 'Network response was not ok');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Enquiry submitted successfully!');
+                        form.reset();
+                        grecaptcha.reset();  // Reset reCAPTCHA widget
+                    } else {
+                        alert('Failed to submit enquiry. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                });
+            });
+        });
+        
+    </script>
+        
+        
+        
+    
+    
+
+        <section id="testimonials">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-heading text-center">What Our Clients Say</h2>
+                    <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
+                </div>
+                <div class="swiper testimonial-swiper overflow-hidden relative ">
+                    <div class="testimonial-wrapper swiper-wrapper">
+                        {% for testimonial in testimonials %}
+                            <div class="swiper-slide testimonial-card">
+                                <div class="stars text-primary-700">
+                                    {% for star in testimonial.stars %}
+                                        <i class="bi bi-star-fill {% if star > testimonial.rating %}text-muted{% endif %}"></i>
+                                    {% endfor %}
+                                </div>
+                                <p class="person-testimony">
+                                    "{{ testimonial.testimonial }}"
+                                </p>
+                                <div>
+                                    <p class="person-name">{{ testimonial.author }}</p>
+                                    <p class="person-location">Location Placeholder</p>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>No testimonials available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <script src="{%static 'scripts/whatsapp.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{%static 'scripts/swiper.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

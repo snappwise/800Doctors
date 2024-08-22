@@ -37,7 +37,7 @@ class ServicesAdmin(admin.ModelAdmin):
 
     def icon_link_tag(self, obj):
         return format_html(
-            '<img src="{}" width="100" height="100" />'.format(obj.icon_link.url)
+            '<img src="{}" width="100" height="100" />'.format(obj.icon_link)
         )
 
     icon_link_tag.short_description = "Icon Link"
@@ -90,6 +90,7 @@ class healthcareCategoriesAdmin(admin.ModelAdmin):
         "created_at",
         "is_active",
         "Action",
+        "know_more"
     )
     search_fields = ("category_name", "category_description")
     list_filter = ("is_active",)
@@ -125,6 +126,12 @@ class healthcareCategoriesAdmin(admin.ModelAdmin):
 
     soft_delete.short_description = "Mark selected records as inactive"
 
+    def know_more(self, obj):
+        try:
+            return truncatechars(obj.know_more, 50)
+        except Exception:
+            return obj.know_more
+
     def restore(self, request, queryset):
         """
         Restore selected records.
@@ -135,6 +142,8 @@ class healthcareCategoriesAdmin(admin.ModelAdmin):
         )
 
     restore.short_description = "Restore selected records"
+
+    
 
 
 class healthcarePackagesAdmin(admin.ModelAdmin):

@@ -14,6 +14,7 @@ import os
 import mimetypes
 from pathlib import Path
 from dotenv import load_dotenv
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
@@ -197,3 +198,9 @@ LOGGING = {
         },
     },
 }
+
+
+
+
+RECAPTCHA_SITE_KEY = config('RECAPTCHA_SITE_KEY')
+RECAPTCHA_SECRET_KEY = config('RECAPTCHA_SECRET_KEY')
