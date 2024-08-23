@@ -600,6 +600,25 @@
   .right-container-arrow {
     @apply h-0 w-0 absolute top-7 z-50 border-t-[15px] border-t-transparent border-b-[15px] border-b-transparent border-solid border-r-light-blue-50/70 border-r-[15px] -left-[14px];
   }
+
+  /* BLOG PAGES */
+
+  .more-blogs-container {
+    @apply grid grid-cols-12 gap-6 w-full;
+  } 
+
+  .blog-card{
+    @apply col-span-12 md:col-span-6 lg:col-span-4 flex flex-col border-2 shadow-lg rounded-lg overflow-hidden;
+  } 
+
+  .blog-author-container{
+    @apply  flex gap-2 items-center mt-8;
+  } 
+
+  .blog-content{
+    @apply p-6 flex flex-col gap-4;
+  }
+
 }
 
 @layer utilities {
