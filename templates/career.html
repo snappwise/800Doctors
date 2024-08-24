@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../static/stylesheets/output.css">
+    <title>Career</title>
+    <style>
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: #0061FF;
+            /* This is Tailwind's bg-red-400 color */
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            height: 100%;
+            
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #0061FF;
+            /* Darker shade of red for hover */
+        }
+    </style>
+</head>
+
+<body>
+    <section id="getInTouch">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Career</h2>
+                <p>We'd love to hear from you. Please fill out this form.</p>
+            </div>
+            <div class="service-page-contact">
+                <div class="image-container">
+                    <img src="../static/assets\images\doc.jpg" alt="doc image">
+                </div>
+                <form class="form-container">
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="first-name">First name</label>
+                            <input id="first-name" placeholder="First name" type="text">
+                        </div>
+                        <div class="input-container">
+                            <label for="last-name">Last name</label>
+                            <input id="last-name" placeholder="Last name" type="text">
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="email">Email</label>
+                        <input id="email" placeholder="you@company.com" type="text">
+                    </div>
+                    <div class="input-container">
+                        <label for="phno">Phone Number</label>
+                        <input id="phno" placeholder="123456789" type="number">
+                    </div>
+                    <div class="input-container">
+
+                        <label class="block mb-2 text-sm font-medium "
+                            for="file_input">Upload file</label>
+                        <input
+                            class="block w-full h-10  text-sm border border-gray-600  rounded-lg cursor-pointer "
+                            id="file_input" type="file">
+                    </div>
+                    <div class="input-container">
+                        <label for="message">Message</label>
+                        <textarea maxlength="999" id="message" placeholder="Enter Your Message" rows="5"></textarea>
+                    </div>
+                    <div class="input-check-label">
+                        <input id="terms" type="checkbox">
+                        <label class="input-container-label" for="terms">You agree to our friendly
+                            <a class="underline" href="#">Privacy Policy</a> </label>
+                    </div>
+                    <a class="cta-primary" href="">Send Message</a>
+                </form>
+            </div>
+    </section>
+
+
+
+
+
+    <script src="../static/scripts/whatsapp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../static/scripts/swiper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>
