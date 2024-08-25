@@ -1,11 +1,8 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import render, get_object_or_404
-from .models import Services
-from rest_framework.decorators import api_view
+from django.shortcuts import render
 import requests
-from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, TemplateView
 from django.templatetags.static import static
 from .authentication import CsrfExemptSessionAuthentication
@@ -14,7 +11,6 @@ from django.conf import settings
 
 from core.models import (
     Services,
-    healthcareCategories,
     healthcarePackages,
     Faqs,
     Testimonials,
@@ -22,7 +18,6 @@ from core.models import (
 )
 from core.serializers import (
     ServicesSerializer,
-    healthcareCategoriesSerializer,
     healthcarePackagesSerializer,
     FaqsSerializer,
     TestimonialsSerializer,

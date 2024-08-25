@@ -231,37 +231,43 @@ class Journey(seoBase):
         verbose_name_plural = "Journey"
 
 
-
 class CareerPage(models.Model):
+    """
+    This model is used to store the career page form data
+    """
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    user_email = models.EmailField()
     phone_number = models.CharField(max_length=15)
-    resume = models.FileField(upload_to='resumes/')
+    resume = models.FileField(upload_to="resumes/")
     message = models.TextField()
-    agree_to_terms = models.BooleanField(default=False)
+    agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    email_sent = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f"{self.first_name} {self.last_name}"
 
     def clean(self):
-        if not self.agree_to_terms:
+        if not self.agreement:
             raise ValidationError("You must agree to the terms and conditions.")
 
     class Meta:
-        verbose_name_plural = "Career Pages"
+        verbose_name_plural = "Career Enquiries"
 
 
 @receiver(pre_delete, sender=CareerPage)
 def delete_resume_file(sender, instance, **kwargs):
-    if instance.resume and hasattr(instance.resume, 'delete'):
+    if instance.resume and hasattr(instance.resume, "delete"):
         instance.resume.delete(False)
+
 
 @receiver(post_init, sender=CareerPage)
 def backup_resume_path(sender, instance, **kwargs):
     instance._current_resume_file = instance.resume
+
 
 @receiver(post_save, sender=CareerPage)
 def delete_old_resume(sender, instance, **kwargs):

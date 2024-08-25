@@ -238,7 +238,7 @@
                     user_email: formData.get('email'),
                     phone_number: formData.get('phone_number'),
                     message: formData.get('message'),
-                    terms: formData.get('terms') ? 'on' : 'off',
+                    terms: formData.get('terms') === 'on',
                     'g-recaptcha-response': formData.get('g-recaptcha-response')
 
                 };

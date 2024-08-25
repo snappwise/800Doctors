@@ -21,6 +21,7 @@ class generalEnquiryView(APIView):
         data["email_sent"] = True
         data["patient_ip"] = request.META.get("REMOTE_ADDR")
         data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+        data['agreement'] = data['terms']
 
         # Verify reCAPTCHA
         recaptcha_response = request.data.get("g-recaptcha-response")
@@ -98,6 +99,7 @@ class healthcareEnquiryView(APIView):
         data["email_sent"] = True
         data["patient_ip"] = request.META.get("REMOTE_ADDR")
         data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+        data['agreement'] = data['terms']
         serializer = healthcareEnquirySerializer(data=data)
 
         if serializer.is_valid():
@@ -133,8 +135,6 @@ class serviceEnquiryView(APIView):
         data["patient_ip"] = request.META.get("REMOTE_ADDR")
         data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
         data['agreement'] = data['terms']
-
-        print("Data:", data)
 
         # Verify reCAPTCHA
         recaptcha_response = request.data.get("g-recaptcha-response")
