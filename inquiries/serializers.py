@@ -74,3 +74,8 @@ class serviceEnquirySerializer(serializers.ModelSerializer):
                 "Message must be at least 10 characters long."
             )
         return value
+    
+    def validate_agreement(self, value):
+        if not value:
+            raise serializers.ValidationError("You must agree to the terms.")
+        return value

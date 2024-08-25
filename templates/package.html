@@ -1,11 +1,10 @@
-
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {%load static%}
     <link href="{% static 'stylesheets/output.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
@@ -13,15 +12,14 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Healthcare Packages</title>
-    <style>
-        .wellness-package-card {
-            border: 2px solid; /* Default border style */
-        }
-    </style>
 </head>
 
 <body>
-    <section id="packages">
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+
+    <section id="packages"  class="pt-16 lg:pt-20">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Healthcare Packages</h2>
@@ -115,7 +113,8 @@
             });
         });
     </script>
-
+    
+    {% include 'footer.html' %}
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'scripts/swiper.js' %}"></script>

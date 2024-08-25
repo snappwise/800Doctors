@@ -46,7 +46,7 @@ class Services(seoBase):
 
 @receiver(pre_delete, sender=Services)
 def mymodel_delete_services(sender, instance, **kwargs):
-    if instance.service_photo and hasattr(instance.service_photo, 'delete'):
+    if instance.service_photo and hasattr(instance.service_photo, "delete"):
         instance.service_photo.delete(False)
 
 
@@ -59,12 +59,16 @@ def backup_image_path_services(sender, instance, **kwargs):
 @receiver(post_save, sender=Services)
 def delete_old_image_services(sender, instance, **kwargs):
     # Check for the first image field (if it was an ImageField previously)
-    if hasattr(instance, "_current_imagen_file1") and isinstance(instance._current_imagen_file1, models.fields.files.FieldFile):
+    if hasattr(instance, "_current_imagen_file1") and isinstance(
+        instance._current_imagen_file1, models.fields.files.FieldFile
+    ):
         if instance._current_imagen_file1 != instance.icon_link:
             instance._current_imagen_file1.delete(save=False)
 
     # Check for the second image field
-    if hasattr(instance, "_current_imagen_file2") and isinstance(instance._current_imagen_file2, models.fields.files.FieldFile):
+    if hasattr(instance, "_current_imagen_file2") and isinstance(
+        instance._current_imagen_file2, models.fields.files.FieldFile
+    ):
         if instance._current_imagen_file2 != instance.service_photo:
             instance._current_imagen_file2.delete(save=False)
 
@@ -105,8 +109,9 @@ class healthcarePackages(seoBase):
     package_description = models.TextField(max_length=300)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    know_more = models.CharField(max_length=400, default="Default text for know more")  # New field
-
+    know_more = models.CharField(
+        max_length=400, default="Default text for know more"
+    )  # New field
 
     def __str__(self):
         return str(self.package_name)
@@ -149,7 +154,7 @@ class Faqs(seoBase):
 
     def __str__(self):
         return str(self.question)
-    
+
     def soft_delete(self):
         self.is_active = False
         self.save()
@@ -158,17 +163,35 @@ class Faqs(seoBase):
         verbose_name_plural = "FAQs"
 
 
+rating_choices = [(i / 2, i / 2) for i in range(0, 11)]
+
+
 class Testimonials(seoBase):
     """
     This model is used to store the testimonials
     """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    rating = models.FloatField()
+    rating = models.FloatField(choices=rating_choices)
     testimonial = models.TextField(max_length=500)
     author = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def full_rating(self):
+        """Returns the integer part of the rating."""
+        return int(self.rating)
+
+    @property
+    def half_rating(self):
+        """Returns 1 if the rating includes .5, otherwise 0."""
+        return 1 if self.rating % 1 >= 0.5 else 0
+
+    @property
+    def empty_rating(self):
+        """Returns the number of empty stars (total 5 stars minus full and half ratings)."""
+        return 5 - self.full_rating - self.half_rating
 
     def __str__(self):
         return str(self.testimonial)[:50] + "..."
@@ -199,7 +222,7 @@ class Journey(seoBase):
 
     def __str__(self):
         return str(self.journey_title)
-    
+
     def soft_delete(self):
         self.is_active = False
         self.save()

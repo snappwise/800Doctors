@@ -14,7 +14,6 @@ import os
 import mimetypes
 from pathlib import Path
 from dotenv import load_dotenv
-from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
@@ -24,7 +23,7 @@ mimetypes.add_type("text/javascript", ".js", True)
 DEBUG = os.getenv("DEBUG")
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["127.0.0.1:8000", "*"]
 
 production_level = os.getenv("PRODUCTION_LEVEL")
 
@@ -41,11 +40,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ckeditor",
     "rest_framework",
+    "backend",
     "media",
     "blog",
     "content",
     "core",
     "inquiries",
+    "dynamic_linking",
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
@@ -200,7 +201,5 @@ LOGGING = {
 }
 
 
-
-
-RECAPTCHA_SITE_KEY = config('RECAPTCHA_SITE_KEY')
-RECAPTCHA_SECRET_KEY = config('RECAPTCHA_SECRET_KEY')
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")

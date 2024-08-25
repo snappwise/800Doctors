@@ -1,3 +1,6 @@
+{%load static%}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,16 +12,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    {% load static%}
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
     <title>Healthcare Packages</title>
 </head>
 
 <body>
-    <section id="about">
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+    <section id="about" class="pt-16 lg:pt-20">
         <div class="section-container">
             <div class="section-image">
-                <img src="/static/assets/images/about-img.png" alt="">
+                <img src="{% static 'assets/images/about-img.png' %}" alt="">
             </div>
             <div class="section-content">
                 <h2 class="section-heading">About Us</h2>
@@ -27,7 +32,6 @@
                     based medical services in Dubai and the UAE. Since 2007, we've pioneered doctor-at-home and
                     nurse-at-home services, growing into an extensive team of medical experts offering a wide range of
                     home healthcare solutions.</p>
-                <a href="" class="cta-primary mt-2">Know More</a>
             </div>
         </div>
     </section>
@@ -130,7 +134,7 @@
 
             </div>
             <div class="section-image">
-                <img class="h-full w-full object-cover rounded-lg" src="/static/assets/images/doc.jpg" alt="">
+                <img class="h-full w-full object-cover rounded-lg" src="{% static 'assets/images/doc.jpg' %}" alt="">
             </div>
         </div>
     </section>
@@ -143,20 +147,29 @@
             <div class="swiper testimonial-swiper overflow-hidden relative ">
                 <div class="testimonial-wrapper swiper-wrapper">
                     {% for testimonial in testimonials %}
-                        <div class="swiper-slide testimonial-card">
-                            <div class="stars text-primary-700">
-                                {% for star in testimonial.stars %}
-                                    <i class="bi bi-star-fill {% if star > testimonial.rating %}text-muted{% endif %}"></i>
-                                {% endfor %}
-                            </div>
-                            <p class="person-testimony">
-                                "{{ testimonial.testimonial }}"
-                            </p>
-                            <div>
-                                <p class="person-name">{{ testimonial.author }}</p>
-                                <p class="person-location">Location Placeholder</p>
-                            </div>
+                    <div class="swiper-slide testimonial-card">
+                        <div class="stars text-primary-700">
+                            {% for _ in testimonial.full_rating|range_filter %}
+                                <i class="bi bi-star-fill"></i>  {# Full star #}
+                            {% endfor %}
+
+                            {% if testimonial.half_rating %}
+                                <i class="bi bi-star-half"></i>  {# Half star #}
+                            {% endif %}
+
+                            {% for _ in testimonial.empty_rating|range_filter %}
+                                <i class="bi bi-star"></i>  {# Empty star #}
+                            {% endfor %}
+
+
                         </div>
+                        <p class="person-testimony">
+                            "{{ testimonial.testimonial }}"
+                        </p>
+                        <div>
+                            <p class="person-name">{{ testimonial.author }}</p>
+                        </div>
+                    </div>
                     {% empty %}
                         <p>No testimonials available.</p>
                     {% endfor %}
@@ -260,10 +273,11 @@
             });
         });
     </script>
-
+    
+    {% include 'footer.html' %}
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="../static/scripts/swiper.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 

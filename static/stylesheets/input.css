@@ -61,6 +61,14 @@
     @apply w-full h-full;
   }
 
+  ul {
+    @apply p-5 list-disc;
+  }
+
+  ol {
+    @apply p-5 list-decimal;
+  }
+
   label {
     @apply text-xs lg:text-sm;
   }
@@ -82,8 +90,16 @@
   }
 
   input[type="date"],
-  input[type="time"]{
+  input[type="time"] {
     @apply w-full;
+  }
+
+  input[type="file"]::-webkit-file-upload-button {
+    @apply bg-primary-600 text-white px-4 py-2.5 ml-[1px] rounded-lg text-sm;
+  }
+
+  input[type="file"]::-webkit-file-upload-button:hover {
+    @apply bg-primary-700;
   }
 
   .input-check-label {
@@ -179,7 +195,7 @@
   #home .section-container,
   #about .section-container,
   .service-page-contact,
-  .service-info-container, 
+  .service-info-container,
   .package-info-container {
     @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
   }
@@ -222,7 +238,8 @@
 
   .service-cards-container,
   .working-cards-container,
-  .healthcare-cards-container {
+  .healthcare-cards-container,
+  .more-blogs-container {
     @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8;
   }
 
@@ -230,7 +247,8 @@
   .working-card,
   .service-page-card,
   .healthcare-package-card,
-  .wellness-package-card {
+  .wellness-package-card,
+  .blog-card {
     @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-2;
   }
 
@@ -272,23 +290,23 @@
     @apply rounded-lg bg-primary-700 text-white p-2.5 h-12 w-12 flex items-center justify-center mb-2;
   }
 
-  .feature-container{
+  .feature-container {
     @apply col-span-9 lg:col-span-3 space-y-10;
   }
 
-  .feature-image{
+  .feature-image {
     @apply col-span-9 lg:col-span-3;
   }
 
-  .feature-image img{
+  .feature-image img {
     @apply w-full h-full max-h-[400px] lg:max-h-[500px] object-contain;
   }
 
-  .feature-block{
+  .feature-block {
     @apply flex gap-3;
   }
 
-  .feature-icon{
+  .feature-icon {
     @apply h-8 w-8 shrink-0;
   }
 
@@ -321,7 +339,7 @@
   }
 
   .faq-answer {
-    @apply p-4 md:p-5 border-0 border-b-2 border-b-light-blue-50 ;
+    @apply p-4 md:p-5 border-0 border-b-2 border-b-light-blue-50;
   }
 
   .footer-content {
@@ -392,23 +410,24 @@
 
   /* GALLERY PAGE*/
 
-  .carousel-control-prev{
+  .carousel-control-prev {
     @apply absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
-  .carousel-control-prev-btn, .carousel-control-next-btn{
+  .carousel-control-prev-btn,
+  .carousel-control-next-btn {
     @apply inline-flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full text-white bg-neutral-900/30  group-hover:bg-neutral-900/60  group-focus:ring-2 group-focus:ring-neutral-900/70 group-focus:outline-none;
   }
 
-  .carousel-control-next{
+  .carousel-control-next {
     @apply absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
-  .carousel-control-dots{
+  .carousel-control-dots {
     @apply absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
   }
 
-  .carousel-control-dot{
+  .carousel-control-dot {
     @apply w-2 h-2 rounded-full;
   }
   .tab-btn {
@@ -440,7 +459,7 @@
   }
 
   /* Package Booking Page */
-  .package-info-container{
+  .package-info-container {
     @apply items-start;
   }
 
@@ -458,7 +477,8 @@
 
   /* Services Page */
 
-  .service-page-form, .form-container {
+  .service-page-form,
+  .form-container {
     @apply flex flex-col justify-between gap-6 col-span-2 lg:col-span-1;
   }
 
@@ -466,19 +486,28 @@
     @apply grid grid-cols-12 md:gap-6 md:space-y-0 space-y-6;
   }
 
-  .service-page-card, .healthcare-package-card, .wellness-package-card {
+  .service-page-card,
+  .healthcare-package-card,
+  .wellness-package-card,
+  .blog-card {
     @apply p-0 gap-0;
   }
 
-  .service-page-card img, .healthcare-package-card img {
-    @apply h-44 lg:h-56 object-cover rounded-t-xl;
+  .service-page-card img,
+  .healthcare-package-card img,
+  .blog-card-img {
+    @apply h-44 lg:h-56 object-cover rounded-t-xl object-center;
   }
 
-  .service-page-card-content, .healthcare-package-card-content {
+  .service-page-card-content,
+  .healthcare-package-card-content,
+  .blog-card-content {
     @apply p-5 md:p-7 flex flex-col gap-2;
   }
 
-  .service-page-card .cta-primary, .healthcare-package-card .cta-primary, .wellness-package-card .cta-primary {
+  .service-page-card .cta-primary,
+  .healthcare-package-card .cta-primary,
+  .wellness-package-card .cta-primary {
     @apply mt-1.5 lg:mt-3;
   }
 
@@ -492,7 +521,7 @@
 
   /* HEALTHCARE PACKAGES */
 
-  .cards-wrapper{
+  .cards-wrapper {
     @apply flex flex-col gap-6 mb-8 lg:mb-10;
   }
 
@@ -500,11 +529,11 @@
     @apply h-min row-span-1;
   }
 
-  .know-more-heading{
+  .know-more-heading {
     @apply flex items-center justify-between w-full py-2 focus:bg-white bg-white text-primary-600 hover:text-primary-700 gap-3 font-medium text-sm;
   }
 
-  .know-more-content{
+  .know-more-content {
     @apply py-2 text-sm;
   }
 
@@ -512,7 +541,7 @@
     @apply h-full w-full col-span-12 lg:col-span-4 lg:row-span-2 rounded-lg overflow-hidden aspect-square lg:aspect-auto max-h-[600px] self-center;
   }
 
-  .wellness-package-image img{
+  .wellness-package-image img {
     @apply object-cover h-full w-full object-top;
   }
 
@@ -544,7 +573,7 @@
     @apply z-10 relative after:content-[''] after:h-full after:absolute after:w-[3px] after:bg-primary-600 after:top-0 md:after:left-1/2 after:left-6 after:-z-[1];
   }
 
-  .timeline-dot{
+  .timeline-dot {
     @apply h-3 w-3 bg-primary-600 rounded-full;
   }
 
@@ -599,6 +628,50 @@
 
   .right-container-arrow {
     @apply h-0 w-0 absolute top-7 z-50 border-t-[15px] border-t-transparent border-b-[15px] border-b-transparent border-solid border-r-light-blue-50/70 border-r-[15px] -left-[14px];
+  }
+
+  .blog-category {
+    @apply text-primary-700 font-medium;
+  }
+
+  .blog-author-container {
+    @apply flex gap-2 items-center mt-4;
+  }
+
+  .blog-author-details {
+    @apply flex flex-col;
+  }
+
+  .author-name {
+    @apply text-neutral-900 font-medium text-sm;
+  }
+
+  .blog-date {
+    @apply text-xs;
+  }
+
+  .blog-content {
+    @apply flex flex-col gap-4;
+  }
+
+  .blog-info {
+    @apply col-span-12 md:col-span-6 lg:col-span-7 flex flex-col gap-4;
+  }
+
+  .blog-img-container {
+    @apply col-span-12 md:col-span-6 lg:col-span-5 rounded-lg h-64 lg:h-72 overflow-hidden;
+  }
+
+  .blog-img-container img {
+    @apply h-full w-full object-cover;
+  }
+
+  .blog-header {
+    @apply grid grid-cols-12 md:gap-10 space-y-6 md:space-y-0 mb-6 md:mb-8 items-center;
+  }
+
+  .author-img{
+    @apply h-10 w-10 rounded-full object-cover;
   }
 }
 
