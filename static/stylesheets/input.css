@@ -669,6 +669,10 @@
   .blog-header {
     @apply grid grid-cols-12 md:gap-10 space-y-6 md:space-y-0 mb-6 md:mb-8 items-center;
   }
+
+  .author-img{
+    @apply h-10 w-10 rounded-full object-cover;
+  }
 }
 
 @layer utilities {

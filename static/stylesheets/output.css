@@ -2691,6 +2691,14 @@ input[type="file"]::-webkit-file-upload-button:hover{
   }
 }
 
+.author-img{
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 9999px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .sr-only{
   position: absolute;
   width: 1px;
