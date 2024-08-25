@@ -538,13 +538,15 @@ img{
   width: 100%;
 }
 
-ul{
+.service-description ul li{
   list-style-type: disc;
-  padding: 1.25rem;
 }
 
-ol{
+.service-description ol li{
   list-style-type: decimal;
+}
+
+.service-description ul, .service-description ol{
   padding: 1.25rem;
 }
 
@@ -2132,6 +2134,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
 }
 
 /* Services Page */
+
+.service-description img{
+  margin-bottom: 1rem;
+}
 
 .service-page-form,
   .form-container{
