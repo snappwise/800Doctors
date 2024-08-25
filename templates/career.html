@@ -11,24 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="../static/stylesheets/output.css">
     <title>Career</title>
-    <style>
-        input[type="file"]::-webkit-file-upload-button {
-            background-color: #0061FF;
-            /* This is Tailwind's bg-red-400 color */
-            color: white;
-            padding: 0.5rem 1.5rem;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-            height: 100%;
-            
-        }
-
-        input[type="file"]::-webkit-file-upload-button:hover {
-            background-color: #0061FF;
-            /* Darker shade of red for hover */
-        }
-    </style>
 </head>
 
 <body>
@@ -62,12 +44,8 @@
                         <input id="phno" placeholder="123456789" type="number">
                     </div>
                     <div class="input-container">
-
-                        <label class="block mb-2 text-sm font-medium "
-                            for="file_input">Upload file</label>
-                        <input
-                            class="block w-full h-10  text-sm border border-gray-600  rounded-lg cursor-pointer "
-                            id="file_input" type="file">
+                        <label for="file_input">Upload file</label>
+                        <input id="file_input" type="file">
                     </div>
                     <div class="input-container">
                         <label for="message">Message</label>
