@@ -538,13 +538,15 @@ img{
   width: 100%;
 }
 
-ul{
+.service-description ul li{
   list-style-type: disc;
-  padding: 1.25rem;
 }
 
-ol{
+.service-description ol li{
   list-style-type: decimal;
+}
+
+.service-description ul, .service-description ol{
   padding: 1.25rem;
 }
 
@@ -2133,6 +2135,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 /* Services Page */
 
+.service-description img{
+  margin-bottom: 1rem;
+}
+
 .service-page-form,
   .form-container{
   grid-column: span 2 / span 2;
@@ -3022,6 +3028,11 @@ input[type="file"]::-webkit-file-upload-button:hover{
   line-height: 1.75rem;
 }
 
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-medium{
   font-weight: 500;
 }
@@ -3063,6 +3074,16 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-red-500{
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-600{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .underline{

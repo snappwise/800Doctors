@@ -45,11 +45,12 @@
                     </div>
                     <div class="input-container">
                         <label for="file_input">Upload file</label>
-                        <input id="file_input" type="file">
+                        <input id="file_input" type="file" accept=".txt, .doc, .docx, .pdf">
+                        <p id="file_error" class="text-red-600 text-sm"></p>
                     </div>
                     <div class="input-container">
                         <label for="message">Message</label>
-                        <textarea maxlength="999" id="message" placeholder="Enter Your Message" rows="5"></textarea>
+                        <textarea minlength="10" maxlength="999" id="message" placeholder="Enter Your Message" rows="5"></textarea>
                     </div>
                     <div class="input-check-label">
                         <input id="terms" type="checkbox">
@@ -66,6 +67,21 @@
 
 
     <script src="../static/scripts/whatsapp.js"></script>
+    <script>
+        document.getElementById('file_input').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const maxSizeInMB = 2;
+            const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+            if (file.size > maxSizeInBytes) {
+                document.getElementById('file_error').textContent = `File size must be less than ${maxSizeInMB} MB.`;
+                event.target.value = ''; 
+            } else {
+                document.getElementById('file_error').textContent = '';
+            }
+        });
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="../static/scripts/swiper.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
