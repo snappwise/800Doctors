@@ -82,15 +82,12 @@
                         <label for="terms">You agree to our friendly <a class="underline" href="#">Privacy Policy</a></label>
                     </div>
                     <!-- reCAPTCHA widget -->
-                    <div class="g-recaptcha" data-sitekey="6LcgLCUqAAAAACxXBG7tsGiVw6Fu9SKy-IrXsH0T"></div>
+                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                     <button type="submit" class="cta-primary">Book Now</button>
                 </form>
             </div>
         </div>
-    </section>
-    
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    
+    </section>    
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -152,6 +149,7 @@
     </script>
     {% include 'footer.html' %}
     <script src="{%static 'scripts/whatsapp.js'%}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
