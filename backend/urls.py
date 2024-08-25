@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.views.static import serve
+from django.conf.urls import handler404
 from core.views import (
     ServicesView,
     healthcarePackagesView,
@@ -56,3 +57,5 @@ urlpatterns = [
     path("", include("content.urls")),
     path("", include("core.urls")),
 ]
+
+handler404 = "core.views.notfound_page"

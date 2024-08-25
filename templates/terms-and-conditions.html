@@ -1,3 +1,5 @@
+{%load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +16,9 @@
 </head>
 
 <body>
-    <section id="termsAndConditions">
+    {% include 'navbar.html' %}
+
+    <section id="termsAndConditions" class="pt-16 lg:pt-20">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Terms and Conditions</h2>
@@ -32,7 +36,7 @@
                 services in the interest of the client is subject to and in accordance with prevailing UAE
                 Laws.
             </div>
-
+            {% include 'footer.html' %}
             <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 

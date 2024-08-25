@@ -189,7 +189,7 @@
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.1083480481043!2d55.13546697537745!3d25.064316577796763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6dfe6ae6d063%3A0x9e3781fb69e30573!2s800DOCTOR%20-%20Doctor%20on%20Call%20Dubai%20%7C%20Home%20Nursing%2C%20Home%20IV%20Drip%2C%20Home%20Blood%20Test%2C%20Physiotherapy%20at%20Home%2C%20Home%20Health%20Care%20Dubai!5e0!3m2!1sen!2sin!4v1723834080180!5m2!1sen!2sin"
                     height="100%" width="100%" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <form class="form-container"  id="enquiryForm" method="post">
+                    <form class="form-container" id="enquiryForm" method="post">
                         <div class="dual-input">
                             <div class="input-container">
                                 <label for="first-name">First name</label>
@@ -215,10 +215,11 @@
                         <div class="input-check-label">
                             <input id="terms" name="terms" type="checkbox" required>
                             <label class="input-container-label" for="terms">You agree to our friendly
-                                <a class="underline" href="#">Privacy Policy</a> </label>
+                                <a class="underline" href="#">Privacy Policy</a></label>
                         </div>
+                        <!-- Add reCAPTCHA widget here -->
+                        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                         <button type="submit" class="cta-primary">Send Message</button>
-    
                     </form>
             </div>
     </section>
@@ -237,10 +238,10 @@
                     user_email: formData.get('email'),
                     phone_number: formData.get('phone_number'),
                     message: formData.get('message'),
-                    terms: formData.get('terms') ? 'on' : 'off'
+                    terms: formData.get('terms') === 'on',
+                    'g-recaptcha-response': formData.get('g-recaptcha-response')
+
                 };
-        
-                console.log('Sending data:', data);  // Log the data being sent
         
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
@@ -279,6 +280,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </body>
 
 </html>

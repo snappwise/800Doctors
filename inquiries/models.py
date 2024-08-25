@@ -48,13 +48,13 @@ class healthcareEnquiry(enquryBase):
         healthcarePackages, on_delete=models.CASCADE, related_name="healthcare_package"
     )
     address = models.TextField(max_length=1000)
-    conditions = models.TextField(max_length=1000)
+    conditions = models.TextField(max_length=1000, null=True, blank=True)
     pref_date = models.DateField()
     pref_time = models.TimeField()
 
     def __str__(self):
         return str(self.package) + " - " + str(self.pref_date)
-    
+
     class Meta:
         verbose_name_plural = "Healthcare Enquiries"
 
@@ -73,6 +73,6 @@ class serviceEnquiry(enquryBase):
 
     def __str__(self):
         return str(self.service) + " - " + str(self.message)[:50] + "..."
-    
+
     class Meta:
         verbose_name_plural = "Service Enquiries"

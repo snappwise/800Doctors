@@ -20,12 +20,13 @@ load_dotenv()
 
 mimetypes.add_type("text/javascript", ".js", True)
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv('DEBUG', False) == 'True'
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ["127.0.0.1:8000", "*"]
 
-production_level = os.getenv("PRODUCTION_LEVEL")
+production_level = os.getenv("PRODUCTION_LEVEL", False) == 'True'
 
 # Application definition
 
