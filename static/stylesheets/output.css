@@ -3028,6 +3028,11 @@ input[type="file"]::-webkit-file-upload-button:hover{
   line-height: 1.75rem;
 }
 
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-medium{
   font-weight: 500;
 }
@@ -3069,6 +3074,16 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-red-500{
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.text-red-600{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .underline{
