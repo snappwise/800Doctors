@@ -61,12 +61,16 @@
     @apply w-full h-full;
   }
 
-  ul {
-    @apply p-5 list-disc;
+  .service-description ul li {
+    @apply list-disc;
   }
 
-  ol {
-    @apply p-5 list-decimal;
+  .service-description ol li {
+    @apply  list-decimal;
+  }
+
+  .service-description ul, .service-description ol{
+    @apply p-5;
   }
 
   label {
@@ -476,6 +480,10 @@
   }
 
   /* Services Page */
+
+  .service-description img{
+    @apply mb-4;
+  }
 
   .service-page-form,
   .form-container {
