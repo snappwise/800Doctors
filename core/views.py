@@ -123,7 +123,13 @@ class JourneyView(APIView):
 
 
 class ServiceListView(APIView):
+
     def get(self, request, format=None):
+        request_domain = request.get_host()
+        if request_domain != settings.ALLOWED_HOSTS[0]:
+            return Response(
+                {"detail": "Forbidden: Invalid host"}, status=status.HTTP_403_FORBIDDEN
+            )
         services = Services.objects.all()[:7]  # Limit to 7 services
         serializer = ServicesSerializer(services, many=True)
         return Response(serializer.data)
@@ -136,15 +142,15 @@ class IndexPageView(TemplateView):
         request = self.request
         base_url = f"{request.scheme}://{request.get_host()}"
         api_url = f"{base_url}/api/six-services"
-        response = requests.get(api_url)
-        services = response.json() if response.status_code == 200 else []
+        try:
+            response = requests.get(api_url)
+            services = response.json() if response.status_code == 200 else []
+        except requests.RequestException:
+            services = []
 
         faqs = Faqs.objects.filter(is_active=True).order_by("created_at")
         testimonials = Testimonials.objects.filter(is_active=True)
-
-        # Generate a list of star ratings for each testimonial
-        for testimonial in testimonials:
-            testimonial.stars = [1, 2, 3, 4, 5]  # List of star indices
+        testimonials = TestimonialsSerializer(testimonials, many=True)
 
         # Retrieve the reCAPTCHA site key from settings
         recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
@@ -152,7 +158,7 @@ class IndexPageView(TemplateView):
         context = {
             "faqs": faqs,
             "services": services,
-            "testimonials": testimonials,
+            "testimonials": testimonials.data,
             "recaptcha_site_key": recaptcha_site_key,  # Add the site key to context
         }
         return context
@@ -222,8 +228,7 @@ class HomeView(TemplateView):
         try:
             response = requests.get(api_url)
             services = response.json() if response.status_code == 200 else []
-        except requests.RequestException as e:
-            # Log the exception or handle it as needed
+        except requests.RequestException:
             services = []
 
         faqs = Faqs.objects.filter(is_active=True).order_by("created_at")
@@ -255,8 +260,7 @@ class AboutUsPageView(TemplateView):
 
         # Retrieve and process testimonials
         testimonials = Testimonials.objects.filter(is_active=True)
-        for testimonial in testimonials:
-            testimonial.stars = [1, 2, 3, 4, 5]  # List of star indices
+
         context["testimonials"] = testimonials
 
         return context

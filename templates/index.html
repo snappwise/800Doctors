@@ -1,3 +1,6 @@
+{%load static%}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,26 +12,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    {%load static%}
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
     <title>Index</title>
 </head>
 
 <body>
-    <button type="button" class="cta-whatsapp" id="whatsappBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-            <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-        </svg>
-    </button>
+    {% include 'whatsapp.html' %}
 
     <nav class="navbar">
         <div class="navbar-container">
             <a href="#">
-                <img src="./static/assets/logos/main-logo.png" class="navbar-logo" alt="800 Doctors Logo">
+                <img src="{% static 'assets/logos/main-logo.png' %}" class="navbar-logo" alt="800 Doctors Logo">
             </a>
             <a href="tel:+97800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
         </div>
@@ -57,7 +51,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="./static/assets/images/hero-img.png" alt="" class="h-full w-full object-contain">
+                <img src="{% static 'assets/images/hero-img.png' %}" alt="" class="h-full w-full object-contain">
             </div>
         </div>
     </section>
@@ -89,11 +83,12 @@
                 {% for service in services|slice:":6" %}
                 <div class="service-card group">
                     <div class="service-card-icon-container">
-                        <img src="{{ service.icon_link }}" alt="{{ service.service_name }}" class="service-card-icon" />
+                        <lord-icon src="{{ service.icon_link }}" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
                     </div>
                     <h3 class="card-heading service-card-heading">{{ service.service_name }}</h3>
                     <p class="service-card-description">{{ service.service_card_description }}</p>
-                    <p>Service ID: {{ service.id }}</p>
                     <a href="{% url 'service_detail' service.id %}" class="service-card-link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
@@ -331,16 +326,25 @@
                     {% for testimonial in testimonials %}
                         <div class="swiper-slide testimonial-card">
                             <div class="stars text-primary-700">
-                                {% for star in testimonial.stars %}
-                                    <i class="bi bi-star-fill {% if star > testimonial.rating %}text-muted{% endif %}"></i>
+                                {% for _ in testimonial.full_rating|range_filter %}
+                                    <i class="bi bi-star-fill"></i>  {# Full star #}
                                 {% endfor %}
+
+                                {% if testimonial.half_rating %}
+                                    <i class="bi bi-star-half"></i>  {# Half star #}
+                                {% endif %}
+
+                                {% for _ in testimonial.empty_rating|range_filter %}
+                                    <i class="bi bi-star"></i>  {# Empty star #}
+                                {% endfor %}
+
+
                             </div>
                             <p class="person-testimony">
                                 "{{ testimonial.testimonial }}"
                             </p>
                             <div>
                                 <p class="person-name">{{ testimonial.author }}</p>
-                                <p class="person-location">Location Placeholder</p>
                             </div>
                         </div>
                     {% empty %}
@@ -361,7 +365,7 @@
             </div>
             <div class="service-page-contact">
                 <div class="image-container">
-                    <img src="../static/assets/images/doc.jpg" alt="doc image">
+                    <img src="{% static 'assets/images/doc.jpg' %}" alt="doc image">
                 </div>
                 <form class="form-container" id="enquiryForm" method="post">
                     <div class="dual-input">
@@ -415,11 +419,9 @@
                     phone_number: formData.get('phone_number'),
                     message: formData.get('message'),
                     terms: formData.get('terms') ? 'on' : 'off',
-                    'g-recaptcha-response': formData.get('g-recaptcha-response') // Ensure this line is included
+                    'g-recaptcha-response': formData.get('g-recaptcha-response')
 
                 };
-        
-                console.log('Sending data:', data);  // Log the data being sent
         
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
@@ -455,7 +457,7 @@
 
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="./static/scripts/swiper.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 

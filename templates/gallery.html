@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,14 +11,15 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css">
-    {%load static%}
-    <link rel="stylesheet" href="{% static 'stylesheets/output.css'}">
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
     <title>Gallery</title>
 </head>
 
 <body>
+    {% include 'whatsapp.html' %}
 
-    <section id="gallery">
+    {% include 'navbar.html' %}
+    <section id="gallery" class="pt-16 lg:pt-20">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Gallery</h2>
@@ -81,10 +83,12 @@
         </div>
     </section>
 
+    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/js/lightgallery-all.min.js"></script>
-    <script src="{% static '/scripts/gallery.js'}"></script>
+    <script src="{% static '/scripts/gallery.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 

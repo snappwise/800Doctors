@@ -37,7 +37,15 @@ class ServicesAdmin(admin.ModelAdmin):
 
     def icon_link_tag(self, obj):
         return format_html(
-            '<img src="{}" width="100" height="100" />'.format(obj.icon_link)
+            """<script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+                src="{}"
+                trigger="hover"
+                delay="2000"
+                style="width:100px;height:100px">
+            </lord-icon>""".format(
+                obj.icon_link
+            )
         )
 
     icon_link_tag.short_description = "Icon Link"
@@ -90,7 +98,7 @@ class healthcareCategoriesAdmin(admin.ModelAdmin):
         "created_at",
         "is_active",
         "Action",
-        "know_more"
+        "know_more",
     )
     search_fields = ("category_name", "category_description")
     list_filter = ("is_active",)
@@ -142,8 +150,6 @@ class healthcareCategoriesAdmin(admin.ModelAdmin):
         )
 
     restore.short_description = "Restore selected records"
-
-    
 
 
 class healthcarePackagesAdmin(admin.ModelAdmin):

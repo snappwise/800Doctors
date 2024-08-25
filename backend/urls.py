@@ -19,21 +19,40 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.views.static import serve
-from core.views import ServicesView, healthcarePackagesView, FaqsView, TestimonialsView, JourneyView
-from inquiries.views import generalEnquiryView, healthcareEnquiryView, serviceEnquiryView
+from core.views import (
+    ServicesView,
+    healthcarePackagesView,
+    FaqsView,
+    TestimonialsView,
+    JourneyView,
+)
+from inquiries.views import (
+    generalEnquiryView,
+    healthcareEnquiryView,
+    serviceEnquiryView,
+)
+
 
 urlpatterns = [
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
     path("admin/", admin.site.urls),
     path("enquiry/general/", generalEnquiryView.as_view(), name="general-enquiry"),
-    path("enquiry/healthcare/", healthcareEnquiryView.as_view(), name="healthcare-enquiry"),
+    path(
+        "enquiry/healthcare/",
+        healthcareEnquiryView.as_view(),
+        name="healthcare-enquiry",
+    ),
     path("enquiry/service/", serviceEnquiryView.as_view(), name="service-enquiry"),
-    path("services/", ServicesView.as_view(), name="services"),
-    path("healthcare-packages/", healthcarePackagesView.as_view(), name="healthcare-packages"),
-    path("faqs/", FaqsView.as_view(), name="faqs"),
-    path("testimonials/", TestimonialsView.as_view(), name="testimonials"),
-    path("journey/", JourneyView.as_view(), name="journey"),
-    path('', include('content.urls')),
-    path('', include('core.urls')),
+    # path("services/", ServicesView.as_view(), name="services"),
+    # path(
+    #     "healthcare-packages/",
+    #     healthcarePackagesView.as_view(),
+    #     name="healthcare-packages",
+    # ),
+    # path("faqs/", FaqsView.as_view(), name="faqs"),
+    # path("testimonials/", TestimonialsView.as_view(), name="testimonials"),
+    # path("journey/", JourneyView.as_view(), name="journey"),
+    path("", include("content.urls")),
+    path("", include("core.urls")),
 ]

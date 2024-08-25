@@ -60,6 +60,10 @@ class FaqsSerializer(serializers.ModelSerializer):
 
 
 class TestimonialsSerializer(serializers.ModelSerializer):
+    full_rating = serializers.IntegerField(read_only=True)
+    half_rating = serializers.IntegerField(read_only=True)
+    empty_rating = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Testimonials
         fields = '__all__'
