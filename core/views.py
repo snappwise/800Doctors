@@ -1,11 +1,8 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import render, get_object_or_404
-from .models import Services
-from rest_framework.decorators import api_view
+from django.shortcuts import render
 import requests
-from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, TemplateView
 from django.templatetags.static import static
 from .authentication import CsrfExemptSessionAuthentication
@@ -14,7 +11,6 @@ from django.conf import settings
 
 from core.models import (
     Services,
-    healthcareCategories,
     healthcarePackages,
     Faqs,
     Testimonials,
@@ -22,11 +18,11 @@ from core.models import (
 )
 from core.serializers import (
     ServicesSerializer,
-    healthcareCategoriesSerializer,
     healthcarePackagesSerializer,
     FaqsSerializer,
     TestimonialsSerializer,
     JourneySerializer,
+    CareerPageSerializer,
 )
 
 
@@ -122,6 +118,61 @@ class JourneyView(APIView):
         )
 
 
+class CareerPageEnquiryView(APIView):
+    """
+    This view is used to store the career page enquiry information.
+    """
+
+    def post(self, request):
+        data = request.data.copy()
+        recaptcha_response = data.get("g-recaptcha-response")
+
+        # Verify reCAPTCHA
+        recaptcha_secret_key = settings.RECAPTCHA_SECRET_KEY
+        recaptcha_url = "https://www.google.com/recaptcha/api/siteverify"
+        recaptcha_data = {
+            "secret": recaptcha_secret_key,
+            "response": recaptcha_response,
+        }
+        recaptcha_result = requests.post(recaptcha_url, data=recaptcha_data).json()
+
+        if not recaptcha_result.get("success"):
+            return Response(
+                {
+                    "status": "error",
+                    "message": "reCAPTCHA verification failed.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Additional data processing
+        data["patient_ip"] = request.META.get("REMOTE_ADDR")
+        data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+
+        # Create or update the CareerPage entry
+        serializer = CareerPageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Career page enquiry submitted successfully.",
+                    "data": serializer.data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            print("Validation Errors:", serializer.errors)
+            return Response(
+                {
+                    "status": "error",
+                    "message": "Failed to submit enquiry.",
+                    "errors": serializer.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
 class ServiceListView(APIView):
 
     def get(self, request, format=None):
@@ -186,9 +237,18 @@ class ServicesPageView(ListView):
 
 
 class ServiceDetailView(DetailView):
-    model = Services
+    model = Services  # Make sure this is the correct model name
     template_name = "service.html"
     context_object_name = "service"
+
+    def get_context_data(self, **kwargs):
+        # Get the base context from the parent class
+        context = super().get_context_data(**kwargs)
+
+        # Retrieve the reCAPTCHA site key from settings and add it to the context
+        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+
+        return context
 
 
 class HealthcarePackagesListView(TemplateView):
@@ -211,9 +271,18 @@ class HealthcarePackagesListView(TemplateView):
 
 
 class BookPackageView(ListView):
-    model = healthcarePackages
+    model = healthcarePackages  # Make sure this is the correct model name
     template_name = "package-booking.html"
     context_object_name = "packages"
+
+    def get_context_data(self, **kwargs):
+        # Get the base context from the parent class
+        context = super().get_context_data(**kwargs)
+
+        # Retrieve the reCAPTCHA site key from settings and add it to the context
+        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+
+        return context
 
 
 class HomeView(TemplateView):
@@ -260,7 +329,58 @@ class AboutUsPageView(TemplateView):
 
         # Retrieve and process testimonials
         testimonials = Testimonials.objects.filter(is_active=True)
-
         context["testimonials"] = testimonials
 
+        # Retrieve the reCAPTCHA site key from settings and add it to the context
+        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+
         return context
+
+
+class CareerPageView(TemplateView):
+    template_name = "career.html"
+
+    def get_context_data(self, **kwargs):
+        # Get the base context from the parent class
+        context = super().get_context_data(**kwargs)
+
+        # Retrieve the reCAPTCHA site key from settings and add it to the context
+        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+
+        return context
+
+
+def notfound_page(request, exception):
+    return render(request, "404.html", status=404)
+
+
+class TermsAndConditionsView(TemplateView):
+    """
+    View for the Terms and Conditions page.
+    """
+
+    template_name = "terms-and-conditions.html"
+
+
+class PrivacyPolicyView(TemplateView):
+    """
+    View for the Privacy Policy page.
+    """
+
+    template_name = "privacy-policy.html"
+
+
+class RightsView(TemplateView):
+    """
+    View for the Rights and Responsibilities page.
+    """
+
+    template_name = "rights.html"
+
+
+class DisclaimerView(TemplateView):
+    """
+    View for the Disclaimer page.
+    """
+
+    template_name = "disclaimer.html"

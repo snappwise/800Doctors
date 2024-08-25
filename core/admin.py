@@ -6,6 +6,7 @@ from core.models import (
     Testimonials,
     Faqs,
     Journey,
+    CareerPage,
 )
 from django.utils.html import format_html
 from django.template.defaultfilters import truncatechars
@@ -385,9 +386,41 @@ class journeyAdmin(admin.ModelAdmin):
     restore.short_description = "Restore selected records"
 
 
+class CareerPageAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "first_name",
+        "last_name",
+        "user_email",
+        "phone_number",
+        "resume_tag",
+        "message_excerpt",
+        "created_at",
+    )
+    search_fields = ("first_name", "last_name", "user_email", "phone_number")
+    list_filter = ("created_at", "email_sent")
+    ordering = ("-created_at",)
+    list_per_page = 10
+
+    def resume_tag(self, obj):
+        if obj.resume:
+            return format_html(
+                '<a href="{}" target="_blank">View Resume</a>', obj.resume.url
+            )
+        return "No Resume Uploaded"
+
+    resume_tag.short_description = "Resume"
+
+    def message_excerpt(self, obj):
+        return truncatechars(obj.message, 50)
+
+    message_excerpt.short_description = "Message"
+
+
 admin.site.register(Services, ServicesAdmin)
 admin.site.register(healthcareCategories, healthcareCategoriesAdmin)
 admin.site.register(healthcarePackages, healthcarePackagesAdmin)
 admin.site.register(Testimonials, TestimonialsAdmin)
 admin.site.register(Faqs, faqsAdmin)
 admin.site.register(Journey, journeyAdmin)
+admin.site.register(CareerPage, CareerPageAdmin)

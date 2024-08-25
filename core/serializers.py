@@ -6,13 +6,14 @@ from core.models import (
     Faqs,
     Testimonials,
     Journey,
+    CareerPage,
 )
 
 
 class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Services
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return Services.objects.create(**validated_data)
@@ -24,7 +25,7 @@ class ServicesSerializer(serializers.ModelSerializer):
 class healthcareCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = healthcareCategories
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return healthcareCategories.objects.create(**validated_data)
@@ -38,7 +39,7 @@ class healthcarePackagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = healthcarePackages
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return healthcarePackages.objects.create(**validated_data)
@@ -50,7 +51,7 @@ class healthcarePackagesSerializer(serializers.ModelSerializer):
 class FaqsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faqs
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return Faqs.objects.create(**validated_data)
@@ -66,7 +67,7 @@ class TestimonialsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Testimonials
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return Testimonials.objects.create(**validated_data)
@@ -78,10 +79,22 @@ class TestimonialsSerializer(serializers.ModelSerializer):
 class JourneySerializer(serializers.ModelSerializer):
     class Meta:
         model = Journey
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         return Journey.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class CareerPageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CareerPage
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return CareerPage.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)

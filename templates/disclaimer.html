@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,10 @@
 </head>
 
 <body>
-    <section id="termsAndConditions">
+    {% include 'navbar.html' %}
+
+
+    <section id="termsAndConditions" class="pt-16 lg:pt-20">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Disclaimer</h2>
@@ -27,6 +31,8 @@
                 a supplement for the same. You are advised to consult a doctor or physician for any
                 concern regarding your or anyone else’s health concerns.
             </div>
+            
+            {% include 'footer.html' %}
 
             <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
