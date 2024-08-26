@@ -88,7 +88,13 @@
                 </form>
             </div>
         </div>
-    </section>    
+    </section>  
+    
+    <script>
+        // Set the minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -99,8 +105,17 @@
             
             // Get the reCAPTCHA response
             const recaptchaResponse = grecaptcha.getResponse();
-            if (recaptchaResponse.length === 0) {
-                alert('Please complete the reCAPTCHA');
+                
+            if (!recaptchaResponse) {
+                document.querySelector('.form-warning').classList.remove('hidden');
+
+                const toastErrorElement = document.getElementById('toast3');
+                toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                setTimeout(() => {
+                    document.querySelector('.form-warning').classList.add('hidden');
+                }, 3000);
+
                 return;
             }
 
@@ -145,12 +160,10 @@
                     }, 5000);
 
                 } else {
-                    
                     document.querySelector('.loader').classList.add('hidden');
-                    
                     document.querySelector('.form-error').classList.remove('hidden');
                     const toastErrorElement = document.getElementById('toast2');
-                    toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+                    toastErrorElement.querySelector('.toast-msg').textContent = data.error;
 
                     setTimeout(() => {
                         document.querySelector('.form-error').classList.add('hidden');
@@ -161,6 +174,8 @@
                 document.querySelector('.loader').classList.add('hidden');
 
                 document.querySelector('.form-error').classList.remove('hidden');
+                const toastErrorElement = document.getElementById('toast2');
+                toastErrorElement.querySelector('.toast-msg').textContent = data.message;
 
                 setTimeout(() => {
                     document.querySelector('.form-error').classList.add('hidden');

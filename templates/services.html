@@ -16,6 +16,8 @@
 </head>
 
 <body>
+    {% include 'alerts.html' %}
+
     {% include 'whatsapp.html' %}
 
     {% include 'navbar.html' %}
@@ -68,11 +70,11 @@
                     </div>
                     <div class="input-container">
                         <label for="phno">Phone Number</label>
-                        <input id="phno" name="phone_number" placeholder="123456789" type="tel" required>
+                        <input id="phno" name="phone_number" placeholder="123456789" type="number" required>
                     </div>
                     <div class="input-container">
                         <label for="message">Message</label>
-                        <textarea maxlength="999" id="message" name="message" placeholder="Enter Your Message" rows="5" required></textarea>
+                        <textarea maxlength="999" minlength="10" id="message" name="message" placeholder="Enter Your Message" rows="5" required></textarea>
                     </div>
                     <div class="input-check-label">
                         <input id="terms" name="terms" type="checkbox" required>
@@ -100,10 +102,21 @@
         
                 // Get the reCAPTCHA response token
                 const recaptchaResponse = grecaptcha.getResponse();
+
                 if (!recaptchaResponse) {
-                    alert('Please complete the reCAPTCHA.');
+                    document.querySelector('.form-warning').classList.remove('hidden');
+
+                    const toastErrorElement = document.getElementById('toast3');
+                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                    setTimeout(() => {
+                        document.querySelector('.form-warning').classList.add('hidden');
+                    }, 3000);
+
                     return;
                 }
+
+                document.querySelector('.loader').classList.remove('hidden');
         
                 const formData = new FormData(form);
         
@@ -116,8 +129,7 @@
                     terms: formData.get('terms') ? 'on' : 'off',
                     'g-recaptcha-response': recaptchaResponse  // Include the reCAPTCHA response token
                 };
-        
-                console.log('Sending data:', data);  // Log the data being sent
+    
         
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
@@ -127,26 +139,39 @@
                         'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
                     }
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.message || 'Network response was not ok');
-                        });
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        alert('Enquiry submitted successfully!');
                         form.reset();
-                        grecaptcha.reset();  // Reset reCAPTCHA widget
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-success').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+
                     } else {
-                        alert('Failed to submit enquiry. Please try again.');
+                        
+                        document.querySelector('.loader').classList.add('hidden');
+                        
+                        document.querySelector('.form-error').classList.remove('hidden');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred: ' + error.message);
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    document.querySelector('.form-error').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
                 });
             });
         });

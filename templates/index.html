@@ -25,7 +25,7 @@
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="{{urlvar}}">
+            <a href="/">
                 <img src="{% static 'assets/logos/main-logo.png' %}" class="navbar-logo" alt="800 Doctors Logo">
             </a>
             <a href="tel:+97800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
@@ -406,13 +406,27 @@
             </div>
         </div>
     </section>
-    
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('enquiryForm');
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
+
+                const recaptchaResponse = grecaptcha.getResponse();
+
+                if (!recaptchaResponse) {
+                    document.querySelector('.form-warning').classList.remove('hidden');
+
+                    const toastErrorElement = document.getElementById('toast3');
+                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                    setTimeout(() => {
+                        document.querySelector('.form-warning').classList.add('hidden');
+                    }, 3000);
+
+                    return;
+                }
 
                 document.querySelector('.loader').classList.remove('hidden');
         

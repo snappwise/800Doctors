@@ -26,6 +26,8 @@ from inquiries.views import (
     serviceEnquiryView,
 )
 
+admin.site.site_title = "*00Doctor Admin"
+admin.site.site_header = "800Doctor Admin"
 
 urlpatterns = [
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
