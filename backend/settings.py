@@ -24,9 +24,12 @@ DEBUG = os.getenv("DEBUG", False) == "True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = ["127.0.0.1:8000", "*"]
-
 production_level = os.getenv("PRODUCTION_LEVEL", False) == "True"
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*"]
+
+if production_level:
+    ALLOWED_HOSTS = ["www.doctoroncall.com", "doctoroncall.com"]
 
 # Application definition
 
@@ -133,7 +136,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
+if production_level:    
+    TIME_ZONE = "Asia/Dubai"
 
 USE_I18N = True
 

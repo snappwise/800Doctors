@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    ServiceListView,
+    # ServiceListView,
     IndexPageView,
     ServicesPageView,
     ServiceDetailView,
@@ -32,7 +32,6 @@ def dynamic_urlpatterns():
 
 urlpatterns = [
     # API services
-    path("api/six-services/", ServiceListView.as_view(), name="service-list"),
     path("api/career-enquiry/", CareerPageEnquiryView.as_view(), name="career-enquiry"),
     # HTML pages
     path("services/", ServicesPageView.as_view(), name="services"),
@@ -48,7 +47,7 @@ urlpatterns = [
     path("about-us/", AboutUsPageView.as_view(), name="about-us"),
     path("", HomeView.as_view(), name="home"),
     *dynamic_urlpatterns(),
-    path("career/", CareerPageView.as_view(), name="career-page"),
+    path("careers/", CareerPageView.as_view(), name="career-page"),
     path(
         "terms-and-conditions/",
         TermsAndConditionsView.as_view(),

@@ -80,6 +80,8 @@
             
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
+
+                document.querySelector('.loader').classList.remove('hidden');
             
                 const formData = new FormData(form);
                 formData.append('agreement', formData.get('terms') === 'on');

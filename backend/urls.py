@@ -20,13 +20,6 @@ from django.urls import path, re_path, include
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls import handler404
-from core.views import (
-    ServicesView,
-    healthcarePackagesView,
-    FaqsView,
-    TestimonialsView,
-    JourneyView,
-)
 from inquiries.views import (
     generalEnquiryView,
     healthcareEnquiryView,
@@ -45,15 +38,6 @@ urlpatterns = [
         name="healthcare-enquiry",
     ),
     path("enquiry/service/", serviceEnquiryView.as_view(), name="service-enquiry"),
-    # path("services/", ServicesView.as_view(), name="services"),
-    # path(
-    #     "healthcare-packages/",
-    #     healthcarePackagesView.as_view(),
-    #     name="healthcare-packages",
-    # ),
-    # path("faqs/", FaqsView.as_view(), name="faqs"),
-    # path("testimonials/", TestimonialsView.as_view(), name="testimonials"),
-    # path("journey/", JourneyView.as_view(), name="journey"),
     path("", include("content.urls")),
     path("", include("core.urls")),
 ]
