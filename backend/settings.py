@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "core",
     "inquiries",
     "dynamic_linking",
+    "debug_toolbar"
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -221,3 +223,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 EMAIL_USE_TLS = True
+
+INTERNAL_IPS = [
+    "localhost",
+    "127.0.0.1",
+]

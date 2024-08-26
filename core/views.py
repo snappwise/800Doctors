@@ -5,11 +5,10 @@ from django.shortcuts import render
 import requests
 from django.views.generic import ListView, DetailView, TemplateView
 from django.templatetags.static import static
-from .authentication import CsrfExemptSessionAuthentication
-from rest_framework.authentication import BasicAuthentication
+from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
-
-from inquiries.views import send_alert_email
+import logging
+from inquiries.views import get_client_ip, send_alert_email
 
 from core.models import (
     Services,
@@ -30,15 +29,16 @@ from core.serializers import (
 
 class ServicesView(APIView):
     """
-    This view is used to store the services information
+    This view is used to fetch the services information.
     """
-
-    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
     def get(self, request):
         try:
-            services = services = Services.objects.filter(is_active=True)
+            # Fetch active services
+            services = Services.objects.filter(is_active=True)
+            # Serialize the service data
             serializer = ServicesSerializer(services, many=True)
+            # Return a successful response with serialized data
             return Response(
                 {
                     "status": "success",
@@ -48,7 +48,9 @@ class ServicesView(APIView):
                 status=status.HTTP_200_OK,
             )
         except Exception as e:
+            # Log the error message (consider using logging instead of print)
             print("Error fetching services:", e)
+            # Return an error response
             return Response(
                 {
                     "status": "error",
@@ -58,15 +60,21 @@ class ServicesView(APIView):
             )
 
 
-class healthcarePackagesView(APIView):
+logger = logging.getLogger(__name__)
+
+
+class HealthcarePackagesView(APIView):
     """
-    This view is used to store the healthcare packages information
+    This view is used to fetch the healthcare packages information.
     """
 
     def get(self, request):
         try:
+            # Fetch active healthcare packages
             packages = healthcarePackages.objects.filter(is_active=True)
+            # Serialize the package data
             serializer = healthcarePackagesSerializer(packages, many=True)
+            # Return a successful response with serialized data
             return Response(
                 {
                     "status": "success",
@@ -76,7 +84,9 @@ class healthcarePackagesView(APIView):
                 status=status.HTTP_200_OK,
             )
         except Exception as e:
-            print("Error fetching healthcare packages:", e)
+            # Log the error message
+            logger.error("Error fetching healthcare packages: %s", e)
+            # Return an error response
             return Response(
                 {
                     "status": "error",
@@ -199,7 +209,7 @@ class CareerPageEnquiryView(APIView):
                 )
 
             # Additional data processing
-            data["patient_ip"] = request.META.get("REMOTE_ADDR")
+            data["patient_ip"] = get_client_ip(request)
             data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
 
             emails_sent = send_alert_email(
@@ -244,72 +254,74 @@ class CareerPageEnquiryView(APIView):
             )
 
 
-# class ServiceListView(APIView):
-
-#     def get(self, request, format=None):
-#         requester_ip = get_client_ip(request)
-#         print(f"Requester IP: {requester_ip}")
-#         if requester_ip != settings.ALLOWED_HOSTS[0]:
-#             return Response(
-#                 {"detail": "Forbidden: Invalid host"}, status=status.HTTP_403_FORBIDDEN
-#             )
-#         services = Services.objects.all()[:7]  # Limit to 7 services
-#         serializer = ServicesSerializer(services, many=True)
-#         return Response(serializer.data)
-
-
 class IndexPageView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, **kwargs):
-        request = self.request
-        base_url = f"{request.scheme}://{request.get_host()}"
-        api_url = f"{base_url}/api/six-services"
-        try:
-            response = requests.get(api_url)
-            services = response.json() if response.status_code == 200 else []
-        except requests.RequestException:
-            services = []
+        # Get the base context from the parent class
+        context = super().get_context_data(**kwargs)
 
+        # Retrieve and serialize services, limiting to 7
+        services = Services.objects.all()[:7]
+        serializer = ServicesSerializer(services, many=True)
+        serialized_services = serializer.data
+
+        # Retrieve and serialize FAQs
         faqs = Faqs.objects.filter(is_active=True).order_by("created_at")
+
+        # Retrieve and serialize testimonials
         testimonials = Testimonials.objects.filter(is_active=True)
-        testimonials = TestimonialsSerializer(testimonials, many=True)
+        testimonial_serializer = TestimonialsSerializer(testimonials, many=True)
+        serialized_testimonials = testimonial_serializer.data
 
         # Retrieve the reCAPTCHA site key from settings
-        recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
+        recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+        if not recaptcha_site_key:
+            raise ImproperlyConfigured("No recaptcha site key found.")
 
-        context = {
-            "faqs": faqs,
-            "services": services,
-            "testimonials": testimonials.data,
-            "recaptcha_site_key": recaptcha_site_key,  # Add the site key to context
-        }
+        # Update context with the data
+        context.update(
+            {
+                "faqs": faqs,
+                "services": serialized_services,
+                "testimonials": serialized_testimonials,
+                "recaptcha_site_key": recaptcha_site_key,
+            }
+        )
+
         return context
 
 
 class ServicesPageView(ListView):
-    model = Services
+    model = Services  # Use the correct model name
     template_name = "services.html"
     context_object_name = "services"
 
     def get_queryset(self):
+        # Return only active services
         return Services.objects.filter(is_active=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["testimonials"] = Testimonials.objects.filter(is_active=True)
 
-        # Retrieve the reCAPTCHA site key from settings
-        recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
+        try:
+            # Retrieve active testimonials
+            context["testimonials"] = Testimonials.objects.filter(is_active=True)
 
-        context["recaptcha_site_key"] = (
-            recaptcha_site_key  # Add the site key to context
-        )
+            # Retrieve the reCAPTCHA site key from settings
+            recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+            if not recaptcha_site_key:
+                raise ImproperlyConfigured("No recaptcha site key found.")
+            context["recaptcha_site_key"] = recaptcha_site_key
+
+        except Testimonials.DoesNotExist:
+            context["testimonials"] = []
+
         return context
 
 
 class ServiceDetailView(DetailView):
-    model = Services  # Make sure this is the correct model name
+    model = Services  # Use the correct model name
     template_name = "service.html"
     context_object_name = "service"
 
@@ -318,7 +330,10 @@ class ServiceDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         # Retrieve the reCAPTCHA site key from settings and add it to the context
-        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+        recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+        if not recaptcha_site_key:
+            raise ImproperlyConfigured("No recaptcha site key found.")
+        context["recaptcha_site_key"] = recaptcha_site_key
 
         return context
 
@@ -328,22 +343,34 @@ class HealthcarePackagesListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        all_packages = healthcarePackages.objects.filter(is_active=True)
-        categorized_packages = {}
 
-        for package in all_packages:
-            category_name = package.category.category_name
-            if category_name not in categorized_packages:
-                categorized_packages[category_name] = []
-            categorized_packages[category_name].append(package)
+        # Retrieve all active packages
+        try:
+            all_packages = healthcarePackages.objects.filter(
+                is_active=True
+            ).select_related("category")
 
-        context["categorized_packages"] = categorized_packages
-        context["wellness_image_url"] = static("assets/images/wellnessDr.jpg")
+            # Categorize packages
+            categorized_packages = {}
+            for package in all_packages:
+                category_name = package.category.category_name
+                if category_name not in categorized_packages:
+                    categorized_packages[category_name] = []
+                categorized_packages[category_name].append(package)
+
+            # Add context data
+            context["categorized_packages"] = categorized_packages
+            context["wellness_image_url"] = static("assets/images/wellnessDr.jpg")
+
+        except healthcarePackages.DoesNotExist:
+            context["categorized_packages"] = {}
+            context["wellness_image_url"] = ""
+
         return context
 
 
 class BookPackageView(ListView):
-    model = healthcarePackages  # Make sure this is the correct model name
+    model = healthcarePackages
     template_name = "package-booking.html"
     context_object_name = "packages"
 
@@ -352,7 +379,10 @@ class BookPackageView(ListView):
         context = super().get_context_data(**kwargs)
 
         # Retrieve the reCAPTCHA site key from settings and add it to the context
-        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+        recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+        if not recaptcha_site_key:
+            raise ImproperlyConfigured("No recaptcha site key found.")
+        context["recaptcha_site_key"] = recaptcha_site_key
 
         return context
 
@@ -361,25 +391,33 @@ class HomeView(TemplateView):
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
-        request = self.request
-
-        base_url = f"{request.scheme}://{request.get_host()}"
-        api_url = f"{base_url}/api/six-services"
+        context = super().get_context_data(**kwargs)
 
         try:
-            response = requests.get(api_url)
-            services = response.json() if response.status_code == 200 else []
-        except requests.RequestException:
-            services = []
+            # Fetch and limit services to 7
+            services = (
+                Services.objects.all().order_by("-created_at")[:7].select_related()
+            )
+            serializer = ServicesSerializer(services, many=True)
+            context["services"] = (
+                serializer.data
+            )  # Serialize only if needed in the template as JSON
 
-        faqs = Faqs.objects.filter(is_active=True).order_by("created_at")
-        testimonials = Testimonials.objects.filter(is_active=True)
+            # Fetch active FAQs ordered by creation date
+            context["faqs"] = Faqs.objects.filter(is_active=True).order_by("created_at")
 
-        context = {
-            "faqs": faqs,
-            "services": services,
-            "testimonials": testimonials,
-        }
+            # Fetch active testimonials ordered by creation date
+            context["testimonials"] = Testimonials.objects.filter(
+                is_active=True
+            ).order_by("-created_at")
+
+        except Services.DoesNotExist:
+            context["services"] = []
+        except Faqs.DoesNotExist:
+            context["faqs"] = []
+        except Testimonials.DoesNotExist:
+            context["testimonials"] = []
+
         return context
 
 
@@ -390,17 +428,27 @@ class AboutUsPageView(TemplateView):
         # Get the base context from the parent class
         context = super().get_context_data(**kwargs)
 
-        # Retrieve and process journeys
-        context["journeys"] = Journey.objects.filter(is_active=True).order_by(
-            "sequence"
-        )
+        try:
+            # Retrieve and process journeys, ensuring order by sequence
+            context["journeys"] = Journey.objects.filter(is_active=True).order_by(
+                "sequence"
+            )
 
-        # Retrieve and process testimonials
-        testimonials = Testimonials.objects.filter(is_active=True)
-        context["testimonials"] = testimonials
+            # Retrieve and process testimonials, ordered by creation date
+            context["testimonials"] = Testimonials.objects.filter(
+                is_active=True
+            ).order_by("-created_at")
 
-        # Retrieve the reCAPTCHA site key from settings and add it to the context
-        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+            # Retrieve the reCAPTCHA site key from settings and add it to the context
+            recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+            if not recaptcha_site_key:
+                raise ImproperlyConfigured("No recaptcha site key found.")
+            context["recaptcha_site_key"] = recaptcha_site_key
+
+        except Journey.DoesNotExist:
+            context["journeys"] = []
+        except Testimonials.DoesNotExist:
+            context["testimonials"] = []
 
         return context
 
@@ -412,8 +460,11 @@ class CareerPageView(TemplateView):
         # Get the base context from the parent class
         context = super().get_context_data(**kwargs)
 
-        # Retrieve the reCAPTCHA site key from settings and add it to the context
-        context["recaptcha_site_key"] = settings.RECAPTCHA_SITE_KEY
+        # Retrieve the reCAPTCHA site key from settings
+        recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+        if not recaptcha_site_key:
+            raise ImproperlyConfigured("RECAPTCHA_SITE_KEY is not set in the settings.")
+        context["recaptcha_site_key"] = recaptcha_site_key
 
         return context
 
