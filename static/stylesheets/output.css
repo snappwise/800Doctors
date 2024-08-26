@@ -2872,6 +2872,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
   margin-top: 0.5rem;
 }
 
+.inline{
+  display: inline;
+}
+
 .flex{
   display: flex;
 }
@@ -3158,6 +3162,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .font-semibold{
   font-weight: 600;
+}
+
+.uppercase{
+  text-transform: uppercase;
 }
 
 .text-black{
