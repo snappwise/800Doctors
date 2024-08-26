@@ -167,3 +167,5 @@ venv/
 !**/migrations/__init__.py
 
 media/*
+
+.vscode/

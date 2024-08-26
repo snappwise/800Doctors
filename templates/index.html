@@ -1,5 +1,7 @@
 {%load static%}
 {% load custom_filters %}
+{% load baseUrlTag %}
+{% get_base_url as urlvar %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +19,13 @@
 </head>
 
 <body>
+    {% include 'alerts.html' %}
+
     {% include 'whatsapp.html' %}
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="#">
+            <a href="{{urlvar}}">
                 <img src="{% static 'assets/logos/main-logo.png' %}" class="navbar-logo" alt="800 Doctors Logo">
             </a>
             <a href="tel:+97800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
@@ -409,6 +413,8 @@
             const form = document.getElementById('enquiryForm');
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
+
+                document.querySelector('.loader').classList.remove('hidden');
         
                 const formData = new FormData(form);
         
@@ -431,25 +437,40 @@
                         'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
                     }
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.message || 'Network response was not ok');
-                        });
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        alert('Enquiry submitted successfully!');
+                        console.log(data);
                         form.reset();
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-success').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+
                     } else {
-                        alert('Failed to submit enquiry. Please try again.');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-error').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred: ' + error.message);
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    document.querySelector('.form-error').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
                 });
             });
         });

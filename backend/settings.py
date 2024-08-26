@@ -20,13 +20,13 @@ load_dotenv()
 
 mimetypes.add_type("text/javascript", ".js", True)
 
-DEBUG = os.getenv('DEBUG', False) == 'True'
+DEBUG = os.getenv("DEBUG", False) == "True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = ["127.0.0.1:8000", "*"]
 
-production_level = os.getenv("PRODUCTION_LEVEL", False) == 'True'
+production_level = os.getenv("PRODUCTION_LEVEL", False) == "True"
 
 # Application definition
 
@@ -204,3 +204,15 @@ LOGGING = {
 
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+EMAIL_USE_TLS = True

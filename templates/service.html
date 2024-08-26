@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    {% include 'alerts.html' %}
 
     {% include 'whatsapp.html' %}
 
@@ -95,14 +96,16 @@
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
         
-                // Get the reCAPTCHA response token
+                
                 const recaptchaResponse = grecaptcha.getResponse();
-        
+                
                 if (recaptchaResponse.length === 0) {
                     alert('Please complete the reCAPTCHA');
                     return;
                 }
-        
+                
+                document.querySelector('.loader').classList.remove('hidden');
+                
                 const formData = new FormData(form);
                 const data = {
                     first_name: formData.get('first_name'),
@@ -127,16 +130,36 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        alert('Enquiry submitted successfully!');
                         form.reset();
-                        grecaptcha.reset(); // Reset reCAPTCHA after successful submission
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-success').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+
                     } else {
-                        alert('Failed to submit enquiry. Please try again.');
+                        
+                        document.querySelector('.loader').classList.add('hidden');
+                        
+                        document.querySelector('.form-error').classList.remove('hidden');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    document.querySelector('.form-error').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
                 });
             });
         });    

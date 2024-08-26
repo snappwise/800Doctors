@@ -148,6 +148,30 @@
 }
 
 @layer components {
+  .loader{
+    @apply w-full h-screen bg-white/90 z-[100] fixed top-0 left-0 flex flex-col items-center justify-center gap-4 text-neutral-950;
+  }
+
+  .loader-spinner{
+    @apply w-10 h-10 text-gray-200 animate-spin fill-blue-600;
+  }
+
+  .toast{
+    @apply flex items-center w-full max-w-xs p-2.5 sm:p-4 m-2 sm:m-4 bg-white rounded-lg shadow fixed bottom-0 right-0 sm:bottom-4 sm:right-4 z-50;
+  }
+
+  .toast-icon{
+    @apply inline-flex items-center justify-center flex-shrink w-8 h-8 rounded-lg;
+  }
+
+  .toast-msg{
+    @apply ms-3 text-sm font-normal
+  }
+
+  .toast-close-icon{
+    @apply ms-auto -mx-1.5 -my-1.5 bg-white text-neutral-400 hover:text-neutral-900 rounded-lg focus:ring-2 focus:ring-neutral-300 p-1.5 hover:bg-neutral-100 inline-flex items-center justify-center h-8 w-8;
+  }
+
   .navbar {
     @apply bg-white fixed w-screen z-20 top-0 start-0;
   }
@@ -434,6 +458,7 @@
   .carousel-control-dot {
     @apply w-2 h-2 rounded-full;
   }
+
   .tab-btn {
     @apply px-4 py-2.5 text-center w-full border-primary-700 border-[1px] rounded-lg;
   }

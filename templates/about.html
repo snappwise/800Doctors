@@ -17,6 +17,8 @@
 </head>
 
 <body>
+    {% include 'alerts.html' %}
+
     {% include 'whatsapp.html' %}
 
     {% include 'navbar.html' %}
@@ -229,6 +231,8 @@
             const form = document.getElementById('enquiryForm');
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
+
+                document.querySelector('.loader').classList.remove('hidden');
         
                 const formData = new FormData(form);
         
@@ -243,33 +247,47 @@
 
                 };
         
-                fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
+                fetch('{% url "general-enquiry" %}', { 
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
+                        'X-CSRFToken': '{{ csrf_token }}' 
                     }
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.message || 'Network response was not ok');
-                        });
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        alert('Enquiry submitted successfully!');
                         form.reset();
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-success').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+
                     } else {
-                        alert('Failed to submit enquiry. Please try again.');
+                        
+                        document.querySelector('.loader').classList.add('hidden');
+                        
+                        document.querySelector('.form-error').classList.remove('hidden');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred: ' + error.message);
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    document.querySelector('.form-error').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
                 });
             });
         });

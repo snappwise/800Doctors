@@ -9,6 +9,8 @@ from .authentication import CsrfExemptSessionAuthentication
 from rest_framework.authentication import BasicAuthentication
 from django.conf import settings
 
+from inquiries.views import send_alert_email
+
 from core.models import (
     Services,
     healthcarePackages,
@@ -148,6 +150,13 @@ class CareerPageEnquiryView(APIView):
         # Additional data processing
         data["patient_ip"] = request.META.get("REMOTE_ADDR")
         data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+
+        print("User Email:", data["user_email"])
+        emails_sent = send_alert_email("New General Enquiry", data, "Contact US")
+        data["email_sent"] = False
+        if emails_sent == 1:
+            data["email_sent"] = True
+            print("Email sent successfully")
 
         # Create or update the CareerPage entry
         serializer = CareerPageSerializer(data=data)
@@ -302,10 +311,6 @@ class HomeView(TemplateView):
 
         faqs = Faqs.objects.filter(is_active=True).order_by("created_at")
         testimonials = Testimonials.objects.filter(is_active=True)
-
-        # Generate a list of star ratings for each testimonial
-        for testimonial in testimonials:
-            testimonial.stars = [1, 2, 3, 4, 5]  # List of star indices
 
         context = {
             "faqs": faqs,
