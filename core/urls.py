@@ -35,7 +35,7 @@ def dynamic_urlpatterns():
 
 dynamic_pattern = dynamic_urlpatterns()
 if len(dynamic_pattern) == 0:
-    dynamic_pattern = [path("doctor-on-call", IndexPageView.as_view(), name="home")]
+    dynamic_pattern = [path("doctor-on-call", IndexPageView.as_view(), name="dynamic-link")]
 
 urlpatterns = [
     # API services
