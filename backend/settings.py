@@ -16,7 +16,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv()
+load_dotenv(override=True)
 
 mimetypes.add_type("text/javascript", ".js", True)
 
@@ -24,12 +24,12 @@ DEBUG = os.getenv("DEBUG", False) == "True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-production_level = os.getenv("PRODUCTION_LEVEL", False) == "True"
+production_level = os.getenv("PRODUCTION", False) == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*"]
 
 if production_level:
-    ALLOWED_HOSTS = ["www.doctoroncall.com", "doctoroncall.com"]
+    ALLOWED_HOSTS = ["*", "0.0.0.0"]
 
 # Application definition
 
@@ -104,8 +104,8 @@ if production_level:
     DATABASES = {
         "default": {
             **DATABASES_COMMON,
-            "USER": "server-user",
-            "PASSWORD": "server-pass",
+            "USER": os.getenv("DB_PROD_USER"),
+            "PASSWORD": os.getenv("DB_PROD_PASS"),
             "HOST": os.getenv("DB_PROD_HOST"),
         }
     }
@@ -151,17 +151,15 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 if DEBUG:
-
     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 else:
-
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 MEDIA_URL = "/media/"
 if production_level:
-    MEDIA_ROOT = ""
+    MEDIA_ROOT = "media"
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

@@ -1,7 +1,18 @@
+from uuid import uuid4
 from django.db import models
 from django.db.models.signals import pre_delete, post_init, post_save
 from django.dispatch.dispatcher import receiver
-from uuid import uuid4
+from django.core.exceptions import ValidationError
+
+
+def validate_image_size(image):
+    """
+    This function is used to validate the image size
+    """
+    max_size_mb = 5  # Set maximum size in megabytes
+    max_size_bytes = max_size_mb * 1024 * 1024  # Convert to bytes
+    if image.size > max_size_bytes:
+        raise ValidationError(f"Image size should not exceed {max_size_mb} MB.")
 
 
 class seoBase(models.Model):
@@ -23,7 +34,9 @@ class Gallery(seoBase):
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     image_name = models.CharField(max_length=200)
-    gallery_image = models.ImageField(upload_to="gallery/")
+    gallery_image = models.ImageField(
+        upload_to="gallery/", validators=[validate_image_size]
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

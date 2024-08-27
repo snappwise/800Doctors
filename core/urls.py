@@ -23,12 +23,19 @@ def dynamic_urlpatterns():
     This function generates the dynamic URL patterns for the website
     """
     patterns = []
-    for url in DynamicLinking.objects.all():
-        # view = getattr(core_views, url.view_name, None)
+    try:
+        for url in DynamicLinking.objects.all():
+            # view = getattr(core_views, url.view_name, None)
 
-        patterns.append(path(url.path, IndexPageView.as_view(), name=url.name))
+            patterns.append(path(url.path, IndexPageView.as_view(), name=url.name))
+    except Exception as e:
+        print(e)
     return patterns
 
+
+dynamic_pattern = dynamic_urlpatterns()
+if len(dynamic_pattern) == 0:
+    dynamic_pattern = [path("doctor-on-call", IndexPageView.as_view(), name="home")]
 
 urlpatterns = [
     # API services
@@ -46,7 +53,7 @@ urlpatterns = [
     ),
     path("about-us/", AboutUsPageView.as_view(), name="about-us"),
     path("", HomeView.as_view(), name="home"),
-    *dynamic_urlpatterns(),
+    *dynamic_pattern,
     path("careers/", CareerPageView.as_view(), name="career-page"),
     path(
         "terms-and-conditions/",

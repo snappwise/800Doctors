@@ -4,6 +4,7 @@ from django.db.models.signals import pre_delete, post_init, post_save
 from django.dispatch.dispatcher import receiver
 from uuid import uuid4
 from django.core.exceptions import ValidationError
+from content.models import validate_image_size
 
 
 class seoBase(models.Model):
@@ -27,7 +28,7 @@ class Services(seoBase):
     service_name = models.CharField(max_length=150)
     icon_link = models.URLField(max_length=200, blank=True, null=True)
     service_card_description = models.TextField(max_length=300)
-    service_photo = models.ImageField(upload_to="service_photos/")
+    service_photo = models.ImageField(upload_to="service_photos/", validators=[validate_image_size])
     service_details = RichTextField()
     service_quote = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
@@ -104,7 +105,7 @@ class healthcarePackages(seoBase):
     category = models.ForeignKey(
         healthcareCategories, on_delete=models.CASCADE, related_name="category"
     )
-    healthcare_card_photo = models.ImageField(upload_to="healthcare_card_photos/")
+    healthcare_card_photo = models.ImageField(upload_to="healthcare_card_photos/", validators=[validate_image_size])
     package_name = models.CharField(max_length=150)
     package_description = models.TextField(max_length=300)
     is_active = models.BooleanField(default=True)
