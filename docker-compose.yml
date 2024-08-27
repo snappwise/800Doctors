@@ -44,8 +44,7 @@ services:
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      PMA_USER: 800admin
-      PMA_PASSWORD: ${DB_PROD_PASS}
+
     depends_on:
       - db
     restart: always
