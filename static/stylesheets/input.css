@@ -53,6 +53,10 @@
     @apply bg-primary-600 text-white;
   }
 
+  html {
+    @apply scroll-smooth scroll-pt-16 lg:scroll-pt-20;
+  }
+
   body {
     @apply font-poppins text-neutral-500 text-sm lg:text-base leading-[22px] lg:leading-6;
   }
@@ -241,7 +245,7 @@
   }
 
   .stat {
-    @apply col-span-6 flex flex-col md:flex-row gap-1 lg:gap-4 items-center border-l-2 border-l-primary-100 lg:px-4 py-2;
+    @apply col-span-6 flex flex-col md:flex-row gap-1 lg:gap-4 items-center lg:border-l-2 lg:border-l-primary-100 lg:px-4 py-2;
   }
 
   .stat-number {
@@ -439,7 +443,7 @@
   /* GALLERY PAGE*/
 
   .carousel-control-prev {
-    @apply absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 start-0 z-20 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-prev-btn,
@@ -448,11 +452,11 @@
   }
 
   .carousel-control-next {
-    @apply absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 end-0 z-20 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-dots {
-    @apply absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
+    @apply absolute z-20 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
   }
 
   .carousel-control-dot {
@@ -545,7 +549,7 @@
   }
 
   .image-container {
-    @apply col-span-2 lg:col-span-1;
+    @apply col-span-2 lg:col-span-1 min-h-[400px];
   }
 
   .image-container img {
