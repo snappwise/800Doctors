@@ -234,10 +234,10 @@ INTERNAL_IPS = [
 
 
 if production_level:
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # If you want to apply HSTS to all subdomains as well
-    SECURE_HSTS_PRELOAD = True  # Allows your domain to be included in browsers' HSTS preload list
-    SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
+    # SECURE_HSTS_SECONDS = 31536000  # 1 year
+    # SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # If you want to apply HSTS to all subdomains as well
+    # SECURE_HSTS_PRELOAD = True  # Allows your domain to be included in browsers' HSTS preload list
+    # SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
