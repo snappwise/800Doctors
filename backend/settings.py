@@ -16,16 +16,20 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv()
+load_dotenv(override=True)
 
 mimetypes.add_type("text/javascript", ".js", True)
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG", False) == "True"
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = ["*"]
+production_level = os.getenv("PRODUCTION", False) == "True"
 
-production_level = os.getenv("PRODUCTION_LEVEL")
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*"]
+
+if production_level:
+    ALLOWED_HOSTS = ["52.8.40.24", "www.800doctor.com", "800doctor.com", "0.0.0.0", "172.31.0.244"]
 
 # Application definition
 
@@ -40,11 +44,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ckeditor",
     "rest_framework",
+    "backend",
     "media",
     "blog",
     "content",
     "core",
     "inquiries",
+    "dynamic_linking",
+    "debug_toolbar"
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
@@ -61,6 +68,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -89,6 +97,9 @@ DATABASES_COMMON = {
     "ENGINE": "django.db.backends.mysql",
     "PORT": "3306",
     "NAME": "doctoroncall",
+    'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'",
+    }
 }
 
 # Environment-specific settings
@@ -96,8 +107,8 @@ if production_level:
     DATABASES = {
         "default": {
             **DATABASES_COMMON,
-            "USER": "server-user",
-            "PASSWORD": "server-pass",
+            "USER": os.getenv("DB_PROD_USER"),
+            "PASSWORD": os.getenv("DB_PROD_PASS"),
             "HOST": os.getenv("DB_PROD_HOST"),
         }
     }
@@ -130,7 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
+if production_level:    
+    TIME_ZONE = "Asia/Dubai"
 
 USE_I18N = True
 
@@ -141,17 +154,15 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 if DEBUG:
-
     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 else:
-
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 MEDIA_URL = "/media/"
 if production_level:
-    MEDIA_ROOT = ""
+    MEDIA_ROOT = "media"
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -197,3 +208,36 @@ LOGGING = {
         },
     },
 }
+
+
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+EMAIL_USE_TLS = True
+
+INTERNAL_IPS = [
+    "localhost",
+    "127.0.0.1",
+    "52.8.40.24",
+    "172.31.0.244"
+]
+
+
+if production_level:
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # If you want to apply HSTS to all subdomains as well
+    SECURE_HSTS_PRELOAD = True  # Allows your domain to be included in browsers' HSTS preload list
+    SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+

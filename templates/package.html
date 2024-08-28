@@ -1,0 +1,125 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'stylesheets/output.css' %}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    {% include 'favicon.html' %}
+    <title>Healthcare Packages</title>
+</head>
+
+<body>
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+
+    <section id="packages"  class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Healthcare Packages</h2>
+                <p>Comprehensive healthcare solutions for your health needs</p>
+            </div>
+    
+            {% for category, packages in categorized_packages.items %}
+                <!-- Dynamic Categories -->
+                <div class="cards-wrapper">
+                    <h2 class="section-heading">{{ category }}</h2>
+                    <div class="healthcare-cards-container">
+                        {% if category == 'Wellness Packages' %}
+                            <div class="wellness-package-image">
+                                <img src="{{ wellness_image_url }}" alt="Wellness Packages">
+                            </div>
+                            {% for package in packages %}
+                                <div class="wellness-package-card card-shadow" data-card-index="{{ forloop.counter }}">
+                                    <div class="healthcare-package-card-content">
+                                        <h5 class="card-heading">{{ package.package_name }}</h5>
+                                        <p>{{ package.package_description }}</p>
+                                        <div id="know-more-accordion-{{ package.id }}" data-accordion="collapse">
+                                            <h2 id="know-more-heading-{{ package.id }}">
+                                                <button type="button" class="know-more-heading"
+                                                    data-accordion-target="#know-more-body-{{ package.id }}" aria-expanded="false"
+                                                    aria-controls="know-more-body-{{ package.id }}">
+                                                    <span>Know More</span>
+                                                    <svg data-accordion-icon class="w-2.5 h-2.5 rotate-180 shrink-0"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 10 6">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="1.5" d="M9 5 5 1 1 5" />
+                                                    </svg>
+                                                </button>
+                                            </h2>
+                                            <div id="know-more-body-{{ package.id }}" class="hidden"
+                                                aria-labelledby="know-more-heading-{{ package.id }}">
+                                                <div class="know-more-content">{{ package.know_more }}</div>
+                                            </div>
+                                        </div>
+                                        <a class="cta-primary" href="{% url 'book_packages' %}">Book Now</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% for package in packages %}
+                                <div class="healthcare-package-card card-shadow">
+                                    <img src="{{ package.healthcare_card_photo.url }}" alt="{{ package.package_name }}" />
+                                    <div class="healthcare-package-card-content">
+                                        <h5 class="card-heading">{{ package.package_name }}</h5>
+                                        <p>{{ package.package_description }}</p>
+                                        <div id="know-more-accordion-{{ package.id }}" data-accordion="collapse">
+                                            <h2 id="know-more-heading-{{ package.id }}">
+                                                <button type="button" class="know-more-heading"
+                                                    data-accordion-target="#know-more-body-{{ package.id }}" aria-expanded="false"
+                                                    aria-controls="know-more-body-{{ package.id }}">
+                                                    <span>Know More</span>
+                                                    <svg data-accordion-icon class="w-2.5 h-2.5 rotate-180 shrink-0"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 10 6">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="1.5" d="M9 5 5 1 1 5" />
+                                                    </svg>
+                                                </button>
+                                            </h2>
+                                            <div id="know-more-body-{{ package.id }}" class="hidden"
+                                                aria-labelledby="know-more-heading-{{ package.id }}">
+                                                <div class="know-more-content">{{ package.know_more }}</div>
+                                            </div>
+                                        </div>
+                                        <a class="cta-primary" href="{% url 'book_packages' %}">Book Now</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.wellness-package-card');
+
+            cards.forEach(card => {
+                const index = parseInt(card.getAttribute('data-card-index'), 10);
+                const numCards = cards.length;
+                const hue = (360 / numCards) * index;
+                card.style.borderColor = `hsl(${hue}, 80%, 70%)`;
+            });
+        });
+    </script>
+    
+    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

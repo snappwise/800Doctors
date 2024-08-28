@@ -1,0 +1,39 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    {% include 'favicon.html' %}
+    <title>Patient right and responsibility</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section id="privacyPolicy" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Privacy Policy</h2>
+                <p>Last Updated: 19th August 2024</p>
+            </div>
+            <div>
+                When you visit our website, make any inquiry, fill up any online forms, or email us, we collect
+                information. Your personal information including your name, contact number, and address details can be
+                asked on our website. We use the gathered information to best serve your request. We will only use the
+                information and contact you with your consent.
+            </div>
+            
+            {% include 'footer.html' %}
+
+            <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

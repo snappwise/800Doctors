@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    {% include 'favicon.html' %}
+    <title>Patient right and responsibility</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+
+    <section id="termsAndConditions" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Disclaimer</h2>
+                <p>Last Updated: 19th August 2024</p>
+            </div>
+            <div>
+                Kindly note that any information provided by the staff of 800Doctor, whether in writing
+                or verbally through any channel of communication, is meant for information and
+                educational purposes only. These are not to be treated as medical advice or considered
+                a supplement for the same. You are advised to consult a doctor or physician for any
+                concern regarding your or anyone else’s health concerns.
+            </div>
+            
+            {% include 'footer.html' %}
+
+            <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

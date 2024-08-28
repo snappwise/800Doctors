@@ -1,0 +1,197 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css'%}">
+    {% include 'favicon.html' %}
+    <title>Book Package</title>
+</head>
+
+<body>
+    {% include 'alerts.html' %}
+
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+
+    <section id="getInTouch" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Please fill this for booking a health package</h2>
+                <p>We'd love to hear from you. Please fill out this form</p>
+            </div>
+            <div class="package-info-container">
+                <div class="image-container">
+                    <img src="{% static 'assets/images/doc.jpg' %}" alt="doc image">
+                </div>
+                <form id="healthcareEnquiryForm" class="form-container">
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="firstName">First Name</label>
+                            <input id="firstName" name="first_name" placeholder="First Name" type="text" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="lastName">Last Name</label>
+                            <input id="lastName" name="last_name" placeholder="Last Name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" placeholder="you@company.com" type="email" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="phno">Phone Number</label>
+                            <input id="phno" name="phone_number" placeholder="123456789" type="number" required>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="package">Select Package</label>
+                        <select id="package" name="package" required>
+                            {% for package in packages %}
+                            <option value="{{ package.id }}">{{ package.package_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" maxlength="999" placeholder="Enter your address" rows="5" required></textarea>
+                    </div>
+                    <div class="input-container">
+                        <label for="conditions">Pre-Existing Conditions</label>
+                        <textarea id="conditions" name="conditions" maxlength="999" placeholder="Enter Pre-Existing Conditions" rows="5"></textarea>
+                    </div>
+                    <div class="dual-input">
+                        <div class="input-container">
+                            <label for="date">Preferred Date</label>
+                            <input id="date" name="pref_date" type="date" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="time">Preferred Time</label>
+                            <input id="time" name="pref_time" type="time" required>
+                        </div>
+                    </div>
+                    <div class="input-check-label">
+                        <input id="terms" name="terms" class="rounded" type="checkbox" required>
+                        <label for="terms">You agree to our friendly <a class="underline" href="{% url 'privacy-policy' %}">Privacy Policy</a></label>
+                    </div>
+                    <!-- reCAPTCHA widget -->
+                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+                    <button type="submit" class="cta-primary">Book Now</button>
+                </form>
+            </div>
+        </div>
+    </section>  
+    
+    <script>
+        // Set the minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('healthcareEnquiryForm');
+        
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            
+            // Get the reCAPTCHA response
+            const recaptchaResponse = grecaptcha.getResponse();
+                
+            if (!recaptchaResponse) {
+                document.querySelector('.form-warning').classList.remove('hidden');
+
+                const toastErrorElement = document.getElementById('toast3');
+                toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                setTimeout(() => {
+                    document.querySelector('.form-warning').classList.add('hidden');
+                }, 3000);
+
+                return;
+            }
+
+            document.querySelector('.loader').classList.remove('hidden');
+            
+            // Create a FormData object from the form
+            const formData = new FormData(form);
+            
+            // Convert FormData to a plain object
+            const data = {
+                first_name: formData.get('first_name'),
+                last_name: formData.get('last_name'),
+                user_email: formData.get('email'),
+                phone_number: formData.get('phone_number'),
+                package: formData.get('package'),
+                address: formData.get('address'),
+                conditions: formData.get('conditions'),
+                pref_date: formData.get('pref_date'),
+                pref_time: formData.get('pref_time'),
+                terms: formData.get('terms') === 'on',
+                recaptcha: recaptchaResponse // Include reCAPTCHA response token
+            };
+            
+            fetch('{% url "healthcare-enquiry" %}', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    form.reset();
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    document.querySelector('.form-success').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-success').classList.add('hidden');
+                    }, 5000);
+
+                } else {
+                    document.querySelector('.loader').classList.add('hidden');
+                    document.querySelector('.form-error').classList.remove('hidden');
+                    const toastErrorElement = document.getElementById('toast2');
+                    toastErrorElement.querySelector('.toast-msg').textContent = data.error;
+
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
+                }
+            })
+            .catch(error => {
+                document.querySelector('.loader').classList.add('hidden');
+
+                document.querySelector('.form-error').classList.remove('hidden');
+                const toastErrorElement = document.getElementById('toast2');
+                toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                setTimeout(() => {
+                    document.querySelector('.form-error').classList.add('hidden');
+                }, 5000);
+            });
+        });
+    });
+    
+    </script>
+    {% include 'footer.html' %}
+    <script src="{%static 'scripts/whatsapp.js'%}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>

@@ -11,7 +11,7 @@ class enquryBase(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     user_email = models.EmailField()
-    country_code = models.CharField(max_length=10)
+    country_code = models.CharField(max_length=10, default="+971", blank=True)
     phone_number = models.CharField(max_length=20)
     agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -48,13 +48,13 @@ class healthcareEnquiry(enquryBase):
         healthcarePackages, on_delete=models.CASCADE, related_name="healthcare_package"
     )
     address = models.TextField(max_length=1000)
-    conditions = models.TextField(max_length=1000)
+    conditions = models.TextField(max_length=1000, null=True, blank=True)
     pref_date = models.DateField()
     pref_time = models.TimeField()
 
     def __str__(self):
         return str(self.package) + " - " + str(self.pref_date)
-    
+
     class Meta:
         verbose_name_plural = "Healthcare Enquiries"
 
@@ -73,6 +73,6 @@ class serviceEnquiry(enquryBase):
 
     def __str__(self):
         return str(self.service) + " - " + str(self.message)[:50] + "..."
-    
+
     class Meta:
         verbose_name_plural = "Service Enquiries"

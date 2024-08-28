@@ -1,0 +1,73 @@
+version: '3.10'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PROD_PASS}
+      MYSQL_DATABASE: doctoroncall
+      MYSQL_USER: ${DB_PROD_USER}
+      MYSQL_PASSWORD: ${DB_PROD_PASS}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    networks:
+      - app-network
+    
+  backend_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/800Doctors
+      - ./static:/800Doctors/static
+      - ./media:/800Doctors/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DATABASE_URL=mysql://root:${DB_PROD_PASS}@db:3306/doctoroncall
+    restart: always
+    networks:
+      - app-network
+ 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - backend_app
+    volumes:
+      - ./static:/800Doctors/static
+      - ./media:/800Doctors/media
+    restart: always
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:

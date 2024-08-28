@@ -16,12 +16,41 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf import settings
 from django.views.static import serve
+from django.conf.urls import handler404
+from django.views.generic import TemplateView
+from inquiries.views import (
+    generalEnquiryView,
+    healthcareEnquiryView,
+    serviceEnquiryView,
+)
+
+
+admin.site.site_title = "*00Doctor Admin"
+admin.site.site_header = "800Doctor Admin"
 
 urlpatterns = [
+    re_path(r'^robots\.txt$', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
     path("admin/", admin.site.urls),
+    path("enquiry/general/", generalEnquiryView.as_view(), name="general-enquiry"),
+    path(
+        "enquiry/healthcare/",
+        healthcareEnquiryView.as_view(),
+        name="healthcare-enquiry",
+    ),
+    path("enquiry/service/", serviceEnquiryView.as_view(), name="service-enquiry"),
+    path("", include("content.urls")),
+    path("", include("core.urls")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ]
+
+handler404 = "core.views.notfound_page"

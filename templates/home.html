@@ -1,0 +1,279 @@
+{%load static%}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css'%}">
+    {% include 'favicon.html' %}
+    <title>Home</title>
+</head>
+
+<body>
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+
+    <section id="home" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="hero-content">
+                <h1 class="main-heading"><span class="text-primary-700">Expert Care</span>,<br>Right to Your Door.</h1>
+                <p>800Doctor provides immediate, high-quality medical care at your convenience. Our
+                    licensed professionals offer personalized healthcare services, available 24/7, 365 days a year,
+                    ensuring you get the best care without leaving your home.</p>
+                <div class="hero-cta">
+                    <a class="cta-primary" href="{% url 'about-us' %}#getInTouch">Book an Appointment</a>
+                    <a class="cta-outline" href="{% url 'services' %}">Explore Services</a>
+                </div>
+                <div class="stat-row">
+                    <div class="stat">
+                        <span class="stat-number">294</span>
+                        <p class="stat-description">Patients Served</p>
+                    </div>
+                    <div class="stat border-r-transparent">
+                        <span class="stat-number">294</span>
+                        <p class="stat-description">Doctors Enrolled</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'assets/images/hero-img.png' %}" alt="" class="h-full w-full object-contain">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-container">
+            <div class="section-image">
+                <img src="{% static 'assets/images/about-img.png' %}" alt="">
+            </div>
+            <div class="section-content">
+                <h2 class="section-heading">About Us</h2>
+                <h1 class="sub-heading">Exceptional Care, <br>Anytime, Anywhere</h1>
+                <p>800DOCTOR is a leading premium healthcare provider specializing in doctor-on-call and non-clinic
+                    based medical services in Dubai and the UAE. Since 2007, we've pioneered doctor-at-home and
+                    nurse-at-home services, growing into an extensive team of medical experts offering a wide range of
+                    home healthcare solutions.</p>
+                <a href="{% url 'about-us' %}" class="cta-primary mt-2">Know More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Our Services</h2>
+                <p>Quality Healthcare Delivered to Your Doorstep</p>
+            </div>
+            <div class="service-cards-container">
+                {% for service in services|slice:":6" %}
+                <div class="service-card group">
+                    <div class="service-card-icon-container">
+                        <lord-icon src="{{ service.icon_link }}" trigger="hover"
+                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        </lord-icon>
+                    </div>
+                    <h3 class="card-heading service-card-heading">{{ service.service_name }}</h3>
+                    <p class="service-card-description">{{ service.service_card_description }}</p>
+                    <a href="{% url 'service_detail' service.id %}" class="service-card-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% if services|length > 6 %}
+            <div class="flex flex-row items-center justify-center">
+                <a href="{% url 'services' %}" class="cta-outline mt-12 mx-auto w-fit group">More Services<i
+                        class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section id="working">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">How It Works</h2>
+                <p>Simple Steps to Access Quality Home Healthcare</p>
+            </div>
+            <div class="working-cards-container">
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">1</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">Contact Us</h3>
+                    <p class="working-card-description">Call 800DOCTOR (800 362867), book an appointment online, or
+                        request a callback.</p>
+                </div>
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">2</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">Schedule Your Appointment</h3>
+                    <p class="working-card-description">Choose a convenient date, time, and location for your
+                        consultation or service.</p>
+                </div>
+                <div class="working-card">
+                    <div class="working-card-number-container ">
+                        <span class="card-heading text-white">3</span>
+                    </div>
+                    <h3 class="card-heading working-card-heading">We Come to You</h3>
+                    <p class="working-card-description">Our team will arrive at your specified location within 60
+                        minutes.</p>
+                </div>
+            </div>
+            <div class="flex flex-row items-center justify-center">
+                <a href="{% url 'about-us' %}#getInTouch" class="cta-outline mt-12 mx-auto w-fit group">Contact Us<i
+                        class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Our Partners</h2>
+                <p>Trusted by companies of all sizes</p>
+            </div>
+            <div class="partner-grid">
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/alsaada.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/better_communities.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/damac.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/dmcc.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/dubai_electricity_and_water_authority.webp'%}" alt=""
+                        class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/emirates_nbd.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/esaad.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/gems_rewards.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo hidden lg:block">
+
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/gotriage.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/hayi.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/imdad.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/pure_heal.webp'%}" alt="" class="object-cover">
+                </div>
+                <div class="partner-logo">
+                    <img src="{%static '/assets/partners/the_entertainer.webp'%}" alt="" class="object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faqs">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading">Frequently asked questions</h2>
+                <p>Everything you need to know about the services and packages.</p>
+            </div>
+            <div id="faq-accordion" data-accordion="collapse"
+                data-active-classes="bg-light-blue-50 text-neutral-700"
+                data-inactive-classes="bg-transparent text-neutral-600">
+    
+                {% for faq in faqs %}
+                    <h2 id="accordion-heading-{{ forloop.counter }}">
+                        <button type="button" class="faq-heading" data-accordion-target="#accordion-body-{{ forloop.counter }}"
+                            aria-expanded="{{ forloop.first|yesno:"true,false" }}" aria-controls="accordion-body-{{ forloop.counter }}">
+                            <span>{{ faq.question }}</span>
+                            <svg data-accordion-icon class="w-3 h-3 {% if forloop.first %}rotate-180{% endif %} shrink-0" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5 5 1 1 5" />
+                            </svg>
+                        </button>
+                    </h2>
+                    <div id="accordion-body-{{ forloop.counter }}" class="{% if forloop.first %}block{% else %}hidden{% endif %}" aria-labelledby="accordion-heading-{{ forloop.counter }}">
+                        <div class="faq-answer">
+                            <p>{{ faq.answer }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">What Our Clients Say</h2>
+                <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
+            </div>
+            <div class="swiper testimonial-swiper overflow-hidden relative ">
+                <div class="testimonial-wrapper swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <div class="swiper-slide testimonial-card">
+                        <div class="stars text-primary-700">
+                            {% for _ in testimonial.full_rating|range_filter %}
+                                <i class="bi bi-star-fill"></i>  {# Full star #}
+                            {% endfor %}
+
+                            {% if testimonial.half_rating %}
+                                <i class="bi bi-star-half"></i>  {# Half star #}
+                            {% endif %}
+
+                            {% for _ in testimonial.empty_rating|range_filter %}
+                                <i class="bi bi-star"></i>  {# Empty star #}
+                            {% endfor %}
+
+
+                        </div>
+                        <p class="person-testimony">
+                            "{{ testimonial.testimonial }}"
+                        </p>
+                        <div>
+                            <p class="person-name">{{ testimonial.author }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p>No testimonials available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+</body>
+
+</html>
