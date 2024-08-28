@@ -29,7 +29,13 @@ production_level = os.getenv("PRODUCTION", False) == "True"
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*"]
 
 if production_level:
-    ALLOWED_HOSTS = ["52.8.40.24", "www.800doctor.com", "800doctor.com", "0.0.0.0", "172.31.0.244"]
+    ALLOWED_HOSTS = [
+        "52.8.40.24",
+        "www.800doctor.com",
+        "800doctor.com",
+        "0.0.0.0",
+        "172.31.0.244",
+    ]
 
 # Application definition
 
@@ -51,7 +57,7 @@ INSTALLED_APPS = [
     "core",
     "inquiries",
     "dynamic_linking",
-    "debug_toolbar"
+    "debug_toolbar",
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
@@ -68,7 +74,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware"
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -97,9 +103,9 @@ DATABASES_COMMON = {
     "ENGINE": "django.db.backends.mysql",
     "PORT": "3306",
     "NAME": "doctoroncall",
-    'OPTIONS': {
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'",
-    }
+    "OPTIONS": {
+        "init_command": "SET sql_mode='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'",
+    },
 }
 
 # Environment-specific settings
@@ -142,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Kolkata"
-if production_level:    
+if production_level:
     TIME_ZONE = "Asia/Dubai"
 
 USE_I18N = True
@@ -225,12 +231,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 EMAIL_USE_TLS = True
 
-INTERNAL_IPS = [
-    "localhost",
-    "127.0.0.1",
-    "52.8.40.24",
-    "172.31.0.244"
-]
+INTERNAL_IPS = ["localhost", "127.0.0.1", "52.8.40.24", "172.31.0.244"]
 
 
 if production_level:
@@ -238,7 +239,11 @@ if production_level:
     # SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # If you want to apply HSTS to all subdomains as well
     # SECURE_HSTS_PRELOAD = True  # Allows your domain to be included in browsers' HSTS preload list
     # SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
+    CSRF_TRUSTED_ORIGINS = [
+        "http://52.8.40.24",
+        "https://www.800doctor.com",
+        "http://127.0.0.1:8000/",
+    ]
     SECURE_CROSS_ORIGIN_OPENER_POLICY = None
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
