@@ -111,7 +111,7 @@ DATABASES_COMMON = {
 }
 
 # Environment-specific settings
-if not production_level:
+if production_level:
     DATABASES = {
         "default": {
             **DATABASES_COMMON,
