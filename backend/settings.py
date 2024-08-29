@@ -35,6 +35,8 @@ if production_level:
         "800doctor.com",
         "0.0.0.0",
         "172.31.0.244",
+        "localhost",
+        "127.0.0.1",
     ]
 
 # Application definition
@@ -109,7 +111,7 @@ DATABASES_COMMON = {
 }
 
 # Environment-specific settings
-if production_level:
+if not production_level:
     DATABASES = {
         "default": {
             **DATABASES_COMMON,
@@ -239,11 +241,15 @@ if production_level:
     # SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # If you want to apply HSTS to all subdomains as well
     # SECURE_HSTS_PRELOAD = True  # Allows your domain to be included in browsers' HSTS preload list
     # SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
+    CSRF_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [
         "http://52.8.40.24",
         "https://www.800doctor.com",
         "http://127.0.0.1:8000/",
     ]
     SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    CSRF_ALLOWED_ORIGINS = [
+        "http://52.8.40.24",
+        "https://www.800doctor.com",
+    ]
+    # SESSION_COOKIE_SECURE = True
