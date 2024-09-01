@@ -252,12 +252,13 @@ if production_level:
     CSRF_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = [
         "http://52.8.40.24",
-        "https://www.800doctor.com",
+        "https://*.800doctor.com",
         "http://127.0.0.1:8000/",
+        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"
     ]
     SECURE_CROSS_ORIGIN_OPENER_POLICY = None
     CSRF_ALLOWED_ORIGINS = [
         "http://52.8.40.24",
-        "https://www.800doctor.com",
+        "https://*.800doctor.com",
     ]
     # SESSION_COOKIE_SECURE = True
