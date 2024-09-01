@@ -1,4 +1,5 @@
 from django.urls import path
+from dynamic_linking.models import DynamicLinking
 from .views import (
     # ServiceListView,
     IndexPageView,
@@ -14,8 +15,8 @@ from .views import (
     PrivacyPolicyView,
     RightsView,
     DisclaimerView,
+    thank_you_view,
 )
-from dynamic_linking.models import DynamicLinking
 
 
 def dynamic_urlpatterns():
@@ -35,7 +36,9 @@ def dynamic_urlpatterns():
 
 dynamic_pattern = dynamic_urlpatterns()
 if len(dynamic_pattern) == 0:
-    dynamic_pattern = [path("doctor-on-call", IndexPageView.as_view(), name="dynamic-link")]
+    dynamic_pattern = [
+        path("doctor-on-call", IndexPageView.as_view(), name="dynamic-link")
+    ]
 
 urlpatterns = [
     # API services
@@ -63,4 +66,5 @@ urlpatterns = [
     path("privacy-policy/", PrivacyPolicyView.as_view(), name="privacy-policy"),
     path("rights/", RightsView.as_view(), name="rights"),
     path("disclaimer/", DisclaimerView.as_view(), name="disclaimer"),
+    path("success/", thank_you_view, name="success"),
 ]

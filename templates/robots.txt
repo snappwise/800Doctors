@@ -3,3 +3,4 @@ Disallow: /admin/
 Disallow: /accounts/
 Disallow: /static/
 Disallow: /media/
+Disallow: /success/

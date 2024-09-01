@@ -1,3 +1,5 @@
+import logging
+from django.http import Http404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,7 +9,6 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.templatetags.static import static
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
-import logging
 from inquiries.views import get_client_ip, send_alert_email
 
 from core.models import (
@@ -286,7 +287,7 @@ class IndexPageView(TemplateView):
                 "services": serialized_services,
                 "testimonials": serialized_testimonials,
                 "recaptcha_site_key": recaptcha_site_key,
-                "noindex" : True
+                "noindex": True,
             }
         )
 
@@ -507,3 +508,22 @@ class DisclaimerView(TemplateView):
     """
 
     template_name = "disclaimer.html"
+
+
+def get_referer(request):
+    """
+    Get the referer URL from the request headers.
+    """
+    referer = request.META.get("HTTP_REFERER")
+    if not referer:
+        return None
+    return referer
+
+
+def thank_you_view(request):
+    """
+    View for the Thank You page.
+    """
+    if not get_referer(request):
+        raise Http404("Page not found")
+    return render(request, "thank_you.html", {})

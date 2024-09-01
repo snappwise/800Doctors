@@ -462,11 +462,13 @@
                         form.reset();
                         document.querySelector('.loader').classList.add('hidden');
 
-                        document.querySelector('.form-success').classList.remove('hidden');
+                        `document.querySelector('.form-success').classList.remove('hidden');
 
                         setTimeout(() => {
                             document.querySelector('.form-success').classList.add('hidden');
-                        }, 5000);
+                        }, 5000);`
+
+                        window.location.href = "{% url 'success' %}";
 
                     } else {
                         const toastErrorElement = document.getElementById('toast2');
