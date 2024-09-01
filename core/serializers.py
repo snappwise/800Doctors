@@ -5,7 +5,8 @@ from core.models import (
     healthcarePackages,
     Faqs,
     Testimonials,
-    Journey,
+    NewsletterSubscription,
+    # Journey,
     CareerPage,
 )
 
@@ -76,16 +77,16 @@ class TestimonialsSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class JourneySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Journey
-        fields = "__all__"
+# class JourneySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Journey
+#         fields = "__all__"
 
-    def create(self, validated_data):
-        return Journey.objects.create(**validated_data)
+#     def create(self, validated_data):
+#         return Journey.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+#     def update(self, instance, validated_data):
+#         return super().update(instance, validated_data)
 
 
 class CareerPageSerializer(serializers.ModelSerializer):
@@ -95,6 +96,18 @@ class CareerPageSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CareerPage.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class NewsletterSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsletterSubscription
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return NewsletterSubscription.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)

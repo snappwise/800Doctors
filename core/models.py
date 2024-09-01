@@ -148,8 +148,8 @@ class Faqs(seoBase):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    question = models.TextField(max_length=300)
-    answer = models.TextField(max_length=500)
+    question = models.TextField(max_length=1000)
+    answer = models.TextField(max_length=1000)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -209,27 +209,45 @@ class Testimonials(seoBase):
         verbose_name_plural = "Testimonials"
 
 
-class Journey(seoBase):
+# class Journey(seoBase):
+#     """
+#     This model is used to store the journey of the company
+#     """
+
+#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+#     journey_title = models.CharField(max_length=150)
+#     journey_description = models.TextField(max_length=500)
+#     sequence = models.IntegerField()
+#     is_active = models.BooleanField(default=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return str(self.journey_title)
+
+#     def soft_delete(self):
+#         self.is_active = False
+#         self.save()
+
+#     class Meta:
+#         verbose_name_plural = "Journey"
+
+
+class NewsletterSubscription(models.Model):
     """
-    This model is used to store the journey of the company
+    This model is used to store the newsletter subscription form data
     """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    journey_title = models.CharField(max_length=150)
-    journey_description = models.TextField(max_length=500)
-    sequence = models.IntegerField()
-    is_active = models.BooleanField(default=True)
+    email = models.EmailField(unique=True)
+    user_ip = models.GenericIPAddressField(blank=True, null=True)
+    user_agent = models.TextField(max_length=1000, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.journey_title)
-
-    def soft_delete(self):
-        self.is_active = False
-        self.save()
+        return str(self.email)
 
     class Meta:
-        verbose_name_plural = "Journey"
+        verbose_name_plural = "Newsletter Subscriptions"
 
 
 class CareerPage(models.Model):

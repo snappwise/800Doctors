@@ -38,7 +38,7 @@
             </div>
         </div>
     </section>
-    <section id="timeline">
+    <!-- <section id="timeline">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Our Timeline</h2>
@@ -59,7 +59,7 @@
                 {% endfor %}
             </div>
         </div>
-    </section>
+    </section> -->
     
     <section id="features">
         <div class="section-container">
@@ -273,6 +273,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    grecaptcha.reset();
                     if (data.status === 'success') {
                         form.reset();
                         document.querySelector('.loader').classList.add('hidden');
@@ -298,6 +299,7 @@
                 })
                 .catch(error => {
                     document.querySelector('.loader').classList.add('hidden');
+                    grecaptcha.reset();
 
                     document.querySelector('.form-error').classList.remove('hidden');
 

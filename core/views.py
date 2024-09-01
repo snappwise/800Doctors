@@ -16,14 +16,15 @@ from core.models import (
     healthcarePackages,
     Faqs,
     Testimonials,
-    Journey,
+    # Journey,
 )
 from core.serializers import (
     ServicesSerializer,
     healthcarePackagesSerializer,
     FaqsSerializer,
     TestimonialsSerializer,
-    JourneySerializer,
+    NewsletterSubscriptionSerializer,
+    # JourneySerializer,
     CareerPageSerializer,
 )
 
@@ -153,32 +154,32 @@ class TestimonialsView(APIView):
             )
 
 
-class JourneyView(APIView):
-    """
-    This view is used to store the journey information
-    """
+# class JourneyView(APIView):
+#     """
+#     This view is used to store the journey information
+#     """
 
-    def get(self, request):
-        try:
-            journey = Journey.objects.filter(is_active=True).order_by("sequence")
-            serializer = JourneySerializer(journey, many=True)
-            return Response(
-                {
-                    "status": "success",
-                    "message": "Journey fetched successfully.",
-                    "data": serializer.data,
-                },
-                status=status.HTTP_200_OK,
-            )
-        except Exception as e:
-            print("Error fetching journey:", e)
-            return Response(
-                {
-                    "status": "error",
-                    "message": "Failed to fetch journey.",
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+#     def get(self, request):
+#         try:
+#             journey = Journey.objects.filter(is_active=True).order_by("sequence")
+#             serializer = JourneySerializer(journey, many=True)
+#             return Response(
+#                 {
+#                     "status": "success",
+#                     "message": "Journey fetched successfully.",
+#                     "data": serializer.data,
+#                 },
+#                 status=status.HTTP_200_OK,
+#             )
+#         except Exception as e:
+#             print("Error fetching journey:", e)
+#             return Response(
+#                 {
+#                     "status": "error",
+#                     "message": "Failed to fetch journey.",
+#                 },
+#                 status=status.HTTP_400_BAD_REQUEST,
+#             )
 
 
 class CareerPageEnquiryView(APIView):
@@ -423,6 +424,40 @@ class HomeView(TemplateView):
         return context
 
 
+class NewsletterSubscriptionView(APIView):
+    """
+    This view is used to store the newsletter subscription information
+    """
+
+    def post(self, request):
+        try:
+            data = request.data.copy()
+            data["user_ip"] = get_client_ip(request)
+            data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+            serializer = NewsletterSubscriptionSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Newsletter subscription submitted successfully.",
+                    "data": data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        except Exception as e:
+            print("Error submitting newsletter subscription:", e)
+            return Response(
+                {
+                    "status": "error",
+                    "message": "Failed to submit newsletter subscription.",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
 class AboutUsPageView(TemplateView):
     template_name = "about.html"
 
@@ -432,9 +467,9 @@ class AboutUsPageView(TemplateView):
 
         try:
             # Retrieve and process journeys, ensuring order by sequence
-            context["journeys"] = Journey.objects.filter(is_active=True).order_by(
-                "sequence"
-            )
+            # context["journeys"] = Journey.objects.filter(is_active=True).order_by(
+            #     "sequence"
+            # )
 
             # Retrieve and process testimonials, ordered by creation date
             context["testimonials"] = Testimonials.objects.filter(
@@ -447,8 +482,8 @@ class AboutUsPageView(TemplateView):
                 raise ImproperlyConfigured("No recaptcha site key found.")
             context["recaptcha_site_key"] = recaptcha_site_key
 
-        except Journey.DoesNotExist:
-            context["journeys"] = []
+        # except Journey.DoesNotExist:
+        #     context["journeys"] = []
         except Testimonials.DoesNotExist:
             context["testimonials"] = []
 
