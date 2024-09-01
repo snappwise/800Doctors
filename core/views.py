@@ -286,6 +286,7 @@ class IndexPageView(TemplateView):
                 "services": serialized_services,
                 "testimonials": serialized_testimonials,
                 "recaptcha_site_key": recaptcha_site_key,
+                "noindex" : True
             }
         )
 

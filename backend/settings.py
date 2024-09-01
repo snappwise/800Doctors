@@ -218,8 +218,16 @@ LOGGING = {
 }
 
 
-RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_SITE_KEY = (
+    os.getenv("PROD_RECAPTCHA_SITE_KEY")
+    if production_level
+    else os.getenv("RECAPTCHA_SITE_KEY")
+)
+RECAPTCHA_SECRET_KEY = (
+    os.getenv("PROD_RECAPTCHA_SECRET_KEY")
+    if production_level
+    else os.getenv("RECAPTCHA_SECRET_KEY")
+)
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
