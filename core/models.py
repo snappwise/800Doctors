@@ -30,7 +30,7 @@ class Services(seoBase):
     service_card_description = models.TextField(max_length=300)
     service_photo = models.ImageField(upload_to="service_photos/", validators=[validate_image_size])
     service_details = RichTextField()
-    service_quote = models.CharField(max_length=250)
+    # service_quote = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
