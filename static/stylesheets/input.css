@@ -147,7 +147,7 @@
   }
 
   .cta-whatsapp {
-    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-30;
+    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-40;
   }
 }
 
@@ -177,7 +177,7 @@
   }
 
   .navbar {
-    @apply bg-white fixed w-screen z-40 top-0 start-0;
+    @apply bg-white fixed w-screen z-40 top-0 start-0 z-50;
   }
 
   .navbar-container {
@@ -443,7 +443,7 @@
   /* GALLERY PAGE*/
 
   .carousel-control-prev {
-    @apply absolute top-0 start-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-prev-btn,
@@ -452,11 +452,11 @@
   }
 
   .carousel-control-next {
-    @apply absolute top-0 end-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-dots {
-    @apply absolute z-10 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
+    @apply absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
   }
 
   .carousel-control-dot {

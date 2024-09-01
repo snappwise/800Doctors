@@ -150,6 +150,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                grecaptcha.reset();
                 if (data.status === 'success') {
                     form.reset();
                     document.querySelector('.loader').classList.add('hidden');
@@ -173,7 +174,7 @@
             })
             .catch(error => {
                 document.querySelector('.loader').classList.add('hidden');
-
+                grecaptcha.reset();
                 document.querySelector('.form-error').classList.remove('hidden');
                 const toastErrorElement = document.getElementById('toast2');
                 toastErrorElement.querySelector('.toast-msg').textContent = data.message;

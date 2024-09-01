@@ -82,12 +82,25 @@
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
-                document.querySelector('.loader').classList.remove('hidden');
-            
+                
                 const formData = new FormData(form);
                 formData.append('agreement', formData.get('terms') === 'on');
                 const recaptchaResponse = formData.get('g-recaptcha-response');
-    
+
+                if (!recaptchaResponse) {
+                    document.querySelector('.form-warning').classList.remove('hidden');
+                    
+                    const toastErrorElement = document.getElementById('toast3');
+                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+                    
+                    setTimeout(() => {
+                        document.querySelector('.form-warning').classList.add('hidden');
+                    }, 3000);
+                    
+                    return;
+                }
+                
+                document.querySelector('.loader').classList.remove('hidden');
                 fetch('{% url "career-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
                     body: formData, // Send FormData object including file
@@ -97,6 +110,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    grecaptcha.reset();
                     if (data.status === 'success') {
                         form.reset();
                         document.querySelector('.loader').classList.add('hidden');
@@ -121,6 +135,7 @@
                     }
                 })
                 .catch(error => {
+                    grecaptcha.reset();
                     document.querySelector('.loader').classList.add('hidden');
 
                     document.querySelector('.form-error').classList.remove('hidden');

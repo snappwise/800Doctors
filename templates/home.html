@@ -19,7 +19,7 @@
 
 <body>
     {% include 'whatsapp.html' %}
-
+    {% include 'alerts.html' %}
     {% include 'navbar.html' %}
 
     <section id="home" class="pt-16 lg:pt-20">
@@ -35,11 +35,11 @@
                 </div>
                 <div class="stat-row">
                     <div class="stat">
-                        <span class="stat-number">294</span>
-                        <p class="stat-description">Patients Served</p>
+                        <span class="stat-number">250,000+</span>
+                        <p class="stat-description">Happy Clients</p>
                     </div>
-                    <div class="stat border-r-transparent">
-                        <span class="stat-number">294</span>
+                    <div class="stat">
+                        <span class="stat-number">20+</span>
                         <p class="stat-description">Doctors Enrolled</p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="service-cards-container">
                 {% for service in services|slice:":6" %}
-                <div class="service-card group">
+                <a href="{% url 'service_detail' service.id %}" class="service-card group">
                     <div class="service-card-icon-container">
                         <lord-icon src="{{ service.icon_link }}" trigger="hover"
                             class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
@@ -83,14 +83,14 @@
                     </div>
                     <h3 class="card-heading service-card-heading">{{ service.service_name }}</h3>
                     <p class="service-card-description">{{ service.service_card_description }}</p>
-                    <a href="{% url 'service_detail' service.id %}" class="service-card-link">
+                    <div class="service-card-link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             class="bi bi-arrow-right service-card-link-icon" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
                                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                         </svg>
-                    </a>
-                </div>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
             {% if services|length > 6 %}

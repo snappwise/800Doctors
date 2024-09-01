@@ -1,6 +1,6 @@
 from django.urls import path
 from dynamic_linking.models import DynamicLinking
-from .views import (
+from core.views import (
     # ServiceListView,
     IndexPageView,
     ServicesPageView,
@@ -16,6 +16,7 @@ from .views import (
     RightsView,
     DisclaimerView,
     thank_you_view,
+    NewsletterSubscriptionView,
 )
 
 
@@ -67,4 +68,9 @@ urlpatterns = [
     path("rights/", RightsView.as_view(), name="rights"),
     path("disclaimer/", DisclaimerView.as_view(), name="disclaimer"),
     path("success/", thank_you_view, name="success"),
+    path(
+        "newletter-subscribe/",
+        NewsletterSubscriptionView.as_view(),
+        name="newsletter-subscribe",
+    ),
 ]

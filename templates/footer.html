@@ -3,12 +3,12 @@
     <div class="section-container">
         <div class="footer-content">
             <div class="footer-about">
-                <div class="footer-logo">
+                <a href="{% url 'home' %}" class="footer-logo">
                     <img src="{% static 'assets/logos/main-logo.png' %}" alt="">
-                </div>
-                <div class="footer-logo h-12">
+                </a>
+                <a href="www.advethealth.com" class="footer-logo h-12">
                     <img src="{% static 'assets/logos/advet-health-logo.png' %}" alt="">
-                </div>
+                </a>
                 <p>800DOCTOR is one of the pioneers dedicated entirely to doctor-on-call services and home health
                     care in the UAE.</p>
             </div>
@@ -35,9 +35,9 @@
             <div class="footer-subscribe">
                 <div class="footer-newsletter">
                     <h4 class="footer-heading">Newsletter</h4>
-                    <form action="" class="footer-newsletter-form">
-                        <input type="email" name="" id="" placeholder="Enter Your email address">
-                        <button class="cta-primary w-full">Subscribe Now</button>
+                    <form class="footer-newsletter-form" id="newsletter-subscription-form">
+                        <input type="email" name="email" placeholder="Enter Your email address" required>
+                        <button class="cta-primary w-full" type="submit">Subscribe Now</button>
                     </form>
                 </div>
                 <div class="footer-socials">
@@ -73,4 +73,50 @@
             &copy; Copyright 2024. All rights reserved by 800Doctor.
         </p>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('newsletter-subscription-form');
+            
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+    
+                // Create a FormData object from the form
+                const formData = new FormData(form);
+                
+                // Convert FormData to a plain object
+                const data = {
+                    email: formData.get('email'),
+                };
+
+                fetch('{% url "newsletter-subscribe" %}', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    form.reset();
+                        document.querySelector('.form-success').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        document.querySelector('.form-success').classList.add('hidden');
+                    }, 5000);   
+                })
+                .catch(error => {
+    
+                    document.querySelector('.form-error').classList.remove('hidden');
+                    const toastErrorElement = document.getElementById('toast2');
+                    toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+    
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
+                });
+            });
+        });
+        
+        </script>
 </footer>

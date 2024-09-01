@@ -5,7 +5,8 @@ from core.models import (
     healthcarePackages,
     Testimonials,
     Faqs,
-    Journey,
+    # Journey,
+    NewsletterSubscription,
     CareerPage,
 )
 from django.utils.html import format_html
@@ -330,60 +331,67 @@ class faqsAdmin(admin.ModelAdmin):
     restore.short_description = "Restore selected records"
 
 
-class journeyAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "journey_title",
-        "journey_description",
-        "sequence",
-        "created_at",
-        "is_active",
-        "Action",
-    )
-    search_fields = ("journey_title", "journey_description")
-    list_filter = ("is_active",)
-    ordering = ("-created_at", "sequence")
-    actions = ["soft_delete", "restore"]
+# class journeyAdmin(admin.ModelAdmin):
+#     list_display = (
+#         "id",
+#         "journey_title",
+#         "journey_description",
+#         "sequence",
+#         "created_at",
+#         "is_active",
+#         "Action",
+#     )
+#     search_fields = ("journey_title", "journey_description")
+#     list_filter = ("is_active",)
+#     ordering = ("-created_at", "sequence")
+#     actions = ["soft_delete", "restore"]
+#     list_per_page = 10
+
+#     def journey_title(self, obj):
+#         try:
+#             return truncatechars(obj.journey_title, 50)
+#         except Exception:
+#             return obj.journey_title
+
+#     def journey_description(self, obj):
+#         try:
+#             return truncatechars(obj.journey_description, 50)
+#         except Exception:
+#             return obj.journey_description
+
+#     def Action(self, obj):
+#         return format_html(
+#             f'<a href = "/admin/core/journey/{obj.id}/change/" class="default">edit</a>'
+#         )
+
+#     def soft_delete(self, request, queryset):
+#         """
+#         Mark selected records as inactive (soft delete).
+#         """
+#         updated_count = queryset.update(is_active=False)
+#         self.message_user(
+#             request, f"{updated_count} records were successfully marked as inactive."
+#         )
+
+#     soft_delete.short_description = "Mark selected records as inactive"
+
+#     def restore(self, request, queryset):
+#         """
+#         Restore selected records.
+#         """
+#         updated_count = queryset.update(is_active=True)
+#         self.message_user(
+#             request, f"{updated_count} records were successfully restored."
+#         )
+
+#     restore.short_description = "Restore selected records"
+
+
+class NewsletterSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ("id", "email", "created_at")
+    search_fields = ("email",)
+    ordering = ("-created_at",)
     list_per_page = 10
-
-    def journey_title(self, obj):
-        try:
-            return truncatechars(obj.journey_title, 50)
-        except Exception:
-            return obj.journey_title
-
-    def journey_description(self, obj):
-        try:
-            return truncatechars(obj.journey_description, 50)
-        except Exception:
-            return obj.journey_description
-
-    def Action(self, obj):
-        return format_html(
-            f'<a href = "/admin/core/journey/{obj.id}/change/" class="default">edit</a>'
-        )
-
-    def soft_delete(self, request, queryset):
-        """
-        Mark selected records as inactive (soft delete).
-        """
-        updated_count = queryset.update(is_active=False)
-        self.message_user(
-            request, f"{updated_count} records were successfully marked as inactive."
-        )
-
-    soft_delete.short_description = "Mark selected records as inactive"
-
-    def restore(self, request, queryset):
-        """
-        Restore selected records.
-        """
-        updated_count = queryset.update(is_active=True)
-        self.message_user(
-            request, f"{updated_count} records were successfully restored."
-        )
-
-    restore.short_description = "Restore selected records"
 
 
 class CareerPageAdmin(admin.ModelAdmin):
@@ -422,5 +430,6 @@ admin.site.register(healthcareCategories, healthcareCategoriesAdmin)
 admin.site.register(healthcarePackages, healthcarePackagesAdmin)
 admin.site.register(Testimonials, TestimonialsAdmin)
 admin.site.register(Faqs, faqsAdmin)
-admin.site.register(Journey, journeyAdmin)
+# admin.site.register(Journey, journeyAdmin)
+admin.site.register(NewsletterSubscription, NewsletterSubscriptionAdmin)
 admin.site.register(CareerPage, CareerPageAdmin)
