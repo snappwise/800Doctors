@@ -1327,6 +1327,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 #home .section-container,
   #about .section-container,
+  #aboutServices .section-container,
   .service-page-contact,
   .service-info-container,
   .package-info-container{
@@ -1339,6 +1340,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
 @media (min-width: 1024px){
   #home .section-container,
   #about .section-container,
+  #aboutServices .section-container,
   .service-page-contact,
   .service-info-container,
   .package-info-container{
@@ -1468,6 +1470,8 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .section-image{
   grid-column: span 2 / span 2;
+  overflow: hidden;
+  border-radius: 0.75rem;
 }
 
 @media (min-width: 768px){

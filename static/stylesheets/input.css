@@ -222,6 +222,7 @@
 
   #home .section-container,
   #about .section-container,
+  #aboutServices .section-container,
   .service-page-contact,
   .service-info-container,
   .package-info-container {
@@ -261,7 +262,7 @@
   }
 
   .section-image {
-    @apply col-span-2 md:col-span-1;
+    @apply col-span-2 md:col-span-1 rounded-xl overflow-hidden;
   }
 
   .service-cards-container,
