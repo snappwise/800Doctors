@@ -7,6 +7,13 @@
 <html lang="en">
 
 <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WJ3NZKP');</script>
+        
+        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if noindex %}
@@ -23,6 +30,9 @@
 </head>
 
 <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ3NZKP"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>        
+        
     {% include 'alerts.html' %}
 
     {% include 'whatsapp.html' %}
@@ -30,9 +40,9 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a>
-                <img src="{% static 'assets/logos/main-logo.png' %}" class="navbar-logo" alt="800 Doctors Logo">
+                <img src="{% static 'assets/logos/main-logo.png' %}" class="navbar-logo" alt="800Doctor Logo">
             </a>
-            <a href="tel:+97800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
+            <a href="tel:+971800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
         </div>
     </nav>
 
@@ -44,7 +54,7 @@
                     licensed professionals offer personalized healthcare services, available 24/7, 365 days a year,
                     ensuring you get the best care without leaving your home.</p>
                 <div class="hero-cta">
-                    <a class="cta-primary" href="tel:+97800362867">Call Now +97800362867</a>
+                    <a class="cta-primary" href="tel:+971800362867">Call Now +971 800 362867</a>
                     <a class="cta-outline" href="#enquiryForm">Contact Us</a>
                 </div>
                 <div class="stat-row">
@@ -67,7 +77,7 @@
     <section id="about">
         <div class="section-container">
             <div class="section-image">
-                <img src="{% static 'assets/images/about-img.png'%}" alt="">
+                <img src="{% static 'assets/images/8D - Car - 01.jpeg'%}" alt="">
             </div>
             <div class="section-content">
                 <h2 class="section-heading">About Us</h2>
@@ -373,7 +383,7 @@
             </div>
             <div class="service-page-contact">
                 <div class="image-container">
-                    <img src="{% static 'assets/images/doc.jpg' %}" alt="doc image">
+                    <img src="{% static 'assets/images/8D - Car - 07.jpg' %}" alt="doc image">
                 </div>
                 <form class="form-container" id="enquiryForm" method="post">
                     <div class="dual-input">
@@ -410,7 +420,7 @@
             </div>
         </div>
     </section>
-
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('enquiryForm');
@@ -446,13 +456,15 @@
                     'g-recaptcha-response': formData.get('g-recaptcha-response')
 
                 };
+
+                var csrftoken = Cookies.get('csrftoken');
         
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
+                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
                     }
                 })
                 .then(response => response.json())
@@ -460,14 +472,7 @@
                     grecaptcha.reset();
                     document.querySelector('.loader').classList.add('hidden');
                     if (data.status === 'success') {
-                        console.log(data);
                         form.reset();
-
-                        `document.querySelector('.form-success').classList.remove('hidden');
-
-                        setTimeout(() => {
-                            document.querySelector('.form-success').classList.add('hidden');
-                        }, 5000);`
 
                         window.location.href = "{% url 'success' %}";
 

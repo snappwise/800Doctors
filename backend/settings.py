@@ -33,6 +33,9 @@ if production_level:
         "52.8.40.24",
         "www.800doctor.com",
         "800doctor.com",
+        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com",
+        "52.8.167.129",
+        "54.219.153.156",
         "0.0.0.0",
         "172.31.0.244",
         "localhost",
@@ -90,9 +93,6 @@ if not production_level:
     )
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
 }
 
@@ -258,7 +258,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 EMAIL_USE_TLS = True
 
-INTERNAL_IPS = ["localhost", "127.0.0.1", "52.8.40.24", "172.31.0.244"]
+INTERNAL_IPS = ["localhost", "127.0.0.1", "52.8.40.24", "172.31.0.244", "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"]
 
 
 if production_level:
@@ -277,5 +277,6 @@ if production_level:
     CSRF_ALLOWED_ORIGINS = [
         "http://52.8.40.24",
         "https://*.800doctor.com",
+        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"
     ]
     # SESSION_COOKIE_SECURE = True

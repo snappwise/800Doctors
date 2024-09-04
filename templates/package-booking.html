@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'stylesheets/output.css'%}">
     {% include 'favicon.html' %}
-    <title>Book Package</title>
+    <title>Book Healthcare Package</title>
 </head>
 
 <body>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </section>  
-    
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         // Set the minimum date to today
         const today = new Date().toISOString().split('T')[0];
@@ -139,13 +139,13 @@
                 terms: formData.get('terms') === 'on',
                 recaptcha: recaptchaResponse // Include reCAPTCHA response token
             };
-            
+            var csrftoken = Cookies.get('csrftoken');
             fetch('{% url "healthcare-enquiry" %}', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': csrftoken
                 }
             })
             .then(response => response.json())
