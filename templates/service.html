@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
     {% include 'favicon.html' %}
-    <title>Service</title>
+    <title>Service | {{ service.service_name }}</title>
 </head>
 
 <body>
@@ -90,7 +90,7 @@
     <!-- Include reCAPTCHA API -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
-    
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('serviceEnquiryForm');
@@ -126,13 +126,13 @@
                     service: formData.get('service'), // Get the hidden service ID
                     'g-recaptcha-response': recaptchaResponse // Add reCAPTCHA response token
                 };
-        
+                var csrftoken = Cookies.get('csrftoken');
                 fetch('{% url "service-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
+                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
                     }
                 })
                 .then(response => response.json())

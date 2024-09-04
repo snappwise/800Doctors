@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 import requests
 
 from inquiries.serializers import (
@@ -11,8 +12,6 @@ from inquiries.serializers import (
     healthcareEnquirySerializer,
     serviceEnquirySerializer,
 )
-
-from django.core.mail import EmailMultiAlternatives
 
 
 def get_client_ip(request):
@@ -123,7 +122,9 @@ class generalEnquiryView(APIView):
                 "response": recaptcha_response,
             }
 
-            recaptcha_response = requests.post(recaptcha_url, data=recaptcha_data)
+            recaptcha_response = requests.post(
+                recaptcha_url, data=recaptcha_data, timeout=5
+            )
             recaptcha_result = recaptcha_response.json()
             if not recaptcha_result.get("success"):
                 print("here!")
@@ -194,7 +195,9 @@ class healthcareEnquiryView(APIView):
                 "secret": recaptcha_secret_key,
                 "response": recaptcha_response,
             }
-            recaptcha_result = requests.post(recaptcha_url, data=recaptcha_data).json()
+            recaptcha_result = requests.post(
+                recaptcha_url, data=recaptcha_data, timeout=5
+            ).json()
 
             if not recaptcha_result.get("success"):
                 return Response(
@@ -276,7 +279,9 @@ class serviceEnquiryView(APIView):
                 "response": recaptcha_response,
             }
 
-            recaptcha_response = requests.post(recaptcha_url, data=recaptcha_data)
+            recaptcha_response = requests.post(
+                recaptcha_url, data=recaptcha_data, timeout=5
+            )
             recaptcha_result = recaptcha_response.json()
 
             if not recaptcha_result.get("success"):

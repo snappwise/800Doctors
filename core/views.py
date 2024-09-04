@@ -199,7 +199,9 @@ class CareerPageEnquiryView(APIView):
                 "secret": recaptcha_secret_key,
                 "response": recaptcha_response,
             }
-            recaptcha_result = requests.post(recaptcha_url, data=recaptcha_data).json()
+            recaptcha_result = requests.post(
+                recaptcha_url, data=recaptcha_data, timeout=5
+            ).json()
 
             if not recaptcha_result.get("success"):
                 return Response(

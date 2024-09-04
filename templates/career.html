@@ -74,7 +74,7 @@
             </div>
     </section>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('careerPageForm');
@@ -99,13 +99,13 @@
                     
                     return;
                 }
-                
+                var csrftoken = Cookies.get('csrftoken');
                 document.querySelector('.loader').classList.remove('hidden');
                 fetch('{% url "career-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
                     body: formData, // Send FormData object including file
                     headers: {
-                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token for Django security
+                        'X-CSRFToken':  csrftoken // Include CSRF token for Django security
                     }
                 })
                 .then(response => response.json())
