@@ -25,10 +25,12 @@ class Services(seoBase):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    service_name = models.CharField(max_length=150)
+    service_name = models.CharField(max_length=200, unique=True)
     icon_link = models.URLField(max_length=200, blank=True, null=True)
     service_card_description = models.TextField(max_length=300)
-    service_photo = models.ImageField(upload_to="service_photos/", validators=[validate_image_size])
+    service_photo = models.ImageField(
+        upload_to="service_photos/", validators=[validate_image_size]
+    )
     service_details = RichTextField()
     # service_quote = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
@@ -105,7 +107,9 @@ class healthcarePackages(seoBase):
     category = models.ForeignKey(
         healthcareCategories, on_delete=models.CASCADE, related_name="category"
     )
-    healthcare_card_photo = models.ImageField(upload_to="healthcare_card_photos/", validators=[validate_image_size])
+    healthcare_card_photo = models.ImageField(
+        upload_to="healthcare_card_photos/", validators=[validate_image_size]
+    )
     package_name = models.CharField(max_length=150)
     package_description = models.TextField(max_length=300)
     is_active = models.BooleanField(default=True)
