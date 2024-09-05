@@ -73,7 +73,7 @@ class HealthcarePackagesView(APIView):
     def get(self, request):
         try:
             # Fetch active healthcare packages
-            packages = healthcarePackages.objects.filter(is_active=True)
+            packages = healthcarePackages.objects.filter(is_active=True, category__is_active=True)
             # Serialize the package data
             serializer = healthcarePackagesSerializer(packages, many=True)
             # Return a successful response with serialized data
