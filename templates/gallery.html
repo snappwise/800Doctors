@@ -26,7 +26,7 @@
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">Gallery</h2>
-                <p>Explore Our Moments in Care: A Visual Journey Through 800Doctor Services</p>
+                <p>Explore Our Moments in Care</p>
             </div>
 
             <div id="default-carousel" class="relative w-full mb-8" data-carousel="slide">
@@ -75,14 +75,35 @@
             <div>
                 <div class="gallery-category-grid" id="imageGallery">
                     <div class="gallery-image-row">
-                        {% for image in all_images %}
+                        {% for image in image_set1 %}
+                            <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
+                                <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}" class="rounded-xl">
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="gallery-image-row">
+                        {% for image in image_set2 %}
+                            <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
+                                <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}" class="rounded-xl">
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="gallery-image-row">
+                        {% for image in image_set3 %}
+                            <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
+                                <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}" class="rounded-xl">
+                            </a>
+                        {% endfor %}
+                    </div>
+                    <div class="gallery-image-row">
+                        {% for image in image_set4 %}
                             <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
                                 <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}" class="rounded-xl">
                             </a>
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+
         </div>
     </section>
 

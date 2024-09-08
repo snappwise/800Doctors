@@ -13,6 +13,15 @@ class GalleryView(TemplateView):
         context['latest_images'] = Gallery.objects.filter(is_active=True).order_by('-created_at')[:6]
 
         # Fetch all images for the grid
-        context['all_images'] = Gallery.objects.filter(is_active=True).order_by('-created_at')
+        all_images = Gallery.objects.filter(is_active=True).order_by('-created_at')
+
+        # Initialize the context with empty lists
+        context['image_set1'], context['image_set2'], context['image_set3'], context['image_set4'] = [], [], [], []
+
+        # Group images into the respective lists
+        image_sets = [context['image_set1'], context['image_set2'], context['image_set3'], context['image_set4']]
+
+        for i, image in enumerate(all_images):
+            image_sets[i % 4].append(image)
 
         return context
