@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Gallery
 from django.views.generic import TemplateView
 
@@ -11,7 +10,7 @@ class GalleryView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Fetch the latest 4 images for the carousel
-        context['latest_images'] = Gallery.objects.filter(is_active=True).order_by('-created_at')[:4]
+        context['latest_images'] = Gallery.objects.filter(is_active=True).order_by('-created_at')[:6]
 
         # Fetch all images for the grid
         context['all_images'] = Gallery.objects.filter(is_active=True).order_by('-created_at')

@@ -73,14 +73,14 @@
             </div>
 
             <div>
-                <div class="gallery-category-grid">
-                    {% for image in all_images %}
+                <div class="gallery-category-grid" id="imageGallery">
                     <div class="gallery-image-row">
-                        <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
-                            <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}">
-                        </a>
+                        {% for image in all_images %}
+                            <a href="{{ image.gallery_image.url }}" data-lg-size="1600-900">
+                                <img src="{{ image.gallery_image.url }}" alt="{{ image.image_name }}" class="rounded-xl">
+                            </a>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
