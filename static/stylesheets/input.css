@@ -89,6 +89,10 @@
     @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm;
   }
 
+  textarea{
+    @apply resize-none;
+  }
+
   input[type="checkbox"] {
     @apply p-0 rounded;
   }
@@ -173,7 +177,7 @@
   }
 
   .navbar {
-    @apply bg-white fixed w-screen z-40 top-0 start-0;
+    @apply bg-white fixed w-screen z-50 top-0 start-0;
   }
 
   .navbar-container {
@@ -242,7 +246,7 @@
   }
 
   .stat {
-    @apply col-span-6 flex flex-col md:flex-row gap-1 lg:gap-4 items-center border-l-2 border-l-primary-100 lg:px-4 py-2;
+    @apply col-span-6 flex flex-col md:flex-row gap-1 text-center md:text-left gap-4 items-center md:border-l-2 md:border-l-primary-100 md:px-4 py-2;
   }
 
   .stat-number {
@@ -262,7 +266,11 @@
   }
 
   .section-image {
-    @apply col-span-2 md:col-span-1 rounded-xl overflow-hidden;
+    @apply col-span-2 md:col-span-1 rounded-xl overflow-hidden min-h-96 h-full;
+  }
+
+  .section-image img{
+    @apply object-cover;
   }
 
   .service-cards-container,
@@ -440,7 +448,7 @@
   /* GALLERY PAGE*/
 
   .carousel-control-prev {
-    @apply absolute top-0 start-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-prev-btn,
@@ -449,11 +457,11 @@
   }
 
   .carousel-control-next {
-    @apply absolute top-0 end-0 z-10 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
+    @apply absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer focus:outline-none;
   }
 
   .carousel-control-dots {
-    @apply absolute z-10 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
+    @apply absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2 bg-neutral-900/50 backdrop-blur px-4 py-2.5 rounded-full;
   }
 
   .carousel-control-dot {
@@ -530,7 +538,7 @@
   .service-page-card img,
   .healthcare-package-card img,
   .blog-card-img {
-    @apply h-44 lg:h-56 object-cover rounded-t-xl object-center;
+    @apply h-52 lg:h-64 object-cover rounded-t-xl object-center;
   }
 
   .service-page-card-content,
@@ -543,14 +551,6 @@
   .healthcare-package-card .cta-primary,
   .wellness-package-card .cta-primary {
     @apply mt-1.5 lg:mt-3;
-  }
-
-  .image-container {
-    @apply col-span-2 lg:col-span-1;
-  }
-
-  .image-container img {
-    @apply h-full w-full object-cover rounded-lg max-h-96 lg:max-h-full object-center;
   }
 
   /* HEALTHCARE PACKAGES */
@@ -598,7 +598,7 @@
   }
 
   .feature-box {
-    @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4  flex flex-col gap-3 justify-center items-center;
+    @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4 text-center flex flex-col gap-3 justify-center items-center;
   }
 
   /* About Us */
@@ -706,6 +706,22 @@
 
   .author-img{
     @apply h-10 w-10 rounded-full object-cover;
+  }
+
+  .pagination-container{
+    @apply flex items-center -space-x-px h-8;
+  }
+
+  .pagination-link{
+    @apply flex items-center justify-center px-3 h-8 leading-tight bg-white border border-neutral-300 hover:bg-light-blue-50;
+  }
+
+  .pagination-link.active{
+    @apply bg-primary-600 text-white border-white hover:bg-primary-500;
+  }
+
+  .pagination-arrow-icon{
+    @apply w-2.5 h-2.5;
   }
 }
 
