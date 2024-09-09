@@ -5,7 +5,7 @@ from blog.models import blogCategories, Blog
 class blogCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = blogCategories
-        exclude = ["id"]
+        fields = "__all__"
 
     def create(self, validated_data):
         return blogCategories.objects.create(**validated_data)
@@ -15,9 +15,12 @@ class blogCategoriesSerializer(serializers.ModelSerializer):
 
 
 class BlogSerializer(serializers.ModelSerializer):
+    blogger_first_name = serializers.CharField(source='blogger.first_name', read_only=True)
+    blogger_last_name = serializers.CharField(source='blogger.last_name', read_only=True)
+
     class Meta:
         model = Blog
-        exclude = ["id"]
+        fields = "__all__"
 
     def create(self, validated_data):
         return Blog.objects.create(**validated_data)

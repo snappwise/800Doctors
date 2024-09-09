@@ -41,7 +41,7 @@ def send_alert_email(title, data, form_name):
             "message1": f"""Hello {data['first_name'] + ' ' + data['last_name']}!""",
             "message2": f"""Thank you for reaching out to 800Doctor. We have received your <span style="text-decoration: underline;"></span>{form_name}</span> and our team is reviewing the details.""",
             "message3": """<br>One of our representatives will get back to you shortly to assist with your request.<br>
-                If you need immediate assistance or have any urgent questions, please don't hesitate to contact us at +97 800362867<br>""",
+                If you need immediate assistance or have any urgent questions, please don't hesitate to contact us at +971 800 362867<br>""",
         }
 
         convert_to_html_content_user = render_to_string(

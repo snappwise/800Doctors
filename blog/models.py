@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.db.models.signals import pre_delete, post_init, post_save
 from django.dispatch.dispatcher import receiver
@@ -32,10 +33,14 @@ class blogCategories(models.Model):
     def __str__(self):
         return str(self.category_name)
 
+    class Meta:
+        verbose_name = "Blog Category"
+        verbose_name_plural = "Blog Categories"
+
 
 class Blog(seoBase):
     """
-    This model is used to store the services offered by the company
+    This model is used to store the blog posts
     """
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -47,11 +52,23 @@ class Blog(seoBase):
     blog_card_title = models.CharField(max_length=250)
     blog_card_description = models.TextField(max_length=500)
     blog_data = RichTextField()
+    blog_seo_title = models.SlugField(
+        max_length=500, unique=True, blank=True, editable=True
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.blog_card_title)[:50] + "..."
+
+    def save(self, *args, **kwargs):
+        if not self.blog_seo_title:
+            base_slug = slugify(self.blog_card_title)
+            self.blog_seo_title = f"{base_slug}-{str(uuid4().hex[:6])}"
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Blogs"
 
 
 @receiver(pre_delete, sender=Blog)
