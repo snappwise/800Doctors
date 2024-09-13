@@ -1,3 +1,6 @@
+{% load static %}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,41 +9,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-    <link rel="shortcut icon" href="./static/assets/logos/main-logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/logos/main-logo.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="../static/stylesheets/output.css">
-    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    <title>{{ blog.blog_card_title }}</title>
 </head>
 
 <body>
+
+    {% include 'gabody.html' %}
+    {% include 'alerts.html' %}
+
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+    
     <section id="blog">
         <div class="section-container">
             <div class="blog-header">
-                <div
-                    class="blog-img-container">
-                    <img src="../static/assets/images/wellnessDr.jpg" alt="">
+                <div class="blog-img-container">
+                    <img src="{{ blog.blog_card_image.url }}" alt="Blog Image">
                 </div>
                 <div class="blog-info">
-                    <p class="blog-category">Category</p>
-                    <h1 class="card-heading">Blog Title</h1>
-                    <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum, laboriosam illo
-                        voluptatem ad quis natus architecto consectetur quaerat facere laborum.</p>
-                        <div class="blog-author-container">
-                            <div class="blog-author-details">
-                                <h4 class="author-name">Jon Snow</h4>
-                                <p class="blog-date">20 Jan 2024</p>
-                            </div>
+                    <p class="blog-category">{{ blog.category.category_name }}</p>
+                    <h1 class="card-heading">{{ blog.blog_card_title }}</h1>
+                    <p>{{ blog.blog_card_description }}</p>
+                    <div class="blog-author-container">
+                        <div class="blog-author-details">
+                            <h4 class="author-name">{{ blog.blogger.get_full_name }}</h4>
+                            <p class="blog-date">{{ blog.created_at|date:"d M Y" }}</p>
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="blog-content">
-                <p>Blog content goes here</p>
+                <p>{{ blog.blog_data|safe }}</p>
             </div>
-
-
-
         </div>
     </section>
 
@@ -50,29 +56,31 @@
                 <h2 class="section-heading">More Blogs</h2>
                 <p>lorem ipsum</p>
             </div>
-            <div class=" more-blogs-container ">
-                <a class="blog-card" href="">
-                    <img src="../static/assets/images/wellnessDr.jpg" class="blog-card-img">
+            <div class="more-blogs-container">
+                {% for related_blog in more_blogs %}
+                <a class="blog-card" href="{% url 'blog-detail' related_blog.id %}">
+                    <img src="{{ related_blog.blog_card_image.url }}" class="blog-card-img">
                     <div class="blog-card-content">
-                        <p class="blog-category">Design</p>
-                        <h1 class="card-heading">Lorem, ipsum dolor.</h1>
-                        <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, officiis!
-                        </p>
+                        <p class="blog-category">{{ related_blog.category.category_name }}</p>
+                        <h1 class="card-heading">{{ related_blog.blog_card_title }}</h1>
+                        <p>{{ related_blog.blog_card_description }}</p>
                         <div class="blog-author-container">
                             <div class="blog-author-details">
-                                <h4 class="author-name">Jon Snow</h4>
-                                <p class="blog-date">20 Jan 2024</p>
+                                <h4 class="author-name">{{ related_blog.blogger.get_full_name }}</h4>
+                                <p class="blog-date">{{ related_blog.created_at|date:"d M Y" }}</p>
                             </div>
                         </div>
                     </div>
                 </a>
+                {% endfor %}
             </div>
         </div>
     </section>
 
-    <script src="../static/scripts/whatsapp.js"></script>
+    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="../static/scripts/swiper.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 
