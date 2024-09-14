@@ -49,9 +49,17 @@ class BlogPageView(TemplateView):
 
 class BlogDetailView(DetailView):
     model = Blog
-    template_name = "blog.html"
-    context_object_name = "blog"
+    template_name = 'blog.html'
+    context_object_name = 'blog'
+    slug_field = 'blog_seo_title'
+    slug_url_kwarg = 'slug'
 
-    # Override the method to use the slug field
-    def get_object(self):
-        return Blog.objects.get(blog_seo_title=self.kwargs["slug"])
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        blog = self.object
+
+        more_blogs = Blog.objects.filter(category=blog.category, is_active=True).exclude(id=blog.id)[:4]
+
+        context['more_blogs'] = more_blogs
+        return context

@@ -52,13 +52,14 @@
 
     <section id="moreBlogs">
         <div class="section-container">
+            {% if more_blogs %}
             <div class="section-header">
                 <h2 class="section-heading">More Blogs</h2>
-                <p>lorem ipsum</p>
             </div>
+            
             <div class="more-blogs-container">
                 {% for related_blog in more_blogs %}
-                <a class="blog-card" href="{% url 'blog-detail' related_blog.id %}">
+                <a class="blog-card" href="{% url 'blog-detail' slug=related_blog.blog_seo_title %}">
                     <img src="{{ related_blog.blog_card_image.url }}" class="blog-card-img">
                     <div class="blog-card-content">
                         <p class="blog-category">{{ related_blog.category.category_name }}</p>
@@ -74,8 +75,14 @@
                 </a>
                 {% endfor %}
             </div>
+            {% else %}
+            <!-- If no related blogs, you can either show nothing or a message -->
+            <!-- <p>No more blogs in this category</p> -->
+            {% endif %}
         </div>
     </section>
+    
+    
 
     {% include 'footer.html' %}
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
