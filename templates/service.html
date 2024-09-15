@@ -12,8 +12,9 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    <meta name="description" content="{{service.meta_description}}">
     {% include 'favicon.html' %}
-    <title>Service | {{ service.service_name }}</title>
+    <title>{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}</title>
 </head>
 
 <body>

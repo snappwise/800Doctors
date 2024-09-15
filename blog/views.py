@@ -1,15 +1,24 @@
+from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from blog.models import Blog
 from blog.serializers import BlogSerializer
 from django.views.generic import TemplateView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from blog.models import Blog
 
 
 class BlogListView(APIView):
+    """
+    This view is used to get the list of blogs
+    """
+
     def get(self, request, *args, **kwargs):
-        blogs = Blog.objects.all()
+        blogs = (
+            Blog.objects.all()
+            .order_by("-created_at")
+            .filter(is_active=True, category__is_active=True)
+        )
 
         current_page = request.GET.get("page", 1)
 
@@ -44,22 +53,37 @@ class BlogListView(APIView):
 
 
 class BlogPageView(TemplateView):
+    """
+    This view is used to render the blogs page
+    """
+
     template_name = "blogs-page.html"
 
 
 class BlogDetailView(DetailView):
+    """
+    This view is used to render the blog detail page
+    """
+
     model = Blog
-    template_name = 'blog.html'
-    context_object_name = 'blog'
-    slug_field = 'blog_seo_title'
-    slug_url_kwarg = 'slug'
+    template_name = "blog.html"
+    context_object_name = "blog"
+    slug_field = "blog_seo_title"
+    slug_url_kwarg = "slug"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         blog = self.object
 
-        more_blogs = Blog.objects.filter(category=blog.category, is_active=True).exclude(id=blog.id)[:4]
+        if blog.category.is_active is False or blog.is_active is False:
+            raise Http404("Blog not found")
 
-        context['more_blogs'] = more_blogs
+        more_blogs = (
+            Blog.objects.filter(category=blog.category, is_active=True)
+            .exclude(id=blog.id)
+            .order_by("-created_at")[:4]
+        )
+
+        context["more_blogs"] = more_blogs
         return context
