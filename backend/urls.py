@@ -45,6 +45,7 @@ urlpatterns = [
     path("enquiry/service/", serviceEnquiryView.as_view(), name="service-enquiry"),
     path("", include("content.urls")),
     path("", include("core.urls")),
+    path("", include("blog.urls")),
 ]
 
 if settings.DEBUG:

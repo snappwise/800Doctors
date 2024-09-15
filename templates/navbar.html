@@ -28,7 +28,8 @@
                     <a href="{% url 'healthcare_packages' %}" class="navbar-link {% if request.resolver_match.url_name == 'healthcare_packages' or request.resolver_match.url_name == 'book_packages' %}active{% endif %}" aria-current="page">Healthcare Packages</a>
                 </li>
                 <li>
-                    <a href="#" class="navbar-link" aria-current="page">Blogs</a>
+                    <a href="{% url 'blog-page' %}" class="navbar-link {% if request.resolver_match.url_name == 'blog-page' or request.resolver_match.url_name == 'blog-detail' %}active{% endif %}" aria-current="page">Blogs</a>
+
                 </li>
                 <li>
                     <a href="{% url 'about-us' %}" class="navbar-link {% if request.resolver_match.url_name == 'about-us' %}active{% endif %}" aria-current="page">About Us</a>
