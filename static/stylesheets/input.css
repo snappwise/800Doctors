@@ -230,7 +230,11 @@
   .service-page-contact,
   .service-info-container,
   .package-info-container {
-    @apply grid grid-cols-2 gap-6 lg:gap-10 items-start;
+    @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
+  }
+
+  .service-info-container{
+    @apply items-start;
   }
 
   .hero-content {
@@ -550,7 +554,7 @@
   .service-page-card-desc{
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     overflow: hidden;
   }
 
