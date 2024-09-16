@@ -27,10 +27,6 @@
 
     <section id="getInTouch" class="pt-16 lg:pt-20">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">Get in touch</h2>
-                <p>We'd love to hear from you. Please fill out this form.</p>
-            </div>
             <div class="service-info-container">
                 <div class="service-info-description">
                     <h1 class="section-heading">{{service.service_name}}</h1>
@@ -40,6 +36,10 @@
                     </div>
                 </div>
                 <form class="form-container" id="serviceEnquiryForm" method="post">
+                    <div class="section-header">
+                        <h2 class="section-heading text-center">Get in touch</h2>
+                        <p>We'd love to hear from you. Please fill out this form.</p>
+                    </div>
                     <input type="hidden" id="service-id" name="service" value="{{ service.id }}">
         
                     <div class="dual-input">

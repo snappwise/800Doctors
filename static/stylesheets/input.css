@@ -230,7 +230,7 @@
   .service-page-contact,
   .service-info-container,
   .package-info-container {
-    @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
+    @apply grid grid-cols-2 gap-6 lg:gap-10 items-start;
   }
 
   .hero-content {
@@ -521,7 +521,7 @@
 
   .service-page-form,
   .form-container {
-    @apply flex flex-col justify-between gap-6 col-span-2 lg:col-span-1;
+    @apply flex flex-col justify-between gap-6 col-span-2 lg:col-span-1 lg:sticky lg:top-32;
   }
 
   .service-page-form-container {
@@ -545,6 +545,13 @@
   .healthcare-package-card-content,
   .blog-card-content {
     @apply p-5 md:p-7 flex flex-col gap-2;
+  }
+
+  .service-page-card-desc{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 
   .service-page-card .cta-primary,
@@ -590,7 +597,7 @@
   /* Individual Service */
 
   .service-info-description {
-    @apply p-4 lg:p-6 bg-light-blue-50 col-span-2 lg:col-span-1 flex flex-col gap-6 rounded-lg;
+    @apply lg:p-4 col-span-2 lg:col-span-1 flex flex-col gap-6;
   }
 
   .features-container {

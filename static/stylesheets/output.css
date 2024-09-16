@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /*
-! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.11 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -1309,7 +1309,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
   .package-info-container{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
 }
 
@@ -2212,6 +2212,8 @@ input[type="file"]::-webkit-file-upload-button:hover{
 @media (min-width: 1024px){
   .service-page-form,
   .form-container{
+    position: sticky;
+    top: 8rem;
     grid-column: span 1 / span 1;
   }
 }
@@ -2259,6 +2261,13 @@ input[type="file"]::-webkit-file-upload-button:hover{
   .blog-card-content{
     padding: 1.75rem;
   }
+}
+
+.service-page-card-desc{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .service-page-card .cta-primary,
@@ -2373,16 +2382,12 @@ input[type="file"]::-webkit-file-upload-button:hover{
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  border-radius: 0.5rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(247 250 255 / var(--tw-bg-opacity));
-  padding: 1rem;
 }
 
 @media (min-width: 1024px){
   .service-info-description{
     grid-column: span 1 / span 1;
-    padding: 1.5rem;
+    padding: 1rem;
   }
 }
 
