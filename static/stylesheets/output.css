@@ -1309,7 +1309,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
   .package-info-container{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: flex-start;
+  align-items: center;
   gap: 1.5rem;
 }
 
@@ -1322,6 +1322,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
   .package-info-container{
     gap: 2.5rem;
   }
+}
+
+.service-info-container{
+  align-items: flex-start;
 }
 
 .hero-content{
@@ -2266,7 +2270,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .service-page-card-desc{
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   overflow: hidden;
 }
 
@@ -3039,6 +3043,11 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .bg-transparent{
   background-color: transparent;
+}
+
+.bg-white{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .object-contain{
