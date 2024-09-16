@@ -306,7 +306,7 @@ class ServicesPageView(ListView):
 
     def get_queryset(self):
         # Return only active services
-        return Services.objects.filter(is_active=True)
+        return Services.objects.filter(is_active=True).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -403,7 +403,9 @@ class HomeView(TemplateView):
         try:
             # Fetch and limit services to 7
             services = (
-                Services.objects.all().order_by("-created_at")[:7].select_related()
+                Services.objects.all()
+                .filter(is_active=True)
+                .order_by("-created_at")[:7]
             )
             serializer = ServicesSerializer(services, many=True)
             context["services"] = (
