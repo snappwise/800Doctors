@@ -110,6 +110,34 @@
     @apply bg-primary-700;
   }
 
+  h1:not([class]) {
+    @apply text-4xl font-semibold text-neutral-800;
+  }
+
+  h2:not([class]) {
+    @apply text-3xl font-semibold text-neutral-800;
+  }
+
+  h3:not([class]) {
+    @apply text-2xl font-semibold text-neutral-800;
+  }
+
+  h4:not([class]) {
+    @apply text-xl font-semibold text-neutral-800;
+  }
+
+  h4:not([class]) {
+    @apply text-lg font-semibold text-neutral-800;
+  }
+
+  h5:not([class]) {
+    @apply text-base font-semibold text-neutral-800;
+  }
+
+  h6:not([class]) {
+    @apply text-sm font-semibold text-neutral-800;
+  }
+
   .input-check-label {
     @apply flex gap-2 items-center;
   }
@@ -147,7 +175,11 @@
   }
 
   .cta-whatsapp {
-    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center fixed bottom-4 right-4 lg:bottom-8 lg:right-8 z-30;
+    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center;
+  }
+
+  .cta-call-now{
+    @apply inline-flex items-center justify-center font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-full p-4 text-center;
   }
 }
 
@@ -493,11 +525,11 @@
   }
 
   .gallery-carousel-wrapper {
-    @apply relative h-60 overflow-hidden rounded-lg md:h-[450px];
+    @apply relative h-60 overflow-hidden rounded-lg md:h-[600px];
   }
 
   .gallery-carousel-image {
-    @apply object-cover  h-full w-full;
+    @apply object-contain  h-full w-full bg-light-blue-50;
   }
 
   /* Package Booking Page */
@@ -551,7 +583,7 @@
     @apply p-5 md:p-7 flex flex-col gap-2;
   }
 
-  .service-page-card-desc{
+  .service-page-card-desc, .blog-card-desc{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
