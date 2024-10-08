@@ -110,33 +110,33 @@
     @apply bg-primary-700;
   }
 
-  h1:not([class]) {
+  #rte h1:not([class]) {
     @apply text-4xl font-semibold text-neutral-800;
   }
-
-  h2:not([class]) {
+  
+  #rte h2:not([class]) {
     @apply text-3xl font-semibold text-neutral-800;
   }
-
-  h3:not([class]) {
+  
+  #rte h3:not([class]) {
     @apply text-2xl font-semibold text-neutral-800;
   }
-
-  h4:not([class]) {
+  
+  #rte h4:not([class]) {
     @apply text-xl font-semibold text-neutral-800;
   }
-
-  h4:not([class]) {
+  
+  #rte h4:not([class]) {
     @apply text-lg font-semibold text-neutral-800;
   }
-
-  h5:not([class]) {
+  
+  #rte h5:not([class]) {
     @apply text-base font-semibold text-neutral-800;
   }
-
-  h6:not([class]) {
+  
+  #rte h6:not([class]) {
     @apply text-sm font-semibold text-neutral-800;
-  }
+  }  
 
   .input-check-label {
     @apply flex gap-2 items-center;
