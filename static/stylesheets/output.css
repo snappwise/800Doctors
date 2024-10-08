@@ -784,7 +784,7 @@ input[type="file"]::-webkit-file-upload-button:hover{
   background-color: rgb(0 97 255 / var(--tw-bg-opacity));
 }
 
-h1:not([class]){
+#rte h1:not([class]){
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 600;
@@ -792,7 +792,7 @@ h1:not([class]){
   color: rgb(38 38 38 / var(--tw-text-opacity));
 }
 
-h2:not([class]){
+#rte h2:not([class]){
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 600;
@@ -800,7 +800,7 @@ h2:not([class]){
   color: rgb(38 38 38 / var(--tw-text-opacity));
 }
 
-h3:not([class]){
+#rte h3:not([class]){
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 600;
@@ -808,7 +808,7 @@ h3:not([class]){
   color: rgb(38 38 38 / var(--tw-text-opacity));
 }
 
-h4:not([class]){
+#rte h4:not([class]){
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 600;
@@ -816,7 +816,7 @@ h4:not([class]){
   color: rgb(38 38 38 / var(--tw-text-opacity));
 }
 
-h5:not([class]){
+#rte h5:not([class]){
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 600;
@@ -824,7 +824,7 @@ h5:not([class]){
   color: rgb(38 38 38 / var(--tw-text-opacity));
 }
 
-h6:not([class]){
+#rte h6:not([class]){
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
