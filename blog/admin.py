@@ -1,4 +1,3 @@
-from typing import Any
 from django.contrib import admin
 from blog.models import blogCategories, Blog
 from django.utils.html import format_html
@@ -81,7 +80,7 @@ class BlogAdmin(admin.ModelAdmin):
             obj.blog_card_image.url,
             obj.blog_card_image.url,
         )
-    
+
     def blog_card_description(self, obj):
         return truncatechars(obj.blog_card_description, 50)
 

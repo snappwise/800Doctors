@@ -331,11 +331,15 @@ class ServiceDetailView(DetailView):
     model = Services  # Use the correct model name
     template_name = "service.html"
     context_object_name = "service"
+    slug_field = "service_seo_title"
+    slug_url_kwarg = "slug"
 
     def get_context_data(self, **kwargs):
         # Get the base context from the parent class
         context = super().get_context_data(**kwargs)
-
+        service = self.object
+        if service.is_active is False:
+            raise Http404("service not found!")
         # Retrieve the reCAPTCHA site key from settings and add it to the context
         recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
         if not recaptcha_site_key:
