@@ -20,11 +20,12 @@ class ServicesAdmin(admin.ModelAdmin):
         "icon_link_tag",
         "service_card_description",
         "service_photo_tag",
+        "service_seo_title",
         "created_at",
         "is_active",
         "Action",
     )
-    search_fields = ("service_name", "service_card_description")
+    search_fields = ("service_name", "service_card_description", "service_seo_title")
     list_filter = ("is_active",)
     ordering = ("-created_at",)
     actions = ["soft_delete", "restore"]

@@ -45,8 +45,8 @@ urlpatterns = [
     # API services
     path("api/career-enquiry/", CareerPageEnquiryView.as_view(), name="career-enquiry"),
     # HTML pages
-    path("services/", ServicesPageView.as_view(), name="services"),
-    path("services/<uuid:pk>/", ServiceDetailView.as_view(), name="service_detail"),
+    path("what-we-do/", ServicesPageView.as_view(), name="services"),
+    path("what-we-do/<slug:slug>/", ServiceDetailView.as_view(), name="service_detail"),
     path(
         "healthcare-packages/",
         HealthcarePackagesListView.as_view(),

@@ -1,8 +1,9 @@
+from uuid import uuid4
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.db.models.signals import pre_delete, post_init, post_save
 from django.dispatch.dispatcher import receiver
-from uuid import uuid4
+from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 from content.models import validate_image_size
 
@@ -32,12 +33,20 @@ class Services(seoBase):
         upload_to="service_photos/", validators=[validate_image_size]
     )
     service_details = RichTextField()
-    # service_quote = models.CharField(max_length=250)
+    service_seo_title = models.SlugField(
+        max_length=500, unique=True, blank=True, editable=True
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.service_name)
+
+    def save(self, *args, **kwargs):
+        if not self.service_seo_title:
+            base_slug = slugify(self.service_name)
+            self.service_seo_title = f"{base_slug}-{str(uuid4().hex[:6])}"
+        super().save(*args, **kwargs)
 
     def soft_delete(self):
         self.is_active = False
@@ -112,11 +121,10 @@ class healthcarePackages(seoBase):
     )
     package_name = models.CharField(max_length=150)
     package_description = models.TextField(max_length=300)
+
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    know_more = models.CharField(
-        max_length=400, default="Default text for know more"
-    )  # New field
+    know_more = models.TextField(max_length=400, default="")  # New field
 
     def __str__(self):
         return str(self.package_name)

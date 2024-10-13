@@ -24,30 +24,53 @@
     {% include 'alerts.html' %}
     {% include 'navbar.html' %}
 
-    <section id="home" class="pt-16 lg:pt-20">
-        <div class="section-container">
+    <section id="home" class="mt-[72px] md:mt-0 pt-72 lg:pt-20 bg-hero-bg-mobile md:bg-hero-bg bg-no-repeat bg-cover md:bg-center">
+        <div class="section-container min-h-[550px] h-dvh max-h-[700px] h-full">
             <div class="hero-content">
-                <h1 class="main-heading"><span class="text-primary-700">Expert Care</span>,<br>Right to Your Door.</h1>
-                <p>800Doctor provides immediate, high-quality medical care at your convenience. Our
-                    licensed professionals offer personalized healthcare services, available 24/7, 365 days a year,
-                    ensuring you get the best care without leaving your home.</p>
+                <h1 class="main-heading">Doctor at Your Doorstep <span class="text-primary-700">in 30 Minutes</span><br> Quick, Reliable, Caring <br>On call Anytime 24/7</h1>
+                <p class="max-w-xl">Experience premium healthcare at your doorstep in Dubai with 800Doctor. Our expert medical team arrives within 30 minutes, offering fast, trustworthy, and personalized care designed for your convenience.</p>
                 <div class="hero-cta">
                     <a class="cta-primary" href="{% url 'about-us' %}#getInTouch">Book an Appointment</a>
                     <a class="cta-outline" href="{% url 'services' %}">Explore Services</a>
                 </div>
+            </div>
+            <!-- <div class="hero-image">
+                <img src="{% static 'assets/images/bg_home.jpg' %}" alt="Doctor Image" class="h-full w-full object-contain">
+            </div> -->
+        </div>
+    </section>
+
+    <section id="stats" class="bg-light-blue-50">
+        <div class="section-container py-8">
                 <div class="stat-row">
                     <div class="stat">
+                        <lord-icon src="https://cdn.lordicon.com/asajomrp.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0061ff">
+                    </lord-icon>
                         <span class="stat-number">500,000+</span>
                         <p class="stat-description">Happy Clients</p>
                     </div>
-                    <!-- <div class="stat">
-                        <span class="stat-number">20+</span>
-                        <p class="stat-description">Doctors Enrolled</p>
-                    </div> -->
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="{% static 'assets/images/hero-img.png' %}" alt="" class="h-full w-full object-contain">
+                    <div class="stat">
+                        <lord-icon src="https://cdn.lordicon.com/rcuovkuy.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0061ff">
+                    </lord-icon>
+                        <span class="stat-number">15+</span>
+                        <p class="stat-description">Years of Healthcare Experience</p>
+                    </div>
+                    <div class="stat">
+                        <lord-icon src="https://cdn.lordicon.com/azasiwss.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0061ff">
+                    </lord-icon>
+                        <span class="stat-number">4.9</span>
+                        <p class="stat-description">Google Rating</p>
+                    </div>
+                    <div class="stat">
+                        <lord-icon src="https://cdn.lordicon.com/jeuxydnh.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0061ff">
+                    </lord-icon>
+                        <span class="stat-number">15+</span>
+                        <p class="stat-description">Home Care Services</p>
+                    </div>
             </div>
         </div>
     </section>
@@ -55,14 +78,14 @@
     <section id="about">
         <div class="section-container">
             <div class="section-image">
-                <img src="{% static 'assets/images/8D - Car - 01.jpeg' %}" alt="">
+                <img src="{% static 'assets/images/about_2.jpg' %}" alt="">
             </div>
             <div class="section-content">
                 <h2 class="section-heading">About Us</h2>
                 <h1 class="sub-heading">Exceptional Care, <br>Anytime, Anywhere</h1>
-                <p>Doctor on Call in Dubai services by 800DOCTOR are the first dedicated entirely to doctor on call & home healthcare in Dubai. Established in 2007, We offers premier home healthcare services with fully-licensed medical practitioners</p> 
-                <p>Our practitioners are trained in family medicine, general surgery, pediatrics, physiotherapy, nursing, obstetrics, gynecology & Available 24/7, 365 days a year. our Doctor on Call in Dubai service provides friendly, prompt, affordable, high quality & personalized medical care at your home, office or hotel.</p>
-                <p>Our comprehensive doctor at home in Dubai includes home nursing (nurse at home), home IV drip, home blood tests, physiotherapy at home & occupational therapy at home. Choose 800DOCTOR for reliable, top-tier home healthcare in Dubai.</p>
+                <p>Welcome to 800Doctor, Dubai’s premier provider of doctor-on-call and home healthcare services. Established in 2007, we specialize in delivering high-quality, personalized medical care right at your doorstep.</p>
+                <p>Our team of fully licensed practitioners is trained in various specialties, including family medicine, general surgery, paediatrics, physiotherapy, nursing, obstetrics, and gynaecology. We are available 24/7, 365 days a year, ensuring that you receive friendly and prompt healthcare whenever you need it.</p>
+                <p>At 800Doctor, we offer a comprehensive range of home healthcare services, including home nursing, IV therapy, blood tests, physiotherapy, and occupational therapy. Whether at your home, office, or hotel, we prioritize your comfort and convenience.</p>
                 <a href="{% url 'about-us' %}" class="cta-primary mt-2">Know More</a>
             </div>
         </div>

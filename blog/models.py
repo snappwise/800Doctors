@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from django.db.models.signals import pre_delete, post_init, post_save
@@ -47,7 +46,7 @@ class Blog(seoBase):
     category = models.ForeignKey(
         blogCategories, on_delete=models.CASCADE, related_name="blog_category"
     )
-    blogger = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    blogger = models.CharField(max_length=250, null=True, blank=True)
     blog_card_image = models.ImageField(upload_to="blog_card_photos/")
     blog_card_title = models.CharField(max_length=250)
     blog_card_description = models.TextField(max_length=500)
