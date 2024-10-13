@@ -43,7 +43,7 @@ class Services(seoBase):
         unique=True,
         blank=True,
         editable=True,
-        default=generate_seo_title,
+        # default=generate_seo_title,
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
