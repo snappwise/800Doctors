@@ -20,6 +20,11 @@ class seoBase(models.Model):
         abstract = True
 
 
+def generate_seo_title(instance):
+    base_slug = slugify(instance.service_name)
+    return f"{base_slug}-{str(uuid4().hex[:6])}"
+
+
 class Services(seoBase):
     """
     This model is used to store the services offered by the company
@@ -34,7 +39,11 @@ class Services(seoBase):
     )
     service_details = RichTextField()
     service_seo_title = models.SlugField(
-        max_length=500, unique=True, blank=True, editable=True
+        max_length=500,
+        unique=True,
+        blank=True,
+        editable=True,
+        default=generate_seo_title,
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
