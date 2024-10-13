@@ -42,7 +42,7 @@
                     <p>{{ blog.blog_card_description }}</p>
                     <div class="blog-author-container">
                         <div class="blog-author-details">
-                            <h4 class="author-name">{{ blog.blogger.get_full_name }}</h4>
+                            <h4 class="author-name">{{ blog.blogger }}</h4>
                             <p class="blog-date">{{ blog.created_at|date:"d M Y" }}</p>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <p>{{ related_blog.blog_card_description }}</p>
                         <div class="blog-author-container">
                             <div class="blog-author-details">
-                                <h4 class="author-name">{{ related_blog.blogger.get_full_name }}</h4>
+                                <h4 class="author-name">{{ related_blog.blogger }}</h4>
                                 <p class="blog-date">{{ related_blog.created_at|date:"d M Y" }}</p>
                             </div>
                         </div>

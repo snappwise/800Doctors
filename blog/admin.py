@@ -1,4 +1,3 @@
-from typing import Any
 from django.contrib import admin
 from blog.models import blogCategories, Blog
 from django.utils.html import format_html
@@ -71,17 +70,13 @@ class BlogAdmin(admin.ModelAdmin):
     actions = ["soft_delete", "restore"]
     list_per_page = 10
 
-    def save_model(self, request, obj, form, change):
-        obj.blogger = request.user
-        super().save_model(request, obj, form, change)
-
     def blog_card_image_tag(self, obj):
         return format_html(
             '<a href="{}" target="_blank"><img src="{}" width="100" height="100" /></a>',
             obj.blog_card_image.url,
             obj.blog_card_image.url,
         )
-    
+
     def blog_card_description(self, obj):
         return truncatechars(obj.blog_card_description, 50)
 

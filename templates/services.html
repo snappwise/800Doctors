@@ -38,7 +38,7 @@
                         <div class="service-page-card-content">
                             <h5 class="card-heading">{{ service.service_name }}</h5>
                             <p class="service-page-card-desc">{{ service.service_card_description }}</p>
-                            <a class="cta-primary" href="{% url 'service_detail' service.id %}">Book Now</a>
+                            <a class="cta-primary" href="{% url 'service_detail' service.service_seo_title %}">Book Now</a>
                         </div>
                     </div>
                 {% endfor %}
