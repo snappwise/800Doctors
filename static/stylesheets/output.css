@@ -1434,9 +1434,17 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .stat-row{
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 1.25rem;
+  row-gap: 4rem;
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+@media (min-width: 1024px){
+  .stat-row{
+    -moz-column-gap: 1.25rem;
+         column-gap: 1.25rem;
+    row-gap: 0px;
+  }
 }
 
 .stat{
@@ -1509,7 +1517,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .section-image{
   grid-column: span 2 / span 2;
   height: 100%;
-  min-height: 24rem;
   overflow: hidden;
   border-radius: 0.75rem;
 }
@@ -1517,12 +1524,20 @@ input[type="file"]::-webkit-file-upload-button:hover{
 @media (min-width: 768px){
   .section-image{
     grid-column: span 1 / span 1;
+    min-height: 20rem;
   }
 }
 
 .section-image img{
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media (min-width: 768px){
+  .section-image img{
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
 }
 
 .service-cards-container,
@@ -3193,14 +3208,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .pt-16{
   padding-top: 4rem;
-}
-
-.pt-48{
-  padding-top: 12rem;
-}
-
-.pt-64{
-  padding-top: 16rem;
 }
 
 .pt-72{
