@@ -15,12 +15,6 @@ class blogCategoriesSerializer(serializers.ModelSerializer):
 
 
 class BlogSerializer(serializers.ModelSerializer):
-    blogger_first_name = serializers.CharField(
-        source="blogger.first_name", read_only=True
-    )
-    blogger_last_name = serializers.CharField(
-        source="blogger.last_name", read_only=True
-    )
     category_name = serializers.CharField(
         source="category.category_name", read_only=True
     )
@@ -33,8 +27,7 @@ class BlogSerializer(serializers.ModelSerializer):
             "category_name",  # Fetches the category name
             "blog_card_title",
             "blog_card_description",
-            "blogger_first_name",
-            "blogger_last_name",
+            "blogger",
             "created_at",
         ]
 

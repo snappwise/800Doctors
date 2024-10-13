@@ -70,10 +70,6 @@ class BlogAdmin(admin.ModelAdmin):
     actions = ["soft_delete", "restore"]
     list_per_page = 10
 
-    def save_model(self, request, obj, form, change):
-        obj.blogger = request.user
-        super().save_model(request, obj, form, change)
-
     def blog_card_image_tag(self, obj):
         return format_html(
             '<a href="{}" target="_blank"><img src="{}" width="100" height="100" /></a>',

@@ -143,7 +143,7 @@
   }
 
   .main-heading {
-    @apply text-4xl lg:text-[56px] font-semibold leading-tight whitespace-normal text-neutral-800;
+    @apply text-3xl lg:text-4xl font-semibold leading-tight whitespace-normal text-neutral-800;
   }
 
   .sub-heading {
@@ -175,11 +175,11 @@
   }
 
   .cta-whatsapp {
-    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-4 text-center;
+    @apply inline-flex items-center justify-center font-medium text-white bg-whatsapp-500 hover:bg-whatsapp-600 focus:ring-4 focus:outline-none focus:ring-whatsapp-300 rounded-full p-3 text-center;
   }
 
   .cta-call-now{
-    @apply inline-flex items-center justify-center font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-full p-4 text-center;
+    @apply inline-flex items-center justify-center font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-full p-3 text-center;
   }
 }
 
@@ -213,11 +213,11 @@
   }
 
   .navbar-container {
-    @apply max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-5 py-3 lg:p-4 w-full;
+    @apply max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-5 py-3 lg:p-4 w-full;
   }
 
   .navbar-logo {
-    @apply h-12 md:h-[56px] object-contain;
+    @apply h-12 md:h-[56px] w-auto aspect-auto;
   }
 
   .navbar-controls {
@@ -245,10 +245,9 @@
   }
 
   .section-container {
-    @apply max-w-screen-xl mx-auto px-5 py-12 lg:py-16 lg:px-8;
+    @apply max-w-screen-2xl mx-auto px-5 py-12 lg:py-16 lg:px-8;
   }
 
-  #home,
   #services,
   #whyUs,
   #footer,
@@ -265,12 +264,16 @@
     @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
   }
 
+  #home .section-container{
+    @apply grid-cols-12;
+  }
+
   .service-info-container{
     @apply items-start;
   }
 
   .hero-content {
-    @apply col-span-2 md:col-span-1 flex flex-col gap-4 lg:gap-7 order-last md:order-first;
+    @apply col-span-12 md:col-span-7 flex flex-col gap-4 lg:gap-7 order-last md:order-first;
   }
 
   .hero-cta {
@@ -278,15 +281,15 @@
   }
 
   .stat-row {
-    @apply grid grid-cols-6 gap-5 py-5;
+    @apply grid grid-cols-12 gap-5 py-5;
   }
 
   .stat {
-    @apply col-span-6 flex flex-col md:flex-row gap-1 text-center md:text-left gap-4 items-center md:border-l-2 md:border-l-primary-100 md:px-4 py-2;
+    @apply col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-2 items-center text-center ;
   }
 
   .stat-number {
-    @apply text-primary-700 text-2xl md:text-4xl font-medium;
+    @apply text-primary-700 text-2xl font-medium mt-3;
   }
 
   .stat-description {
@@ -294,7 +297,7 @@
   }
 
   .hero-image {
-    @apply col-span-2 md:col-span-1 h-72 md:h-[475px];
+    @apply col-span-12 md:col-span-5 h-72 md:h-[475px];
   }
 
   .section-content {
@@ -344,7 +347,7 @@
   }
 
   .service-card-icon {
-    @apply h-16 w-16;
+    @apply h-14 w-14;
   }
 
   .service-card-link {
@@ -372,11 +375,11 @@
   }
 
   .feature-image img {
-    @apply w-full h-full max-h-[400px] lg:max-h-[500px] object-contain;
+    @apply w-full h-full max-h-[400px] lg:max-h-[500px] object-contain my-12 lg:my-0;
   }
 
   .feature-block {
-    @apply flex gap-3;
+    @apply flex flex-col lg:flex-row gap-3 items-center lg:items-start text-center lg:text-left;
   }
 
   .feature-icon {
@@ -392,7 +395,7 @@
   }
 
   .partner-logo img {
-    @apply object-contain aspect-video;
+    @apply object-contain aspect-video h-14;
   }
 
   .testimonial-card {
@@ -420,11 +423,11 @@
   }
 
   .footer-about {
-    @apply col-span-6 lg:col-span-2 flex flex-col gap-8;
+    @apply col-span-6 lg:col-span-2 flex flex-col gap-8 items-start;
   }
 
   .footer-logo {
-    @apply h-16 w-fit;
+    @apply h-16 w-auto aspect-auto object-contain;
   }
 
   .footer-links-container {
