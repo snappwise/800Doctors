@@ -109,7 +109,7 @@
 }
 
 /*
-! tailwindcss v3.4.13 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.14 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -552,7 +552,7 @@ video {
 
 /* Make elements with the HTML hidden attribute stay hidden by default */
 
-[hidden] {
+[hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
 
@@ -2331,20 +2331,20 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .service-page-card img,
   .healthcare-package-card img,
   .blog-card-img{
-  height: 13rem;
+  height: 16rem;
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+  -o-object-position: top;
+     object-position: top;
 }
 
 @media (min-width: 1024px){
   .service-page-card img,
   .healthcare-package-card img,
   .blog-card-img{
-    height: 16rem;
+    height: 18rem;
   }
 }
 

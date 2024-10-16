@@ -577,7 +577,7 @@
   .service-page-card img,
   .healthcare-package-card img,
   .blog-card-img {
-    @apply h-52 lg:h-64 object-cover rounded-t-xl object-center;
+    @apply h-64 lg:h-72 object-cover rounded-t-xl object-top;
   }
 
   .service-page-card-content,
