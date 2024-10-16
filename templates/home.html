@@ -99,7 +99,7 @@
             </div>
             <div class="service-cards-container">
                 {% for service in services|slice:":6" %}
-                <a href="{% url 'service_detail' service.id %}" class="service-card group">
+                <a href="{% url 'service_detail' service.service_seo_title %}" class="service-card group">
                     <div class="service-card-icon-container">
                         <lord-icon src="{{ service.icon_link }}" trigger="hover"
                             class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
