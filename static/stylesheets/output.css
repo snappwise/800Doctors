@@ -1207,13 +1207,13 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .navbar-logo{
   aspect-ratio: auto;
-  height: 3rem;
+  height: 4rem;
   width: auto;
 }
 
 @media (min-width: 768px){
   .navbar-logo{
-    height: 56px;
+    height: 72px;
   }
 }
 

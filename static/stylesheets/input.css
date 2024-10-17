@@ -217,7 +217,7 @@
   }
 
   .navbar-logo {
-    @apply h-12 md:h-[56px] w-auto aspect-auto;
+    @apply h-16 md:h-[72px] w-auto aspect-auto;
   }
 
   .navbar-controls {
