@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from dynamic_linking.models import DynamicLinking
 from core.views import (
     # ServiceListView,
@@ -18,6 +18,7 @@ from core.views import (
     thank_you_view,
     NewsletterSubscriptionView,
 )
+from django.views.generic.base import RedirectView
 
 
 def dynamic_urlpatterns():
@@ -44,6 +45,30 @@ if len(dynamic_pattern) == 0:
 urlpatterns = [
     # API services
     path("api/career-enquiry/", CareerPageEnquiryView.as_view(), name="career-enquiry"),
+    # ----------------- FOR SEO -------------------
+    re_path(
+        r"^what-we-do/home-care-9e26fe/$",
+        RedirectView.as_view(
+            url="/what-we-do/home-healthcare-services-in-Dubai/", permanent=True
+        ),
+    ),
+    re_path(
+        r"what-we-do/home-nursing-83787f/$",
+        RedirectView.as_view(url="/what-we-do/home-nursing-in-dubai/", permanent=True),
+    ),
+    re_path(
+        r"what-we-do/physiotherapy-623a11/$",
+        RedirectView.as_view(
+            url="/what-we-do/physiotherapy-at-home-in-dubai/", permanent=True
+        ),
+    ),
+    re_path(
+        r"what-we-do/medical-treatment-e4517e/$",
+        RedirectView.as_view(
+            url="/what-we-do/medical-treatment-facilitation-services-in-dubai/",
+            permanent=True,
+        ),
+    ),
     # HTML pages
     path("what-we-do/", ServicesPageView.as_view(), name="services"),
     path("what-we-do/<slug:slug>/", ServiceDetailView.as_view(), name="service_detail"),

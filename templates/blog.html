@@ -16,7 +16,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     {% include 'favicon.html' %}
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+
+    <meta name ="title" content ="{{ blog.meta_title }}"/>
+
+    <meta name ="description" content ="{{blog.meta_description}}"/>
+
+    <meta name ="copyright" content ="800DOCTOR"/>
+
+    <!-- <meta name ="keywords" content ="on call doctor in Dubai"/> -->
+
+    <meta property ="og:type" content ="website"/>
+
+    <meta property ="og:url" content ="https://800doctor.com/blogs/{{blog.blog_seo_title}}/"/>
+
+    <meta property ="og:title" content ="{{ blog.meta_title }}"/>
+
+    <meta property ="og:description" content ="{{blog.meta_description}}"/>
+
+    <meta property ="og:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+
+    <meta property ="twitter:card" content ="summary_large_image"/>
+
+    <meta property ="twitter:url" content ="https://800doctor.com/blogs/{{blog.blog_seo_title}}/"/>
+
+    <meta property ="twitter:title" content ="{{ blog.meta_title }}"/>
+
+    <meta property ="twitter:description" content ="{{blog.meta_description}}"/>
+
+    <meta property ="twitter:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+
     <meta name="description" content="{{blog.meta_description}}">
+    
     <title>{{ blog.meta_title }}</title>
     
 </head>

@@ -12,8 +12,37 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
-    <meta name="description" content="{{service.meta_description}}">
     {% include 'favicon.html' %}
+    <meta name ="title" content ="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}"/>
+
+    <meta name ="description" content ="{{service.meta_description}}"/>
+
+    <meta name ="copyright" content ="800DOCTOR"/>
+
+    <!-- <meta name ="keywords" content ="on call doctor in Dubai"/> -->
+
+    <meta property ="og:type" content ="website"/>
+
+    <meta property ="og:url" content ="https://800doctor.com/what-we-do/{{service.service_seo_title}}/"/>
+
+    <meta property ="og:title" content ="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}"/>
+
+    <meta property ="og:description" content ="{{service.meta_description}}"/>
+
+    <meta property ="og:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+
+    <meta property ="twitter:card" content ="summary_large_image"/>
+
+    <meta property ="twitter:url" content ="https://800doctor.com/what-we-do/{{service.service_seo_title}}/"/>
+
+    <meta property ="twitter:title" content ="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}"/>
+
+    <meta property ="twitter:description" content ="{{service.meta_description}}"/>
+
+    <meta property ="twitter:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+
+    <meta name="description" content="{{service.meta_description}}">
+    
     <title>{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}</title>
 </head>
 
