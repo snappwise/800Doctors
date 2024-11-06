@@ -27,8 +27,8 @@ from inquiries.views import (
     serviceEnquiryView,
 )
 
-admin.site.site_title = "*00Doctor Admin"
-admin.site.site_header = "800Doctor Admin"
+admin.site.site_title = "800DOCTOR Admin"
+admin.site.site_header = "800DOCTOR Admin"
 
 urlpatterns = [
     re_path(
