@@ -37,6 +37,12 @@ urlpatterns = [
     ),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
+    re_path(
+        "^sitemap.xml",
+        TemplateView.as_view(
+            template_name="sitemap.xml", content_type="application/xml"
+        ),
+    ),
     path("admin/", admin.site.urls),
     path("enquiry/general/", generalEnquiryView.as_view(), name="general-enquiry"),
     path(
