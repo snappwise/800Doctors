@@ -17,6 +17,8 @@ from core.views import (
     DisclaimerView,
     thank_you_view,
     NewsletterSubscriptionView,
+    career_individual,
+    career_listing,
 )
 from django.views.generic.base import RedirectView
 
@@ -98,4 +100,6 @@ urlpatterns = [
         NewsletterSubscriptionView.as_view(),
         name="newsletter-subscribe",
     ),
+    path("career-listing/", career_listing, name="career-listing"),
+    path("career-individual/", career_individual, name="career-individual"),
 ]
