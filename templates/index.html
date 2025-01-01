@@ -19,7 +19,7 @@
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
-    <script>(function(w, d) { w.CollectId = "676a667ad3925dd2f895bd39"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async=true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
+    <script>(function (w, d) { w.CollectId = "676a667ad3925dd2f895bd39"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async = true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
     {% include 'favicon.html' %}
     <title>Index</title>
 </head>
@@ -32,22 +32,54 @@
 
     <nav class="navbar">
         <div class="navbar-container">
-            <a>
-                <img src="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" class="navbar-logo" alt="800DOCTOR Logo">
+            <a href="#">
+                <img src="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" class="navbar-logo"
+                    alt="800DOCTOR Logo">
             </a>
-            <a href="tel:+971800362867" class="cta-primary hidden xs:inline-flex">Call Us Now</a>
+            <a href="tel:+971800362867" class="cta-primary hidden xs:inline-flex gap-3 items-center">
+                <i class="bi bi-telephone-outbound-fill"></i>
+                <span>+971 800 362867</span>
+            </a>
         </div>
     </nav>
 
-    <section id="home" class="mt-[72px] md:mt-0 pt-72 md:pt-20 bg-hero-bg-mobile md:bg-hero-bg bg-no-repeat bg-cover md:bg-center">
-        <div class="section-container min-h-[550px] h-dvh max-h-[700px] h-full">
+    <section id="home"
+        class="mt-[72px] md:mt-0 pt-80 md:pt-20 bg-hero-bg-mobile md:bg-hero-bg bg-no-repeat bg-cover md:bg-center">
+        <div class="section-container min-h-[550px] max-h-[700px] h-full">
             <div class="hero-content">
-                <h1 class="main-heading">Doctor at Your Doorstep <span class="text-primary-700">in 30 Minutes</span><br> Quick, Reliable, Caring <br>On call Anytime 24/7</h1>
-                <p class="max-w-xl">Experience premium healthcare at your doorstep in Dubai with 800DOCTOR. Our expert medical team arrives within 30 minutes, offering fast, trustworthy, and personalized care designed for your convenience.</p>
-                <div class="hero-cta">
-                    <a class="cta-primary" href="{% url 'about-us' %}#getInTouch">Book an Appointment</a>
-                    <a class="cta-outline" href="{% url 'services' %}">Explore Services</a>
+                <!-- <div class="flex items-center px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow-md">
+                    <div class="w-3 h-3 bg-green-700 rounded-full animate-pulse duration-0 mr-2"></div>
+                    <span class="text-green-700 font-semibold text-sm">
+                        Available 365 Days | 24x7 Services
+                    </span>
+                </div> -->
+                <div class="badge-container">
+                    <!-- Ripple Effect -->
+                    <div class="badge-ripple-dot"></div>
+                    <!-- Green Dot -->
+                    <div class="badge-dot"></div>
+                    <!-- Text -->
+                    <span class="badge-text">
+                        <span class="font-bold">Open</span> 24/7 - 365 Days | Anytime Anywhere
+                    </span>
                 </div>
+                <h1 class="main-heading">We Bring Doctor at Your Doorstep <br class="hidden lg:block"><span class="text-primary-900">in 30
+                        Minutes</span></h1>
+                <p class="max-w-xl">Experience premium healthcare at your doorstep in Dubai with 800DOCTOR. Our expert
+                    medical team arrives within 30 minutes, offering fast, trustworthy, and personalized care designed
+                    for your convenience.</p>
+                <div class="hero-cta">
+                    <a class="cta-primary" href="#contactUs">Book an Appointment</a>
+                    <a href="tel:+971800362867" class="cta-outline gap-3"><i class="bi bi-telephone-outbound"></i>Call
+                        Now +971 800 362867</a>
+                </div>
+                <a class="flex flex-col md:flex-row items-center gap-4 mt-4 md:w-fit text-sm font-semibold text-neutral-800" target="_blank"
+                    href="https://www.google.com/search?q=800+doctore&rlz=1C1FKPE_enIN989IN999&oq=800+doctore&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg70gEINDM3NmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8#lrd=0x3e5f6dfe6ae6d063:0x9e3781fb69e30573,1,,,,">
+                    <div>
+                        <img src="{%static '/assets/logos/google_reviews.png'%}" alt="" class="h-12 w-fit">
+                    </div>
+                    <p>Rated <i class="bi bi-star-fill text-yellow-400"></i> 4.9  by 800+ clients</p>
+                </a>
             </div>
             <!-- <div class="hero-image">
                 <img src="{% static 'assets/images/bg_home.jpg' %}" alt="Doctor Image" class="h-full w-full object-contain">
@@ -57,35 +89,35 @@
 
     <section id="stats" class="bg-light-blue-50">
         <div class="section-container py-8">
-                <div class="stat-row">
-                    <div class="stat">
-                        <lord-icon src="https://cdn.lordicon.com/asajomrp.json" trigger="hover" class="service-card-icon"
-                        colors="primary:#262626,secondary:#0061ff">
+            <div class="stat-row">
+                <div class="stat">
+                    <lord-icon src="https://cdn.lordicon.com/asajomrp.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                        <span class="stat-number">500,000+</span>
-                        <p class="stat-description">Happy Clients</p>
-                    </div>
-                    <div class="stat">
-                        <lord-icon src="https://cdn.lordicon.com/rcuovkuy.json" trigger="hover" class="service-card-icon"
-                        colors="primary:#262626,secondary:#0061ff">
+                    <span class="stat-number">500,000+</span>
+                    <p class="stat-description">Happy Clients</p>
+                </div>
+                <div class="stat">
+                    <lord-icon src="https://cdn.lordicon.com/rcuovkuy.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                        <span class="stat-number">15+</span>
-                        <p class="stat-description">Years of Healthcare Experience</p>
-                    </div>
-                    <div class="stat">
-                        <lord-icon src="https://cdn.lordicon.com/onmwuuox.json" trigger="hover" class="service-card-icon"
-                        colors="primary:#262626,secondary:#0061ff">
+                    <span class="stat-number">15+</span>
+                    <p class="stat-description">Years of Healthcare Experience</p>
+                </div>
+                <div class="stat">
+                    <lord-icon src="https://cdn.lordicon.com/onmwuuox.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                        <span class="stat-number">4.9</span>
-                        <p class="stat-description">Google Rating</p>
-                    </div>
-                    <div class="stat">
-                        <lord-icon src="https://cdn.lordicon.com/jeuxydnh.json" trigger="hover" class="service-card-icon"
-                        colors="primary:#262626,secondary:#0061ff">
+                    <span class="stat-number">4.9</span>
+                    <p class="stat-description">Google Rating</p>
+                </div>
+                <div class="stat">
+                    <lord-icon src="https://cdn.lordicon.com/jeuxydnh.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                        <span class="stat-number">15+</span>
-                        <p class="stat-description">Home Care Services</p>
-                    </div>
+                    <span class="stat-number">15+</span>
+                    <p class="stat-description">Home Care Services</p>
+                </div>
             </div>
         </div>
     </section>
@@ -97,11 +129,18 @@
             </div>
             <div class="section-content">
                 <h2 class="section-heading">About Us</h2>
-                <h1 class="sub-heading">Exceptional Care, <br>Anytime, Anywhere</h1>
-                <p>Welcome to 800DOCTOR, Dubai’s premier provider of doctor-on-call and home healthcare services. Established in 2007, we specialize in delivering high-quality, personalized medical care right at your doorstep.</p>
-                <p>Our team of fully licensed practitioners is trained in various specialties, including family medicine, general surgery, paediatrics, physiotherapy, nursing, obstetrics, and gynaecology. We are available 24/7, 365 days a year, ensuring that you receive friendly and prompt healthcare whenever you need it.</p>
-                <p>At 800DOCTOR, we offer a comprehensive range of home healthcare services, including home nursing, IV therapy, blood tests, physiotherapy, and occupational therapy. Whether at your home, office, or hotel, we prioritize your comfort and convenience.</p>
-        
+                <h1 class="sub-heading">Exceptional Care, Anytime, Anywhere</h1>
+                <p>Welcome to 800DOCTOR, Dubai’s premier provider of doctor-on-call and home healthcare services.
+                    Established in 2007, we specialize in delivering high-quality, personalized medical care right at
+                    your doorstep.</p>
+                <p>Our team of fully licensed practitioners is trained in various specialties, including family
+                    medicine, general surgery, paediatrics, physiotherapy, nursing, obstetrics, and gynaecology. We are
+                    available 24/7, 365 days a year, ensuring that you receive friendly and prompt healthcare whenever
+                    you need it.</p>
+                <p>At 800DOCTOR, we offer a comprehensive range of home healthcare services, including home nursing, IV
+                    therapy, blood tests, physiotherapy, and occupational therapy. Whether at your home, office, or
+                    hotel, we prioritize your comfort and convenience.</p>
+
                 <a href="tel:+971800362867" class="cta-primary mt-2">Book an appointment</a>
             </div>
         </div>
@@ -117,8 +156,8 @@
                 {% for service in services|slice:":6" %}
                 <a href="#contactUs" class="service-card group">
                     <div class="service-card-icon-container">
-                        <lord-icon src="{{ service.icon_link }}" trigger="hover"
-                            class="service-card-icon" colors="primary:#262626,secondary:#0061ff">
+                        <lord-icon src="{{ service.icon_link }}" trigger="hover" class="service-card-icon"
+                            colors="primary:#262626,secondary:#0D439B">
                         </lord-icon>
                     </div>
                     <h3 class="card-heading service-card-heading">{{ service.service_name }}</h3>
@@ -141,8 +180,8 @@
             {% endif %}
         </div>
     </section>
-    
-    
+
+
 
     <section id="working">
         <div class="section-container">
@@ -177,8 +216,8 @@
                 </div>
             </div>
             <div class="flex flex-row items-center justify-center">
-                <a href="#contactUs" class="cta-outline mt-12 mx-auto w-fit group">Contact Us<i
-                        class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
+                <a href="tel:+971800362867" class="cta-primary mt-12 mx-auto w-fit gap-3"><i
+                        class="bi bi-telephone-outbound"></i>+971 800 362867</a>
             </div>
         </div>
     </section>
@@ -195,7 +234,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/ntcrpjuj.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -206,7 +245,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/asajomrp.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -217,7 +256,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/rddqfodm.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -233,7 +272,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/trkmlure.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -244,7 +283,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/ynfkqjnz.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -255,7 +294,7 @@
                     <div class="feature-block">
                         <div class="feature-icon">
                             <lord-icon src="https://cdn.lordicon.com/bsdkzyjd.json" trigger="hover" delay="1000"
-                                stroke="bold" colors="primary:#0675ff,secondary:#0675ff" style="width:100%;height:100%">
+                                stroke="bold" colors="primary:#0D439B,secondary:#0D439B" style="width:100%;height:100%">
                             </lord-icon>
                         </div>
                         <div class="space-y-1.5">
@@ -265,7 +304,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
@@ -280,7 +319,8 @@
                     <img src="{%static '/assets/partners/alsaada.webp'%}" alt="partner alsaada" class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/better_communities.webp'%}" alt="partner better communities" class="object-cover">
+                    <img src="{%static '/assets/partners/better_communities.webp'%}" alt="partner better communities"
+                        class="object-cover">
                 </div>
                 <div class="partner-logo">
                     <img src="{%static '/assets/partners/damac.webp'%}" alt="partner damac" class="object-cover">
@@ -289,17 +329,19 @@
                     <img src="{%static '/assets/partners/dmcc.webp'%}" alt="partner dmcc" class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/dubai_electricity_and_water_authority.webp'%}" alt="partner dubai_electricity_and_water_authority"
-                        class="object-cover">
+                    <img src="{%static '/assets/partners/dubai_electricity_and_water_authority.webp'%}"
+                        alt="partner dubai_electricity_and_water_authority" class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/emirates_nbd.webp'%}" alt="partner emirates" class="object-cover">
+                    <img src="{%static '/assets/partners/emirates_nbd.webp'%}" alt="partner emirates"
+                        class="object-cover">
                 </div>
                 <div class="partner-logo">
                     <img src="{%static '/assets/partners/esaad.webp'%}" alt="partner esaad" class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/gems_rewards.webp'%}" alt="partner gems rewards" class="object-cover">
+                    <img src="{%static '/assets/partners/gems_rewards.webp'%}" alt="partner gems rewards"
+                        class="object-cover">
                 </div>
                 <div class="partner-logo hidden lg:block">
 
@@ -314,10 +356,12 @@
                     <img src="{%static '/assets/partners/imdad.webp'%}" alt="partner imdad" class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/pure_heal.webp'%}" alt="partner pure heal" class="object-cover">
+                    <img src="{%static '/assets/partners/pure_heal.webp'%}" alt="partner pure heal"
+                        class="object-cover">
                 </div>
                 <div class="partner-logo">
-                    <img src="{%static '/assets/partners/the_entertainer.webp'%}" alt="partner the entertainer" class="object-cover">
+                    <img src="{%static '/assets/partners/the_entertainer.webp'%}" alt="partner the entertainer"
+                        class="object-cover">
                 </div>
             </div>
         </div>
@@ -329,29 +373,32 @@
                 <h2 class="section-heading">Frequently asked questions</h2>
                 <p>Everything you need to know about the services and packages.</p>
             </div>
-            <div id="faq-accordion" data-accordion="collapse"
-                data-active-classes="bg-light-blue-50 text-neutral-700"
+            <div id="faq-accordion" data-accordion="collapse" data-active-classes="bg-light-blue-50 text-neutral-700"
                 data-inactive-classes="bg-transparent text-neutral-600">
-    
+
                 {% for faq in faqs %}
-                    <h2 id="accordion-heading-{{ forloop.counter }}">
-                        <button type="button" class="faq-heading" data-accordion-target="#accordion-body-{{ forloop.counter }}"
-                            aria-expanded="{{ forloop.first|yesno:"true,false" }}" aria-controls="accordion-body-{{ forloop.counter }}">
-                            <span>{{ faq.question }}</span>
-                            <svg data-accordion-icon class="w-3 h-3 {% if forloop.first %}rotate-180{% endif %} shrink-0" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5 5 1 1 5" />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div id="accordion-body-{{ forloop.counter }}" class="{% if forloop.first %}block{% else %}hidden{% endif %}" aria-labelledby="accordion-heading-{{ forloop.counter }}">
-                        <div class="faq-answer">
-                            <p>{{ faq.answer }}</p>
-                        </div>
+                <h2 id="accordion-heading-{{ forloop.counter }}">
+                    <button type="button" class="faq-heading"
+                        data-accordion-target="#accordion-body-{{ forloop.counter }}"
+                        aria-expanded="{{ forloop.first|yesno:" true,false" }}"
+                        aria-controls="accordion-body-{{ forloop.counter }}">
+                        <span>{{ faq.question }}</span>
+                        <svg data-accordion-icon class="w-3 h-3 {% if forloop.first %}rotate-180{% endif %} shrink-0"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-body-{{ forloop.counter }}"
+                    class="{% if forloop.first %}block{% else %}hidden{% endif %}"
+                    aria-labelledby="accordion-heading-{{ forloop.counter }}">
+                    <div class="faq-answer">
+                        <p>{{ faq.answer }}</p>
                     </div>
+                </div>
                 {% endfor %}
-                
+
             </div>
         </div>
     </section>
@@ -365,36 +412,86 @@
             <div class="swiper testimonial-swiper overflow-hidden relative ">
                 <div class="testimonial-wrapper swiper-wrapper">
                     {% for testimonial in testimonials %}
-                        <div class="swiper-slide testimonial-card">
-                            <div class="stars text-primary-700">
-                                {% for _ in testimonial.full_rating|range_filter %}
-                                    <i class="bi bi-star-fill"></i>  {# Full star #}
-                                {% endfor %}
+                    <div class="swiper-slide testimonial-card">
+                        <div class="stars text-primary-700">
+                            {% for _ in testimonial.full_rating|range_filter %}
+                            <i class="bi bi-star-fill"></i> {# Full star #}
+                            {% endfor %}
 
-                                {% if testimonial.half_rating %}
-                                    <i class="bi bi-star-half"></i>  {# Half star #}
-                                {% endif %}
+                            {% if testimonial.half_rating %}
+                            <i class="bi bi-star-half"></i> {# Half star #}
+                            {% endif %}
 
-                                {% for _ in testimonial.empty_rating|range_filter %}
-                                    <i class="bi bi-star"></i>  {# Empty star #}
-                                {% endfor %}
+                            {% for _ in testimonial.empty_rating|range_filter %}
+                            <i class="bi bi-star"></i> {# Empty star #}
+                            {% endfor %}
 
 
-                            </div>
-                            <p class="person-testimony">
-                                "{{ testimonial.testimonial }}"
-                            </p>
-                            <div>
-                                <p class="person-name">{{ testimonial.author }}</p>
-                            </div>
                         </div>
+                        <p class="person-testimony">
+                            "{{ testimonial.testimonial }}"
+                        </p>
+                        <div>
+                            <p class="person-name">{{ testimonial.author }}</p>
+                        </div>
+                    </div>
                     {% empty %}
-                        <p class="text-center">No testimonials available.</p>
+                    <p class="text-center">No testimonials available.</p>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </section>
+
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">What Our Clients Say</h2>
+                <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-row">
+                    {% for testimonial in testimonials %}
+                    <div class="test-card">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <i class="bi bi-person-circle text-5xl"></i>
+                                <div class="flex flex-col items-start gap-0">
+                                    <p class="person-name">{{ testimonial.author }}</p>
+                                    <span class="text-xs">Posted on 24/12/2024</span>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="{%static '/assets/logos/google.png'%}" alt="" class="h-12 w-fit">
+                            </div>
+                        </div>
+                        <div class="stars text-yellow-400 text-xl">
+                            {% for _ in testimonial.full_rating|range_filter %}
+                            <i class="bi bi-star-fill"></i> {# Full star #}
+                            {% endfor %}
+
+                            {% if testimonial.half_rating %}
+                            <i class="bi bi-star-half"></i> {# Half star #}
+                            {% endif %}
+
+                            {% for _ in testimonial.empty_rating|range_filter %}
+                            <i class="bi bi-star"></i> {# Empty star #}
+                            {% endfor %}
+
+
+                        </div>
+                        <p class="person-testimony">
+                            "{{ testimonial.testimonial }}"
+                        </p>
+                    </div>
+                    {% empty %}
+                    <p class="text-center w-full">No testimonials available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -429,7 +526,8 @@
                     </div>
                     <div class="input-container">
                         <label for="message">Message</label>
-                        <textarea minlength="10" maxlength="999" id="message" name="message" placeholder="Enter Your Message" rows="5" required></textarea>
+                        <textarea minlength="10" maxlength="999" id="message" name="message"
+                            placeholder="Enter Your Message" rows="5" required></textarea>
                     </div>
                     <div class="input-check-label">
                         <input id="terms" name="terms" type="checkbox" required>
@@ -466,9 +564,9 @@
                 }
 
                 document.querySelector('.loader').classList.remove('hidden');
-        
+
                 const formData = new FormData(form);
-        
+
                 const data = {
                     first_name: formData.get('first_name'),
                     last_name: formData.get('last_name'),
@@ -481,7 +579,7 @@
                 };
 
                 var csrftoken = Cookies.get('csrftoken');
-        
+
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -490,35 +588,35 @@
                         'X-CSRFToken': csrftoken // Include CSRF token for Django security
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    grecaptcha.reset();
-                    document.querySelector('.loader').classList.add('hidden');
-                    if (data.status === 'success') {
-                        form.reset();
+                    .then(response => response.json())
+                    .then(data => {
+                        grecaptcha.reset();
+                        document.querySelector('.loader').classList.add('hidden');
+                        if (data.status === 'success') {
+                            form.reset();
 
-                        window.location.href = "{% url 'success' %}";
+                            window.location.href = "{% url 'success' %}";
 
-                    } else {
-                        const toastErrorElement = document.getElementById('toast2');
-                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+                        } else {
+                            const toastErrorElement = document.getElementById('toast2');
+                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
 
+                            document.querySelector('.form-error').classList.remove('hidden');
+
+                            setTimeout(() => {
+                                document.querySelector('.form-error').classList.add('hidden');
+                            }, 5000);
+                        }
+                    })
+                    .catch(error => {
+                        document.querySelector('.loader').classList.add('hidden');
+                        grecaptcha.reset();
                         document.querySelector('.form-error').classList.remove('hidden');
 
                         setTimeout(() => {
                             document.querySelector('.form-error').classList.add('hidden');
                         }, 5000);
-                    }
-                })
-                .catch(error => {
-                    document.querySelector('.loader').classList.add('hidden');
-                    grecaptcha.reset();
-                    document.querySelector('.form-error').classList.remove('hidden');
-
-                    setTimeout(() => {
-                        document.querySelector('.form-error').classList.add('hidden');
-                    }, 5000);
-                });
+                    });
             });
         });
     </script>

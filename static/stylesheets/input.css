@@ -1,10 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html{
+    @apply scroll-pt-[72px] scroll-smooth;
+  }
   *::-webkit-scrollbar {
     @apply w-1.5;
   }
@@ -14,11 +18,11 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply bg-primary-600 rounded-full;
+    @apply bg-primary-900 rounded-full;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-700;
+    @apply bg-primary-950;
   }
 
   *::-webkit-scrollbar-button {
@@ -34,11 +38,11 @@
   }
 
   *::-moz-scrollbar-thumb {
-    @apply bg-primary-600 rounded-full;
+    @apply bg-primary-900 rounded-full;
   }
 
   *::-moz-scrollbar-thumb:hover {
-    @apply bg-primary-700;
+    @apply bg-primary-950;
   }
 
   *::-moz-scrollbar-button {
@@ -46,15 +50,15 @@
   }
 
   *::selection {
-    @apply bg-primary-600 text-white;
+    @apply bg-primary-900 text-white;
   }
 
   *::-moz-selection {
-    @apply bg-primary-600 text-white;
+    @apply bg-primary-900 text-white;
   }
 
   body {
-    @apply font-poppins text-neutral-500 text-sm lg:text-base leading-[22px] lg:leading-6;
+    @apply font-inter text-neutral-500 text-sm lg:text-base leading-[22px] lg:leading-6;
   }
 
   img {
@@ -155,7 +159,7 @@
   }
 
   .section-heading {
-    @apply text-lg lg:text-2xl font-semibold text-primary-700;
+    @apply text-lg lg:text-2xl font-semibold text-primary-900;
   }
 
   .card-heading {
@@ -167,11 +171,11 @@
   }
 
   .cta-primary {
-    @apply inline-flex items-center justify-center font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm px-6 py-3 text-center;
+    @apply inline-flex items-center justify-center font-medium text-white bg-primary-900 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm px-6 py-3 text-center;
   }
 
   .cta-outline {
-    @apply inline-flex items-center justify-center font-medium text-primary-700 bg-transparent hover:bg-primary-50 border border-primary-700 focus:ring-2 focus:outline-none focus:border-primary-300 focus:ring-primary-300 rounded-lg text-sm px-6 py-3 text-center;
+    @apply inline-flex items-center justify-center font-medium text-primary-900 bg-transparent hover:bg-primary-50 border border-primary-900 focus:ring-2 focus:outline-none focus:border-primary-300 focus:ring-primary-300 rounded-lg text-sm px-6 py-3 text-center;
   }
 
   .cta-whatsapp {
@@ -179,7 +183,7 @@
   }
 
   .cta-call-now{
-    @apply inline-flex items-center justify-center font-medium text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-full p-3 text-center;
+    @apply inline-flex items-center justify-center font-medium text-white bg-primary-900 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-full p-3 text-center;
   }
 }
 
@@ -189,7 +193,7 @@
   }
 
   .loader-spinner{
-    @apply w-10 h-10 text-gray-200 animate-spin fill-blue-600;
+    @apply w-10 h-10 text-gray-200 animate-spin fill-blue-900;
   }
 
   .toast{
@@ -217,7 +221,7 @@
   }
 
   .navbar-logo {
-    @apply h-16 md:h-[72px] w-auto aspect-auto;
+    @apply h-14 md:h-16 w-auto aspect-auto;
   }
 
   .navbar-controls {
@@ -233,15 +237,15 @@
   }
 
   .navbar-link {
-    @apply block py-2 px-4  hover:text-primary-600 rounded bg-transparent hover:bg-primary-600/5;
+    @apply block py-2 px-4  hover:text-primary-800 rounded bg-transparent hover:bg-primary-800/5;
   }
 
   .active {
-    @apply text-primary-600;
+    @apply text-primary-800;
   }
 
   .navbar-link-dropdown {
-    @apply flex font-medium w-full justify-between lg:inline-flex items-center py-2 px-4 text-neutral-950 hover:text-primary-600 hover:bg-primary-600/5 rounded-lg bg-transparent;
+    @apply flex font-medium w-full justify-between lg:inline-flex items-center py-2 px-4 text-neutral-950 hover:text-primary-800 hover:bg-primary-800/5 rounded-lg bg-transparent;
   }
 
   .section-container {
@@ -250,7 +254,6 @@
 
   #services,
   #whyUs,
-  #footer,
   #features {
     @apply bg-light-blue-50;
   }
@@ -272,6 +275,22 @@
     @apply items-start;
   }
 
+  .badge-container{
+    @apply relative flex items-center px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow-md w-fit mb-1;
+  }
+
+  .badge-ripple-dot{
+    @apply absolute w-4 h-4 bg-green-500 rounded-full animate-ripple;
+  }
+
+  .badge-dot{
+    @apply relative w-2 h-2 bg-green-500 rounded-full ml-1 z-10;
+  }
+
+  .badge-text{
+    @apply ml-3 text-green-700 font-semibold text-sm;
+  }
+
   .hero-content {
     @apply col-span-12 md:col-span-7 flex flex-col gap-4 lg:gap-7 order-last md:order-first;
   }
@@ -289,7 +308,7 @@
   }
 
   .stat-number {
-    @apply text-primary-700 text-2xl font-medium mt-3;
+    @apply text-primary-900 text-2xl font-medium mt-3;
   }
 
   .stat-description {
@@ -316,7 +335,7 @@
   .working-cards-container,
   .healthcare-cards-container,
   .more-blogs-container {
-    @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8;
+    @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8 items-start;
   }
 
   .service-card,
@@ -326,6 +345,10 @@
   .wellness-package-card,
   .blog-card {
     @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-2;
+  }
+
+  .test-card{
+    @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-4;
   }
 
   .service-card {
@@ -359,11 +382,11 @@
   }
 
   .working-card {
-    @apply border border-primary-700;
+    @apply border border-primary-900;
   }
 
   .working-card-number-container {
-    @apply rounded-lg bg-primary-700 text-white p-2.5 h-12 w-12 flex items-center justify-center mb-2;
+    @apply rounded-lg bg-primary-900 text-white p-2.5 h-12 w-12 flex items-center justify-center mb-2;
   }
 
   .feature-container {
@@ -379,7 +402,7 @@
   }
 
   .feature-block {
-    @apply flex flex-col lg:flex-row gap-3 items-center lg:items-start text-center lg:text-left;
+    @apply flex flex-col gap-3 items-center text-center;
   }
 
   .feature-icon {
@@ -398,12 +421,20 @@
     @apply object-contain aspect-video h-14;
   }
 
+  .testimonial-grid{
+    @apply grid grid-cols-12 md:gap-6;
+  }
+
+  .testimonial-row{
+    @apply col-span-12 md:col-span-4 flex flex-col gap-6;
+  }
+
   .testimonial-card {
     @apply p-6 rounded-xl flex flex-col gap-4 items-center text-center;
   }
 
   .person-name {
-    @apply text-primary-700 font-semibold mb-1;
+    @apply text-neutral-800 font-semibold text-lg;
   }
 
   .person-location {
@@ -439,7 +470,7 @@
   }
 
   .footer-links li a {
-    @apply hover:text-primary-700;
+    @apply hover:text-primary-800;
   }
 
   .footer-subscribe {
@@ -455,7 +486,7 @@
   }
 
   .footer-social-icon {
-    @apply bg-white p-2.5 lg:p-3 rounded-full hover:bg-primary-700 hover:text-white text-primary-700 transition-all;
+    @apply bg-white p-2.5 lg:p-3 rounded-full hover:bg-primary-900 hover:text-white text-primary-900 transition-all;
   }
 
   .footer-divider {
@@ -763,7 +794,7 @@
   }
 
   .pagination-link.active{
-    @apply bg-primary-600 text-white border-white hover:bg-primary-500;
+    @apply bg-primary-900 text-white border-white hover:bg-primary-800;
   }
 
   .pagination-arrow-icon{
@@ -773,10 +804,11 @@
 
 @layer utilities {
   .card-shadow {
-    box-shadow: 114px 186px 61px 0px rgba(0, 97, 255, 0),
-      73px 119px 56px 0px rgba(0, 97, 255, 0.01),
-      41px 67px 47px 0px rgba(0, 97, 255, 0.02),
-      18px 30px 35px 0px rgba(0, 97, 255, 0.03),
-      5px 7px 19px 0px rgba(0, 97, 255, 0.04);
-  }
+    box-shadow: 114px 186px 61px 0px rgba(13, 67, 155, 0),
+      73px 119px 56px 0px rgba(13, 67, 155, 0.01),
+      41px 67px 47px 0px rgba(13, 67, 155, 0.02),
+      18px 30px 35px 0px rgba(13, 67, 155, 0.03),
+      5px 7px 19px 0px rgba(13, 67, 155, 0.04);
+}
+
 }
