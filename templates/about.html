@@ -68,6 +68,7 @@
             </div>
         </div>
     </section>
+    
     <section id="about" class="bg-light-blue-50">
         <div class="section-container">
             <div class="section-content order-last md:order-first">
@@ -80,6 +81,7 @@
             </div>
         </div>
     </section>
+
     <section id="about">
         <div class="section-container">
             <div class="section-image">
@@ -221,27 +223,39 @@
         </div>
     </section>
 
-    <section id="testimonials" class="bg-light-blue-50">
+    <section id="testimonials">
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-heading text-center">What Our Clients Say</h2>
                 <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
             </div>
-            <div class="swiper testimonial-swiper overflow-hidden relative ">
+            <div class="swiper testimonial-swiper overflow-hidden relative">
                 <div class="testimonial-wrapper swiper-wrapper">
                     {% for testimonial in testimonials %}
-                    <div class="swiper-slide testimonial-card">
-                        <div class="stars text-primary-700">
+                    <div class="swiper-slide test-card">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <i class="bi bi-person-circle text-5xl"></i>
+                                <div class="flex flex-col items-start gap-0">
+                                    <p class="person-name">{{ testimonial.author }}</p>
+                                    <span class="text-xs">Posted on 24/12/2024</span>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="{%static '/assets/logos/google.png'%}" alt="" class="h-12 w-fit">
+                            </div>
+                        </div>
+                        <div class="stars text-yellow-400 text-xl">
                             {% for _ in testimonial.full_rating|range_filter %}
-                                <i class="bi bi-star-fill"></i>  {# Full star #}
+                            <i class="bi bi-star-fill"></i> {# Full star #}
                             {% endfor %}
 
                             {% if testimonial.half_rating %}
-                                <i class="bi bi-star-half"></i>  {# Half star #}
+                            <i class="bi bi-star-half"></i> {# Half star #}
                             {% endif %}
 
                             {% for _ in testimonial.empty_rating|range_filter %}
-                                <i class="bi bi-star"></i>  {# Empty star #}
+                            <i class="bi bi-star"></i> {# Empty star #}
                             {% endfor %}
 
 
@@ -249,17 +263,15 @@
                         <p class="person-testimony">
                             "{{ testimonial.testimonial }}"
                         </p>
-                        <div>
-                            <p class="person-name">{{ testimonial.author }}</p>
-                        </div>
                     </div>
                     {% empty %}
-                        <p class="text-center">No testimonials available.</p>
+                    <p class="text-center w-full">No testimonials available.</p>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </section>
+
     <section id="getInTouch">
         <div class="section-container">
             <div class="section-header">
@@ -393,6 +405,7 @@
     
     {% include 'footer.html' %}
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
+    <script src="{% static 'scripts/testimonial.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>

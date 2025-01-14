@@ -36,7 +36,7 @@
                 <img src="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" class="navbar-logo"
                     alt="800DOCTOR Logo">
             </a>
-            <a href="tel:+971800362867" class="cta-primary hidden xs:inline-flex gap-3 items-center">
+            <a href="tel:+971800362867" class="cta-primary hidden xs:inline-flex gap-2 text-xs items-center">
                 <i class="bi bi-telephone-outbound-fill"></i>
                 <span>+971 800 362867</span>
             </a>
@@ -181,8 +181,6 @@
         </div>
     </section>
 
-
-
     <section id="working">
         <div class="section-container">
             <div class="section-header">
@@ -221,6 +219,67 @@
             </div>
         </div>
     </section>
+
+    <section id="about-call">
+        <div class="section-container">
+            <div class="section-image">
+                <img src="{% static 'assets/images/IMG_5708.jpg'%}" alt="Doctor on Call Service">
+            </div>
+            <div class="section-content">
+                <h2 class="section-heading">Doctor On Call</h2>
+                <h1 class="sub-heading">Expert Care, Just a Call Away</h1>
+                <p>Experience premium healthcare services with 800DOCTOR, Dubai’s trusted name in doctor-on-call services.
+                    Since 2007, we have been committed to providing professional, compassionate care directly to your
+                    location.</p>
+                <p>Our team of certified medical experts includes specialists in family medicine, general surgery,
+                    paediatrics, nursing, physiotherapy, obstetrics, and gynaecology. We are available round-the-clock to
+                    ensure prompt and personalized medical attention whenever required.</p>
+                <p>From routine consultations to emergency care, 800DOCTOR brings comprehensive medical services to your
+                    home, office, or any other preferred location, prioritizing your health and convenience.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about-home">
+        <div class="section-container">
+            <div class="section-content">
+                <h2 class="section-heading">Doctor At Home</h2>
+                <h1 class="sub-heading">Personalized Care in the Comfort of Your Home</h1>
+                <p>At 800DOCTOR, we redefine home healthcare by offering top-quality medical services tailored to your
+                    needs. Established in 2007, we are dedicated to enhancing patient well-being through compassionate and
+                    professional care.</p>
+                <p>Our diverse team of licensed practitioners includes experts in family medicine, physiotherapy, nursing,
+                    paediatrics, and more, ensuring comprehensive care for you and your loved ones. We are available 24/7 to
+                    address your medical concerns promptly and effectively.</p>
+                <p>Whether it’s home nursing, IV therapy, or physiotherapy, our services are designed to provide
+                    unparalleled convenience and comfort in your own space.</p>
+            </div>
+            <div class="section-image">
+                <img src="{% static 'assets/images/IMG_5668.jpg'%}" alt="Home Healthcare Service">
+            </div>
+        </div>
+    </section>
+    
+    <section id="about-hotel">
+        <div class="section-container">
+            <div class="section-image">
+                <img src="{% static 'assets/images/IMG_5622.jpg'%}" alt="Hotel Healthcare Service">
+            </div>
+            <div class="section-content">
+                <h2 class="section-heading">Doctor At Hotel</h2>
+                <h1 class="sub-heading">Exceptional Care Wherever You Stay</h1>
+                <p>800DOCTOR offers world-class healthcare services to ensure your peace of mind during your stay in Dubai.
+                    Since 2007, we have been the go-to provider for medical assistance, whether at home, in the office, or
+                    in a hotel.</p>
+                <p>Our skilled professionals, including doctors, nurses, and physiotherapists, specialize in a range of
+                    medical services tailored to meet diverse needs. Available 24/7, we are always ready to deliver
+                    high-quality care with the utmost discretion and professionalism.</p>
+                <p>From urgent medical attention to wellness checks, we prioritize your health, offering seamless medical
+                    solutions right where you are staying.</p>
+            </div>
+        </div>
+    </section>
+    
 
     <section id="whyUs">
         <div class="section-container">
@@ -409,50 +468,10 @@
                 <h2 class="section-heading text-center">What Our Clients Say</h2>
                 <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
             </div>
-            <div class="swiper testimonial-swiper overflow-hidden relative ">
+            <div class="swiper testimonial-swiper overflow-hidden relative">
                 <div class="testimonial-wrapper swiper-wrapper">
                     {% for testimonial in testimonials %}
-                    <div class="swiper-slide testimonial-card">
-                        <div class="stars text-primary-700">
-                            {% for _ in testimonial.full_rating|range_filter %}
-                            <i class="bi bi-star-fill"></i> {# Full star #}
-                            {% endfor %}
-
-                            {% if testimonial.half_rating %}
-                            <i class="bi bi-star-half"></i> {# Half star #}
-                            {% endif %}
-
-                            {% for _ in testimonial.empty_rating|range_filter %}
-                            <i class="bi bi-star"></i> {# Empty star #}
-                            {% endfor %}
-
-
-                        </div>
-                        <p class="person-testimony">
-                            "{{ testimonial.testimonial }}"
-                        </p>
-                        <div>
-                            <p class="person-name">{{ testimonial.author }}</p>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p class="text-center">No testimonials available.</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">What Our Clients Say</h2>
-                <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
-            </div>
-            <div class="testimonial-grid">
-                <div class="testimonial-row">
-                    {% for testimonial in testimonials %}
-                    <div class="test-card">
+                    <div class="swiper-slide test-card">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-4">
                                 <i class="bi bi-person-circle text-5xl"></i>
@@ -492,7 +511,6 @@
         </div>
     </section>
 
-
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <section id="contactUs">
@@ -503,7 +521,7 @@
             </div>
             <div class="service-page-contact">
                 <div class="section-image">
-                    <img src="{% static 'assets/images/doc.jpg' %}" alt="doc image">
+                    <img src="{% static 'assets/images/8D - Car - 01.jpeg'%}" alt="doc image">
                 </div>
                 <form class="form-container" id="enquiryForm" method="post">
                     <div class="dual-input">
@@ -622,6 +640,7 @@
     </script>
 
     <script src="{% static 'scripts/whatsapp.js' %}"></script>
+    <script src="{% static 'scripts/testimonial.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>

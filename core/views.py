@@ -516,18 +516,18 @@ class CareerPageView(TemplateView):
         return context
 
 
-def career_listing(request, exception):
+def career_listing(request):
     """
     career listing page view.
     """
     return render(request, "career-listing.html", status=200)
 
 
-def career_individual(request, exception):
+def career_individual(request):
     """
     career individual page view.
     """
-    return render(request, "career_individual.html", status=200)
+    return render(request, "career-individual.html", status=200)
 
 
 def notfound_page(request, exception):

@@ -90,7 +90,7 @@
   input[type="time"],
   select,
   textarea {
-    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-700 focus-within:ring-primary-700 focus-visible:ring-primary-700 px-4 py-2.5 placeholder:text-sm text-sm;
+    @apply bg-white border border-neutral-600 rounded-lg focus:ring-primary-900 focus-within:ring-primary-900 focus-visible:ring-primary-900 px-4 py-2.5 placeholder:text-sm text-sm;
   }
 
   textarea{
@@ -107,11 +107,11 @@
   }
 
   input[type="file"]::-webkit-file-upload-button {
-    @apply bg-primary-600 text-white px-4 py-2.5 ml-[1px] rounded-lg text-sm;
+    @apply bg-primary-900 text-white px-4 py-2.5 ml-[1px] rounded-lg text-sm;
   }
 
   input[type="file"]::-webkit-file-upload-button:hover {
-    @apply bg-primary-700;
+    @apply bg-primary-800;
   }
 
   #rte h1:not([class]) {
@@ -217,7 +217,7 @@
   }
 
   .navbar-container {
-    @apply max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-5 py-3 lg:p-4 w-full;
+    @apply max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-5 py-2 lg:px-4 w-full;
   }
 
   .navbar-logo {
@@ -254,17 +254,26 @@
 
   #services,
   #whyUs,
-  #features {
+  #features,
+  #about-home,
+  #testimonials {
     @apply bg-light-blue-50;
   }
 
   #home .section-container,
   #about .section-container,
+  #about-home .section-container,
+  #about-call .section-container,
+  #about-hotel .section-container,
   #aboutServices .section-container,
   .service-page-contact,
   .service-info-container,
   .package-info-container {
     @apply grid grid-cols-2 gap-6 lg:gap-10 items-center;
+  }
+
+  .service-page-contact{
+    @apply items-start;
   }
 
   #home .section-container{
@@ -276,7 +285,7 @@
   }
 
   .badge-container{
-    @apply relative flex items-center px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow-md w-fit mb-1;
+    @apply relative flex items-center px-2 sm:px-4 py-2 bg-green-100 border border-green-300 rounded-lg shadow-md w-fit mb-1;
   }
 
   .badge-ripple-dot{
@@ -288,7 +297,7 @@
   }
 
   .badge-text{
-    @apply ml-3 text-green-700 font-semibold text-sm;
+    @apply ml-3 text-green-700 font-semibold text-xs sm:text-sm;
   }
 
   .hero-content {
@@ -300,7 +309,7 @@
   }
 
   .stat-row {
-    @apply grid grid-cols-12 gap-y-16 lg:gap-x-5 lg:gap-y-0 py-5;
+    @apply grid grid-cols-12 gap-y-8 lg:gap-x-5 lg:gap-y-0 py-5;
   }
 
   .stat {
@@ -327,6 +336,16 @@
     @apply col-span-2 md:col-span-1 rounded-xl overflow-hidden md:min-h-80 h-full;
   }
 
+  #about-home .section-image, #about-call .section-image, #about-hotel .section-image {
+    @apply col-span-2 md:col-span-1 rounded-xl overflow-hidden md:min-h-80 h-full md:h-[500px];
+  }
+
+  #about-home .section-image img, #about-call .section-image img, #about-hotel .section-image img {
+    @apply object-cover object-top;
+  }
+
+
+
   .section-image img{
     @apply object-contain md:object-cover;
   }
@@ -334,7 +353,8 @@
   .service-cards-container,
   .working-cards-container,
   .healthcare-cards-container,
-  .more-blogs-container {
+  .more-blogs-container,
+  .perks-card-container {
     @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8 items-start;
   }
 
@@ -343,16 +363,19 @@
   .service-page-card,
   .healthcare-package-card,
   .wellness-package-card,
-  .blog-card {
+  .blog-card,
+  .perks-card {
     @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-2;
   }
 
+ 
+
   .test-card{
-    @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-4;
+    @apply col-span-12 md:col-span-6 lg:col-span-4 p-6 md:p-8 rounded-xl bg-white flex flex-col gap-4;
   }
 
   .service-card {
-    @apply cursor-pointer hover:bg-primary-700 transition-all;
+    @apply cursor-pointer hover:bg-primary-900 transition-all;
   }
 
   .service-card-heading,
@@ -374,7 +397,7 @@
   }
 
   .service-card-link {
-    @apply border border-neutral-600 w-fit p-2 rounded-full self-end mt-3 group-hover:text-primary-700 group-hover:border-white bg-white transition-all;
+    @apply border border-neutral-600 w-fit p-2 rounded-full self-end mt-3 group-hover:text-primary-900 group-hover:border-white bg-white transition-all;
   }
 
   .service-card-link-icon {
@@ -405,8 +428,8 @@
     @apply flex flex-col gap-3 items-center text-center;
   }
 
-  .feature-icon {
-    @apply h-8 w-8 shrink-0;
+  .feature-icon, .perk-card-icon {
+    @apply h-12 w-12 shrink-0;
   }
 
   .partner-grid {
@@ -617,7 +640,7 @@
     @apply p-5 md:p-7 flex flex-col gap-2;
   }
 
-  .service-page-card-desc, .blog-card-desc{
+  .service-page-card-desc, .blog-card-desc, .person-testimony{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
@@ -641,7 +664,7 @@
   }
 
   .know-more-heading {
-    @apply flex items-center justify-between w-full py-2 focus:bg-white bg-white text-primary-600 hover:text-primary-700 gap-3 font-medium text-sm;
+    @apply flex items-center justify-between w-full py-2 focus:bg-white bg-white text-primary-900 hover:text-primary-800 gap-3 font-medium text-sm;
   }
 
   .know-more-content {
@@ -670,11 +693,11 @@
     @apply lg:p-4 col-span-2 lg:col-span-1 flex flex-col gap-6;
   }
 
-  .features-container {
+  .features-container, .perks-container {
     @apply grid grid-cols-12 gap-0 space-y-8 sm:space-y-0 sm:gap-8;
   }
 
-  .feature-box {
+  .feature-box, .perk-box {
     @apply p-4 col-span-12 sm:col-span-6 lg:col-span-4 text-center flex flex-col gap-3 justify-center items-center;
   }
 
@@ -742,7 +765,7 @@
   }
 
   .blog-category {
-    @apply text-primary-700 font-medium;
+    @apply text-primary-900 font-medium;
   }
 
   .blog-author-container {

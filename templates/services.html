@@ -15,35 +15,39 @@
     <link rel="stylesheet" href="{%static 'stylesheets/output.css'%}">
     {% include 'favicon.html' %}
 
-    <meta name ="title" content ="Doctor Consultation at Home in Dubai - 800DOCTOR"/>
+    <meta name="title" content="Doctor Consultation at Home in Dubai - 800DOCTOR" />
 
-    <meta name ="description" content ="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve."/>
+    <meta name="description"
+        content="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve." />
 
-    <meta name ="copyright" content ="800DOCTOR"/>
+    <meta name="copyright" content="800DOCTOR" />
 
     <!-- <meta name ="keywords" content ="on call doctor in Dubai"/> -->
 
-    <meta property ="og:type" content ="website"/>
+    <meta property="og:type" content="website" />
 
-    <meta property ="og:url" content ="https://800doctor.com/what-we-do/"/>
+    <meta property="og:url" content="https://800doctor.com/what-we-do/" />
 
-    <meta property ="og:title" content ="Doctor Consultation at Home in Dubai - 800DOCTOR"/>
+    <meta property="og:title" content="Doctor Consultation at Home in Dubai - 800DOCTOR" />
 
-    <meta property ="og:description" content ="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve."/>
+    <meta property="og:description"
+        content="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve." />
 
-    <meta property ="og:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+    <meta property="og:image" content="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" />
 
-    <meta property ="twitter:card" content ="summary_large_image"/>
+    <meta property="twitter:card" content="summary_large_image" />
 
-    <meta property ="twitter:url" content ="https://800doctor.com/what-we-do/"/>
+    <meta property="twitter:url" content="https://800doctor.com/what-we-do/" />
 
-    <meta property ="twitter:title" content ="Doctor Consultation at Home in Dubai - 800DOCTOR"/>
+    <meta property="twitter:title" content="Doctor Consultation at Home in Dubai - 800DOCTOR" />
 
-    <meta property ="twitter:description" content ="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve."/>
+    <meta property="twitter:description"
+        content="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve." />
 
-    <meta property ="twitter:image" content ="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}"/>
+    <meta property="twitter:image" content="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" />
 
-    <meta name="description" content="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve.">
+    <meta name="description"
+        content="Skip the clinic hassle! 800DOCTOR provides convenient doctor consultation at home in Dubai. See a qualified doctor quickly & get personalized care you deserve.">
     <title>Doctor Consultation at Home in Dubai - 800DOCTOR</title>
 </head>
 
@@ -63,19 +67,19 @@
             </div>
             <div class="service-cards-container">
                 {% for service in services %}
-                    <div class="service-page-card card-shadow">
-                        <img src="{{ service.service_photo.url }}" alt="{{ service.service_name }}"/>
-                        <div class="service-page-card-content">
-                            <h5 class="card-heading">{{ service.service_name }}</h5>
-                            <p class="service-page-card-desc">{{ service.service_card_description }}</p>
-                            <a class="cta-primary" href="{% url 'service_detail' service.service_seo_title %}">Book Now</a>
-                        </div>
+                <div class="service-page-card card-shadow">
+                    <img src="{{ service.service_photo.url }}" alt="{{ service.service_name }}" />
+                    <div class="service-page-card-content">
+                        <h5 class="card-heading">{{ service.service_name }}</h5>
+                        <p class="service-page-card-desc">{{ service.service_card_description }}</p>
+                        <a class="cta-primary" href="{% url 'service_detail' service.service_seo_title %}">Book Now</a>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </section>
-    
+
     <section id="getInTouch">
         <div class="section-container">
             <div class="section-header">
@@ -84,7 +88,7 @@
             </div>
             <div class="service-page-contact">
                 <div class="section-image">
-                    <img src="{% static 'assets/images/doc.jpg'%}" alt="doc image">
+                    <img src="{% static 'assets/images/8D - Car - 01.jpeg'%}" alt="doc image">
                 </div>
                 <form class="form-container" id="enquiryForm" method="post">
                     <div class="dual-input">
@@ -107,7 +111,8 @@
                     </div>
                     <div class="input-container">
                         <label for="message">Message</label>
-                        <textarea maxlength="999" minlength="10" id="message" name="message" placeholder="Enter Your Message" rows="5" required></textarea>
+                        <textarea maxlength="999" minlength="10" id="message" name="message"
+                            placeholder="Enter Your Message" rows="5" required></textarea>
                     </div>
                     <div class="input-check-label">
                         <input id="terms" name="terms" type="checkbox" required>
@@ -122,17 +127,17 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Include reCAPTCHA script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('enquiryForm');
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
-        
+
                 // Get the reCAPTCHA response token
                 const recaptchaResponse = grecaptcha.getResponse();
 
@@ -150,9 +155,9 @@
                 }
 
                 document.querySelector('.loader').classList.remove('hidden');
-        
+
                 const formData = new FormData(form);
-        
+
                 const data = {
                     first_name: formData.get('first_name'),
                     last_name: formData.get('last_name'),
@@ -162,7 +167,7 @@
                     terms: formData.get('terms') ? 'on' : 'off',
                     'g-recaptcha-response': recaptchaResponse  // Include the reCAPTCHA response token
                 };
-    
+
                 var csrftoken = Cookies.get('csrftoken');
                 fetch('{% url "general-enquiry" %}', { // Use Django template tag to insert the URL
                     method: 'POST',
@@ -172,89 +177,99 @@
                         'X-CSRFToken': csrftoken // Include CSRF token for Django security
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    grecaptcha.reset();
-                    if (data.status === 'success') {
-                        form.reset();
+                    .then(response => response.json())
+                    .then(data => {
+                        grecaptcha.reset();
+                        if (data.status === 'success') {
+                            form.reset();
+                            document.querySelector('.loader').classList.add('hidden');
+
+                            document.querySelector('.form-success').classList.remove('hidden');
+
+                            setTimeout(() => {
+                                document.querySelector('.form-success').classList.add('hidden');
+                            }, 5000);
+
+                        } else {
+
+                            document.querySelector('.loader').classList.add('hidden');
+
+                            document.querySelector('.form-error').classList.remove('hidden');
+                            const toastErrorElement = document.getElementById('toast2');
+                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                            setTimeout(() => {
+                                document.querySelector('.form-error').classList.add('hidden');
+                            }, 5000);
+                        }
+                    })
+                    .catch(error => {
                         document.querySelector('.loader').classList.add('hidden');
-
-                        document.querySelector('.form-success').classList.remove('hidden');
-
-                        setTimeout(() => {
-                            document.querySelector('.form-success').classList.add('hidden');
-                        }, 5000);
-
-                    } else {
-                        
-                        document.querySelector('.loader').classList.add('hidden');
-                        
+                        grecaptcha.reset();
                         document.querySelector('.form-error').classList.remove('hidden');
-                        const toastErrorElement = document.getElementById('toast2');
-                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
 
                         setTimeout(() => {
                             document.querySelector('.form-error').classList.add('hidden');
                         }, 5000);
-                    }
-                })
-                .catch(error => {
-                    document.querySelector('.loader').classList.add('hidden');
-                    grecaptcha.reset();
-                    document.querySelector('.form-error').classList.remove('hidden');
-
-                    setTimeout(() => {
-                        document.querySelector('.form-error').classList.add('hidden');
-                    }, 5000);
-                });
+                    });
             });
         });
-        
+
     </script>
-        
-
-        <section id="testimonials">
-            <div class="section-container">
-                <div class="section-header">
-                    <h2 class="section-heading text-center">What Our Clients Say</h2>
-                    <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
-                </div>
-                <div class="swiper testimonial-swiper overflow-hidden relative ">
-                    <div class="testimonial-wrapper swiper-wrapper">
-                        {% for testimonial in testimonials %}
-                        <div class="swiper-slide testimonial-card">
-                            <div class="stars text-primary-700">
-                                {% for _ in testimonial.full_rating|range_filter %}
-                                    <i class="bi bi-star-fill"></i>  {# Full star #}
-                                {% endfor %}
-
-                                {% if testimonial.half_rating %}
-                                    <i class="bi bi-star-half"></i>  {# Half star #}
-                                {% endif %}
-
-                                {% for _ in testimonial.empty_rating|range_filter %}
-                                    <i class="bi bi-star"></i>  {# Empty star #}
-                                {% endfor %}
 
 
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">What Our Clients Say</h2>
+                <p>Hear from our satisfied clients who have experienced our exceptional healthcare services.</p>
+            </div>
+            <div class="swiper testimonial-swiper overflow-hidden relative">
+                <div class="testimonial-wrapper swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <div class="swiper-slide test-card">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <i class="bi bi-person-circle text-5xl"></i>
+                                <div class="flex flex-col items-start gap-0">
+                                    <p class="person-name">{{ testimonial.author }}</p>
+                                    <span class="text-xs">Posted on 24/12/2024</span>
+                                </div>
                             </div>
-                            <p class="person-testimony">
-                                "{{ testimonial.testimonial }}"
-                            </p>
                             <div>
-                                <p class="person-name">{{ testimonial.author }}</p>
+                                <img src="{%static '/assets/logos/google.png'%}" alt="" class="h-12 w-fit">
                             </div>
                         </div>
-                        {% empty %}
-                            <p class="text-center">No testimonials available.</p>
-                        {% endfor %}
+                        <div class="stars text-yellow-400 text-xl">
+                            {% for _ in testimonial.full_rating|range_filter %}
+                            <i class="bi bi-star-fill"></i> {# Full star #}
+                            {% endfor %}
+
+                            {% if testimonial.half_rating %}
+                            <i class="bi bi-star-half"></i> {# Half star #}
+                            {% endif %}
+
+                            {% for _ in testimonial.empty_rating|range_filter %}
+                            <i class="bi bi-star"></i> {# Empty star #}
+                            {% endfor %}
+
+
+                        </div>
+                        <p class="person-testimony">
+                            "{{ testimonial.testimonial }}"
+                        </p>
                     </div>
+                    {% empty %}
+                    <p class="text-center w-full">No testimonials available.</p>
+                    {% endfor %}
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        {% include 'footer.html' %}
+    {% include 'footer.html' %}
 
+    <script src="{% static 'scripts/testimonial.js' %}"></script>
     <script src="{%static 'scripts/whatsapp.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{%static 'scripts/swiper.js'%}"></script>

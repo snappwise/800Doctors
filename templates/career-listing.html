@@ -1,4 +1,5 @@
 {%load static%}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    {% include 'favicon.html' %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{% static 'stylesheets/output.css'%}">
-    {% include 'favicon.html' %}
-    <title>Career</title>
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    <title>Careers</title>
 </head>
 
 <body>
@@ -24,172 +25,144 @@
     {% include 'whatsapp.html' %}
 
     {% include 'navbar.html' %}
-
-    <section id="home"
-        class="mt-[72px] md:mt-0 pt-72 md:pt-20 bg-hero-bg-mobile md:bg-hero-bg bg-no-repeat bg-cover md:bg-center">
-        <div class="section-container min-h-[550px] max-h-[700px] h-full">
-            <div class="hero-content">
-                <h1 class="main-heading">Work with us to <span class="text-primary-700">reform</span><br><span
-                        class="text-primary-700"> healthcare experience</span> in Dubai</h1>
-                <p class="max-w-xl">Experience premium healthcare at your doorstep in Dubai with 800DOCTOR. Our expert
-                    medical team arrives within 30 minutes, offering fast, trustworthy, and personalized care designed
-                    for your convenience.</p>
-                <div class="hero-cta">
-                    <a class="cta-outline" href="{% url 'services' %}">Learn More</a>
-                    <a class="cta-primary" href="{% url 'about-us' %}#getInTouch">Explore Opportunities</a>
+    <section id="opportunities" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">All Openings</h2>
+                <p>Find the role suited for you</p>
+            </div>
+            <div class="service-cards-container">
+                <div class="service-page-card card-shadow">
+                    <img src="" alt="" />
+                    <div class="service-page-card-content">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <h5 class="card-heading">Position Name</h5>
+                            <span
+                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">Category</span>
+                        </div>
+                        <p class="service-page-card-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            Explicabo cupiditate unde recusandae ipsum consequuntur, error dolore suscipit ab iusto.
+                            Quasi totam reiciendis voluptatem explicabo quod recusandae necessitatibus nisi expedita
+                            aut?</p>
+                        <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
+                            <i class="bi bi-person text-xl"></i>
+                            <span>Available Positions: 2</span>
+                        </div>
+                        <a class="cta-primary" href="">Apply Now</a>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="hero-image">
-                <img src="{% static 'assets/images/bg_home.jpg' %}" alt="Doctor Image" class="h-full w-full object-contain">
-            </div> -->
         </div>
     </section>
 
-    <section id="getInTouch" class="pt-16 lg:pt-20">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">Career</h2>
-                <p>We'd love to hear from you. Please fill out this form.</p>
-            </div>
-            <div class="service-page-contact">
-                <div class="section-image">
-                    <img src="{% static 'assets/images/doc.jpg'%}" alt="doc image">
-                </div>
-                <form class="form-container" id="careerPageForm" method="post" enctype="multipart/form-data">
-                    <div class="dual-input">
-                        <div class="input-container">
-                            <label for="first-name">First name</label>
-                            <input id="first-name" name="first_name" placeholder="First name" type="text" required>
-                        </div>
-                        <div class="input-container">
-                            <label for="last-name">Last name</label>
-                            <input id="last-name" name="last_name" placeholder="Last name" type="text" required>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label for="email">Email</label>
-                        <input id="email" name="user_email" placeholder="you@company.com" type="email" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="phone_number">Phone Number</label>
-                        <input id="phone_number" name="phone_number" placeholder="123456789" type="number" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="file_input">Upload Resume</label>
-                        <input id="file_input" name="resume" type="file" accept=".txt, .doc, .docx, .pdf" required>
-                        <p id="file_error" class="text-red-600 text-sm"></p>
-                    </div>
-                    <div class="input-container">
-                        <label for="message">Message</label>
-                        <textarea minlength="10" maxlength="999" id="message" name="message"
-                            placeholder="Enter Your Message" rows="5" required></textarea>
-                    </div>
-                    <div class="input-check-label">
-                        <input id="terms" name="terms" type="checkbox" required>
-                        <label class="input-container-label" for="terms">You agree to our friendly
-                            <a class="underline" href="{% url 'privacy-policy' %}">Privacy Policy</a></label>
-                    </div>
-                    <!-- Add reCAPTCHA widget here -->
-                    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
-                    <button type="submit" class="cta-primary">Send Message</button>
-                </form>
-
-            </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('careerPageForm');
+        const blogsPerPage = 9;  // Set to 3 blogs per page
+        let currentPage = 1;
+        let totalPages = 0;
 
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
+        function fetchBlogs(page) {
+            fetch(`/api/blogs/?page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    renderBlogs(data.blogs);
+                    renderPagination(data.pagination);
+                });
+        }
 
+        function renderBlogs(blogs) {
+            const blogContainer = document.getElementById('blog-container');
+            blogContainer.innerHTML = '';
 
-                const formData = new FormData(form);
-                formData.append('agreement', formData.get('terms') === 'on');
-                const recaptchaResponse = formData.get('g-recaptcha-response');
-
-                if (!recaptchaResponse) {
-                    document.querySelector('.form-warning').classList.remove('hidden');
-
-                    const toastErrorElement = document.getElementById('toast3');
-                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
-
-                    setTimeout(() => {
-                        document.querySelector('.form-warning').classList.add('hidden');
-                    }, 3000);
-
-                    return;
-                }
-                var csrftoken = Cookies.get('csrftoken');
-                document.querySelector('.loader').classList.remove('hidden');
-                fetch('{% url "career-enquiry" %}', { // Use Django template tag to insert the URL
-                    method: 'POST',
-                    body: formData, // Send FormData object including file
-                    headers: {
-                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        grecaptcha.reset();
-                        if (data.status === 'success') {
-                            form.reset();
-                            document.querySelector('.loader').classList.add('hidden');
-
-                            document.querySelector('.form-success').classList.remove('hidden');
-
-                            setTimeout(() => {
-                                document.querySelector('.form-success').classList.add('hidden');
-                            }, 5000);
-
-                        } else {
-
-                            document.querySelector('.loader').classList.add('hidden');
-
-                            document.querySelector('.form-error').classList.remove('hidden');
-                            const toastErrorElement = document.getElementById('toast2');
-                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
-
-                            setTimeout(() => {
-                                document.querySelector('.form-error').classList.add('hidden');
-                            }, 5000);
-                        }
-                    })
-                    .catch(error => {
-                        grecaptcha.reset();
-                        document.querySelector('.loader').classList.add('hidden');
-
-                        document.querySelector('.form-error').classList.remove('hidden');
-
-                        setTimeout(() => {
-                            document.querySelector('.form-error').classList.add('hidden');
-                        }, 5000);
-                    });
+            blogs.forEach(blog => {
+                const blogCard = `
+                    <a class="blog-card" href="/blogs/${blog.blog_seo_title}/">
+                        <img src="${blog.blog_card_image}" class="blog-card-img" alt="Blog Image">
+                        <div class="blog-card-content">
+                            <p class="blog-category">${blog.category_name}</p>
+                            <h1 class="card-heading">${blog.blog_card_title}</h1>
+                            <p class="blog-card-desc">${blog.blog_card_description}</p>
+                            <div class="blog-author-container">
+                                <div class="blog-author-details">
+                                    <h4 class="author-name">${blog.blogger}</h4>
+                                    <p class="blog-date">${new Date(blog.created_at).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                blogContainer.insertAdjacentHTML('beforeend', blogCard);
             });
-        });
-    </script>
+        }
 
-    <script src="{% static 'scripts/whatsapp.js'%}"></script>
-    <script>
-        document.getElementById('file_input').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const maxSizeInMB = 2;
-            const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+        function renderPagination(pagination) {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
 
-            if (file.size > maxSizeInBytes) {
-                document.getElementById('file_error').textContent = `File size must be less than ${maxSizeInMB} MB.`;
-                event.target.value = '';
-            } else {
-                document.getElementById('file_error').textContent = '';
+            totalPages = pagination.total_pages;
+            currentPage = pagination.current_page;
+
+            const prevButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${!pagination.has_previous ? 'disabled' : ''}" data-page="${currentPage - 1}">
+                        <span class="sr-only">Previous</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+
+            // Show next 3 pages dynamically
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = `
+                    <li>
+                        <a href="#" class="pagination-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+                    </li>
+                `;
+                paginationContainer.insertAdjacentHTML('beforeend', pageButton);
             }
-        });
+
+            const nextButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-e-lg ${!pagination.has_next ? 'disabled' : ''}" data-page="${currentPage + 1}">
+                        <span class="sr-only">Next</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+        }
+
+        function handlePaginationClick(e) {
+            const link = e.target.closest('a.pagination-link');
+            if (!link) return;
+
+            const page = Number(link.getAttribute('data-page'));
+
+            if (!isNaN(page) && page >= 1 && page <= totalPages) {
+                currentPage = page;
+                fetchBlogs(currentPage);
+            }
+        }
+
+        document.getElementById('pagination-container').addEventListener('click', handlePaginationClick);
+
+        // Initialize with the first page
+        fetchBlogs(currentPage);
 
     </script>
+
+
     {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static 'scripts/swiper.js'%}"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 

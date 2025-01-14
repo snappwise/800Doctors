@@ -1,5 +1,4 @@
 {%load static%}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +11,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="{% static 'stylesheets/output.css'%}">
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
     {% include 'favicon.html' %}
-    <title>Career</title>
+    <meta name="title"
+        content="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}" />
+
+    <meta name="description" content="{{service.meta_description}}" />
+
+    <meta name="copyright" content="800DOCTOR" />
+
+    <!-- <meta name ="keywords" content ="on call doctor in Dubai"/> -->
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:url" content="https://800doctor.com/what-we-do/{{service.service_seo_title}}/" />
+
+    <meta property="og:title"
+        content="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}" />
+
+    <meta property="og:description" content="{{service.meta_description}}" />
+
+    <meta property="og:image" content="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <meta property="twitter:url" content="https://800doctor.com/what-we-do/{{service.service_seo_title}}/" />
+
+    <meta property="twitter:title"
+        content="{% if service.meta_title %} {{service.meta_title}} {% else %} Service | {{ service.service_name }} {% endif %}" />
+
+    <meta property="twitter:description" content="{{service.meta_description}}" />
+
+    <meta property="twitter:image" content="{% static 'assets/logos/Logo-800DOCTOR-withcare.jpg' %}" />
+
+    <meta name="description" content="{{service.meta_description}}">
+
+    <title></title>
 </head>
 
 <body>
@@ -25,154 +57,15 @@
 
     {% include 'navbar.html' %}
 
-    <section id="home"
-        class="mt-[72px] md:mt-0 pt-72 md:pt-20 bg-hero-bg-mobile md:bg-hero-bg bg-no-repeat bg-cover md:bg-center">
-        <div class="section-container min-h-[550px] max-h-[700px] h-full">
-            <div class="hero-content">
-                <div class="badge-container">
-                    <!-- Ripple Effect -->
-                    <div class="badge-ripple-dot"></div>
-                    <!-- Green Dot -->
-                    <div class="badge-dot"></div>
-                    <!-- Text -->
-                    <span class="badge-text">
-                        Job Openings Available
-                    </span>
-                </div>
-                <h1 class="main-heading">Work with us to <span class="text-primary-900">reform</span><br><span
-                        class="text-primary-900"> healthcare experience</span> in Dubai</h1>
-                <p class="max-w-xl">Join Us in Transforming Healthcare in Dubai—Be part of a passionate team delivering
-                    personalized, high-quality medical care anytime, anywhere. Together, let's redefine the standards of
-                    home healthcare services.</p>
-                <div class="hero-cta">
-                    <a class="cta-outline" href="#perks">Learn More</a>
-                    <a class="cta-primary" href="#opportunities">Explore Opportunities</a>
-                </div>
-            </div>
-            <!-- <div class="hero-image">
-                <img src="{% static 'assets/images/bg_home.jpg' %}" alt="Doctor Image" class="h-full w-full object-contain">
-            </div> -->
-        </div>
-    </section>
-
-    <section id="perks">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">Perks of working at 800Doctor</h2>
-                <p>Our Employees Are Our Family</p>
-            </div>
-            <div class="perks-container">
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/loeoyezs.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Pioneers in Home Healthcare</h1>
-                    <p>Established in 2007, 800 DOCTOR is the UAE's first luxury home healthcare provider, setting
-                        industry benchmarks in quality and patient care.</p>
-                </div>
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/weloglbk.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Reputation of Excellence</h1>
-                    <p>With over a decade of experience, we are trusted by families across the UAE for delivering
-                        premium healthcare services in the comfort of their homes.</p>
-                </div>
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/bznxubnn.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Luxury Healthcare Standards</h1>
-                    <p>We combine personalized care with state-of-the-art medical practices to ensure a superior patient
-                        and employee experience.</p>
-                </div>
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/fcyboqbm.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Career Growth Opportunities</h1>
-                    <p>Join a company that values professional development, offering extensive training programs and
-                        clear career progression pathways.</p>
-                </div>
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/wipwwnqj.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Diverse and Inclusive Workplace</h1>
-                    <p>Be part of a multicultural team that embraces diversity and fosters collaboration, innovation,
-                        and respect.</p>
-                </div>
-                <div class="perk-box">
-                    <lord-icon src="https://cdn.lordicon.com/xncgulpt.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Cutting-Edge Technology</h1>
-                    <p>Work with the latest medical technologies and tools, ensuring you stay ahead in your field.</p>
-                </div>
-                <div class="perk-box lg:col-start-3 lg:col-end-7">
-                    <lord-icon src="https://cdn.lordicon.com/cwtiedfa.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Join the Leaders in Healthcare Innovation</h1>
-                    <p>Contribute to transforming the future of home healthcare in the UAE by working with a team that
-                        is redefining the industry.</p>
-                </div>
-                <div class="perk-box lg:col-end-11 lg:col-start-7">
-                    <lord-icon src="https://cdn.lordicon.com/oderoewi.json" trigger="hover" class="perk-card-icon"
-                        colors="primary:#262626,secondary:#0D439B">
-                    </lord-icon>
-                    <h1 class="card-heading">Strong Community Presence</h1>
-                    <p>Be part of a company deeply committed to community health and well-being, with initiatives that
-                        make a difference.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="opportunities">
-        <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">Current Openings</h2>
-                <p>Find the role suited for you</p>
-            </div>
-            <div class="service-cards-container">
-                <div class="service-page-card card-shadow">
-                    <img src="" alt="" />
-                    <div class="service-page-card-content">
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <h5 class="card-heading">Position Name</h5>
-                            <span
-                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">Category</span>
-                        </div>
-                        <p class="service-page-card-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Explicabo cupiditate unde recusandae ipsum consequuntur, error dolore suscipit ab iusto.
-                            Quasi totam reiciendis voluptatem explicabo quod recusandae necessitatibus nisi expedita
-                            aut?</p>
-                        <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
-                            <i class="bi bi-person text-xl"></i>
-                            <span>Available Positions: 2</span>
-                        </div>
-                        <a class="cta-primary" href="">Apply Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-row items-center justify-center">
-                <a href="{% url 'about-us' %}#getInTouch" class="cta-outline mt-12 mx-auto w-fit group">View All
-                    Opportunities<i class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
-            </div>
-        </div>
-    </section>
-
     <section id="getInTouch" class="pt-16 lg:pt-20">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-heading text-center">Career</h2>
-                <p>We'd love to hear from you. Please fill out this form.</p>
-            </div>
-            <div class="service-page-contact">
-                <div class="section-image">
-                    <img src="{% static 'assets/images/8D - Car - 01.jpeg' %}" alt="doc image">
+            <div class="service-info-container">
+                <div class="service-info-description">
+                    <h1 class="section-heading">{{service.service_name}}</h1>
+                    <div class="service-description">
+                        <img src="{{ service.service_photo.url }}" alt="{{ service.service_name }}" />
+                        <div id="rte">{{ service.service_details|safe }}</div>
+                    </div>
                 </div>
                 <form class="form-container" id="careerPageForm" method="post" enctype="multipart/form-data">
                     <div class="dual-input">
@@ -188,9 +81,10 @@
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
-                            <label for="experience">Total Years of Experience</label>
-                            <input id="experience" name="experience" placeholder="e.g., 5 years" type="text" required>
+                            <label for="email">Email ID</label>
+                            <input id="email" name="email" placeholder="you@company.com" type="email" required>
                         </div>
+
                         <div class="input-container">
                             <label for="mobile_number">Mobile Number</label>
                             <input id="mobile_number" name="mobile_number" placeholder="123456789" type="number"
@@ -199,48 +93,42 @@
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
-                            <label for="email">Email ID</label>
-                            <input id="email" name="email" placeholder="you@company.com" type="email" required>
+                            <label for="experience">Total Years of Experience</label>
+                            <input id="experience" name="experience" placeholder="e.g., 5 years" type="text" required>
                         </div>
                         <div class="input-container">
-                            <label for="job_category">Job Category</label>
-                            <select id="job_category" name="job_category" required>
-                                <option value="" disabled selected>Select Job Category</option>
-                                <option value="back_office">Back Office</option>
-                                <option value="business_dev">Business Development/Marketing</option>
-                                <option value="physicians">Physicians (DHA, MOH)</option>
-                                <option value="nursing">Nursing (DHA RN, DHA AN, MOH RN, MOH AN)</option>
-                                <option value="support_staff">Support Staff (Driver, Housekeeping, Babysitter)</option>
-                                <option value="allied_health">Allied Health Professionals (Physiotherapists, Dietitians,
-                                    Therapists, Health Care Assistant)</option>
+                            <label for="license_status">License Status</label>
+                            <select id="license_status" name="license_status" required>
+                                <option value="" disabled selected>Select License Status</option>
+                                <option value="DHA_Eligibility">DHA Eligibility</option>
+                                <option value="MOH_Evaluation">MOH Evaluation</option>
+                                <option value="License">License</option>
                             </select>
                         </div>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
-                            <label for="position">Position to Apply For</label>
-                            <input id="position" name="position" placeholder="e.g., HR Manager" type="text" required>
-                        </div>
-                        <div class="input-container">
                             <label for="notice_period">Notice Period</label>
                             <input id="notice_period" name="notice_period" placeholder="e.g., 1 Month" type="text"
                                 required>
                         </div>
-                    </div>
-                    <div class="input-container">
-                        <label for="visa_status">Visa Status</label>
-                        <input id="visa_status" name="visa_status" placeholder="e.g., Employment Visa" type="text"
-                            required>
+                        <div class="input-container">
+                            <label for="visa_status">Visa Status</label>
+                            <input id="visa_status" name="visa_status" placeholder="e.g., Employment Visa" type="text"
+                                required>
+                        </div>
                     </div>
                     <div class="input-container">
                         <label for="languages">Languages Spoken</label>
                         <select id="languages" name="languages[]" multiple required>
+                            <!-- You can populate this dropdown with languages -->
                         </select>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="nationality">Nationality</label>
                             <select id="nationality" name="nationality" required>
+                                <!-- Populate this dropdown with nationalities -->
                             </select>
                         </div>
                         <div class="input-container">
@@ -277,6 +165,94 @@
             </div>
         </div>
     </section>
+
+    <!-- Include reCAPTCHA API -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('serviceEnquiryForm');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const recaptchaResponse = grecaptcha.getResponse();
+
+                if (!recaptchaResponse) {
+                    document.querySelector('.form-warning').classList.remove('hidden');
+
+                    const toastErrorElement = document.getElementById('toast3');
+                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                    setTimeout(() => {
+                        document.querySelector('.form-warning').classList.add('hidden');
+                    }, 3000);
+
+                    return;
+                }
+
+                document.querySelector('.loader').classList.remove('hidden');
+
+                const formData = new FormData(form);
+                const data = {
+                    first_name: formData.get('first_name'),
+                    last_name: formData.get('last_name'),
+                    user_email: formData.get('email'),
+                    phone_number: formData.get('phone_number'),
+                    source: formData.get('source'),
+                    message: formData.get('message'),
+                    terms: formData.get('terms') === 'on', // Checkbox value is 'on' if checked
+                    service: formData.get('service'), // Get the hidden service ID
+                    'g-recaptcha-response': recaptchaResponse // Add reCAPTCHA response token
+                };
+                var csrftoken = Cookies.get('csrftoken');
+                fetch('{% url "service-enquiry" %}', { // Use Django template tag to insert the URL
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        grecaptcha.reset();
+                        if (data.status === 'success') {
+                            form.reset();
+                            document.querySelector('.loader').classList.add('hidden');
+
+                            document.querySelector('.form-success').classList.remove('hidden');
+
+                            setTimeout(() => {
+                                document.querySelector('.form-success').classList.add('hidden');
+                            }, 5000);
+
+                        } else {
+
+                            document.querySelector('.loader').classList.add('hidden');
+
+                            document.querySelector('.form-error').classList.remove('hidden');
+                            const toastErrorElement = document.getElementById('toast2');
+                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                            setTimeout(() => {
+                                document.querySelector('.form-error').classList.add('hidden');
+                            }, 5000);
+                        }
+                    })
+                    .catch(error => {
+                        document.querySelector('.loader').classList.add('hidden');
+                        grecaptcha.reset();
+                        document.querySelector('.form-error').classList.remove('hidden');
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
+                    });
+            });
+        });    
+    </script>
 
     <script>
         // Function to populate the languages dropdown
@@ -344,9 +320,62 @@
 
     </script>
 
+    <section id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">Why Choose Us</h2>
+                <p>Exceptional Home Healthcare Services</p>
+            </div>
+            <div class="features-container ">
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/ntcrpjuj.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> Home Healing</h1>
+                    <p>You can heal at home</p>
+                </div>
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/asajomrp.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> Satisfied Clients</h1>
+                    <p>Join our 100,000+ happy customers </p>
+                </div>
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/rddqfodm.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> Qualified Experts</h1>
+                    <p>Trusted care from skilled professionals</p>
+                </div>
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/jjoolpwc.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> Personalized Care</h1>
+                    <p>Exceptional , friendly and affordable service</p>
+                </div>
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/trkmlure.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> Anywhere Service </h1>
+                    <p>Convinient care at home , office , or hotel.</p>
+                </div>
+                <div class="feature-box">
+                    <lord-icon src="https://cdn.lordicon.com/ynfkqjnz.json" trigger="hover" class="service-card-icon"
+                        colors="primary:#262626,secondary:#0D439B">
+                    </lord-icon>
+                    <h1 class="feature-title font-semibold text-black"> 24/7 Support </h1>
+                    <p>Round-the-clock medical asssistance</p>
+                </div>
+            </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script>
+    {% include 'footer.html' %}
+
+
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('careerPageForm');
 
@@ -417,9 +446,8 @@
                     });
             });
         });
-    </script>
+    </script> -->
 
-    <script src="{% static 'scripts/whatsapp.js'%}"></script>
     <script>
         // Function to validate file size
         function validateFileSize(event, inputId, errorId, maxSizeInMB) {
@@ -445,9 +473,9 @@
         });
     </script>
 
-    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static 'scripts/swiper.js'%}"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
