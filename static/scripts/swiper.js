@@ -10,9 +10,6 @@ var swiper = new Swiper(".testimonial-swiper", {
         disableOnInteraction: false,
     },
     breakpoints: {
-        991: {
-            slidesPerView: 4
-        },
         767: {
             slidesPerView: 3
         },

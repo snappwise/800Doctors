@@ -10,6 +10,15 @@ module.exports = {
       dropShadow: {
 
       },
+      keyframes: {
+        ripple: {
+          '0%': { transform: 'scale(1)', opacity: '0.25' },
+          '100%': { transform: 'scale(1.7)', opacity: '0' },
+        },
+      },
+      animation: {
+        ripple: 'ripple 1.5s infinite ease-in',
+      },
       colors: {
         'whatsapp': {
           '50': '#f0fdf4',
@@ -54,6 +63,7 @@ module.exports = {
       },
       fontFamily: {
         'poppins': 'Poppins, sans-serif',
+        'inter': 'Inter, sans-serif',
       },
       backgroundImage: {
         'hero': "url('/static/assets/images/aaaa_3.jpg')",
