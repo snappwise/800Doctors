@@ -271,31 +271,70 @@ class NewsletterSubscription(models.Model):
         verbose_name_plural = "Newsletter Subscriptions"
 
 
+job_categories = (
+    ("Back Office", "Back Office"),
+    ("Business Development/Marketing", "Business Development/Marketing"),
+    ("Physicians (DHA, MOH)", "Physicians (DHA, MOH)"),
+    (
+        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
+        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
+    ),
+    (
+        "Support Staff (Driver, Housekeeping, Babysitter)",
+        "Support Staff (Driver, Housekeeping, Babysitter)",
+    ),
+)
+
+license_choices = (
+    ("DHA Eligibility", "DHA Eligibility"),
+    ("MOH Evaluation", "MOH Evaluation"),
+    ("License", "License"),
+)
+
+
 class CareerPage(models.Model):
     """
-    This model is used to store the career page form data
+    This model is used to store the career page form data.
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
+    career_opening = models.ForeignKey(
+        "CareerOpenings", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    full_name = models.CharField(max_length=300)
+    location = models.CharField(max_length=500)
+    total_exp = models.CharField(max_length=250)
     user_email = models.EmailField()
+    job_category = models.CharField(choices=job_categories, max_length=300)
     phone_number = models.CharField(max_length=15)
+    position_apply = models.CharField(max_length=300)
+    notice_period = models.CharField(max_length=300)
+    license_status = models.CharField(
+        null=True, blank=True, max_length=300, choices=license_choices
+    )
+    visa_status = models.CharField(max_length=300, blank=True, null=True)  # Optional
+    languages_spoken = models.CharField(
+        max_length=500, blank=True, null=True
+    )  # Optional
+    nationality = models.CharField(max_length=400)
+    date_of_birth = models.DateField()  # Use DateField for better validation
     resume = models.FileField(upload_to="resumes/")
-    message = models.TextField()
+    cover_letter = models.TextField()
     agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     email_sent = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.id} | {self.full_name}"
 
     def clean(self):
+        # Ensure agreement is checked
         if not self.agreement:
             raise ValidationError("You must agree to the terms and conditions.")
 
     class Meta:
         verbose_name_plural = "Career Enquiries"
+        indexes = [models.Index(fields=["created_at"])]
 
 
 @receiver(pre_delete, sender=CareerPage)
@@ -314,3 +353,104 @@ def delete_old_resume(sender, instance, **kwargs):
     if hasattr(instance, "_current_resume_file"):
         if instance._current_resume_file != instance.resume:
             instance._current_resume_file.delete(save=False)
+
+
+class AdditionalDocument(models.Model):
+    """
+    Model to store additional documents for career enquiries.
+    """
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
+    career_page = models.ForeignKey(
+        CareerPage, related_name="additional_documents", on_delete=models.CASCADE
+    )
+    file = models.FileField(upload_to="additional_docs/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return (
+            f"Document for {self.career_page.full_name} uploaded at {self.uploaded_at}"
+        )
+
+
+@receiver(pre_delete, sender=AdditionalDocument)
+def delete_additional_document_file(sender, instance, **kwargs):
+    if instance.file and hasattr(instance.file, "delete"):
+        instance.file.delete(False)
+
+
+# Signal to back up the current file path during initialization
+@receiver(post_init, sender=AdditionalDocument)
+def backup_additional_document_path(sender, instance, **kwargs):
+    # Store the current file path
+    instance._current_additional_doc_file = instance.file
+
+
+# Signal to delete old additional document files if the file has been replaced
+@receiver(post_save, sender=AdditionalDocument)
+def delete_old_additional_document(sender, instance, **kwargs):
+    if hasattr(instance, "_current_additional_doc_file"):
+        # If the file has been replaced, delete the old file
+        if instance._current_additional_doc_file != instance.file:
+            instance._current_additional_doc_file.delete(save=False)
+
+
+career_status = (("open", "open"), ("closed", "closed"))
+
+additional_job_categories = (
+    ("HR", "HR"),
+    ("Admin", "Admin"),
+    ("Operations", "Operations"),
+    ("Customer Care", "Customer Care"),
+    ("Clerical", "Clerical"),
+    ("Housekeeping", "Housekeeping"),
+    ("Procurement", "Procurement"),
+    ("Inventory", "Inventory"),
+    ("Accounts", "Accounts"),
+    ("Finance", "Finance"),
+)
+
+
+class CareerOpenings(models.Model):
+    """
+    Career to track and save career Openings/ Jobs
+    """
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
+    position_image = models.ImageField(upload_to="job-openings/")
+    position_name = models.CharField(max_length=400)
+    position_desc = models.TextField()
+    position_page_info = RichTextField()
+    category = models.CharField(
+        max_length=300, choices=job_categories + additional_job_categories
+    )
+    available_pos = models.IntegerField()
+    status = models.CharField(choices=career_status, max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.position_name} ({self.status})"
+
+    class Meta:
+        verbose_name = "Career Opening"
+        verbose_name_plural = "Career Openings"
+
+
+@receiver(pre_delete, sender=CareerOpenings)
+def delete_job_opening_file(sender, instance, **kwargs):
+    if instance.position_image and hasattr(instance.position_image, "delete"):
+        instance.position_image.delete(False)
+
+
+@receiver(post_init, sender=CareerOpenings)
+def backup_job_opening_path(sender, instance, **kwargs):
+    # Store the current file path
+    instance._current_position_image_file = instance.position_image
+
+
+@receiver(post_save, sender=CareerOpenings)
+def delete_old_job_opening(sender, instance, **kwargs):
+    if hasattr(instance, "_current_position_image_file"):
+        # If the file has been replaced, delete the old file
+        if instance._current_position_image_file != instance.position_image:
+            instance._current_position_image_file.delete(save=False)

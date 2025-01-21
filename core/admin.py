@@ -8,8 +8,13 @@ from core.models import (
     # Journey,
     NewsletterSubscription,
     CareerPage,
+    CareerOpenings,
+    AdditionalDocument,
 )
 from django.utils.html import format_html
+from django.forms import BaseInlineFormSet
+from django import forms
+from django.forms import ModelForm
 from django.template.defaultfilters import truncatechars
 
 
@@ -395,21 +400,164 @@ class NewsletterSubscriptionAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class AdditionalDocumentAdmin(admin.ModelAdmin):
+    list_display = ("career_page", "document_tag", "uploaded_at")
+    search_fields = ("career_page__full_name", "career_page__user_email")
+    list_filter = ("uploaded_at",)
+    ordering = ("-uploaded_at",)
+    list_per_page = 10
+
+    def document_tag(self, obj):
+        if obj.file:
+            return format_html(
+                '<a href="{}" target="_blank">View Document</a>', obj.file.url
+            )
+        return "No Document Uploaded"
+
+    document_tag.short_description = "Document"
+
+
+# class CareerPageAdmin(admin.ModelAdmin):
+#     list_display = (
+#         "id",
+#         "full_name",
+#         "user_email",
+#         "phone_number",
+#         "resume_tag",
+#         "message_excerpt",
+#         "created_at",
+#     )
+#     search_fields = ("full_name", "user_email", "phone_number")
+#     list_filter = ("created_at", "email_sent")
+#     ordering = ("-created_at",)
+#     list_per_page = 10
+
+#     def resume_tag(self, obj):
+#         if obj.resume:
+#             return format_html(
+#                 '<a href="{}" target="_blank">View Resume</a>', obj.resume.url
+#             )
+#         return "No Resume Uploaded"
+
+#     resume_tag.short_description = "Resume"
+
+#     def message_excerpt(self, obj):
+#         return truncatechars(obj.cover_letter, 50)
+
+#     message_excerpt.short_description = "Cover Letter"
+
+
+# class AdditionalDocumentFormSet(BaseInlineFormSet):
+#     def save_new(self, form, commit=True):
+#         # Get the files from the request
+#         if form.files:
+#             files = form.files.getlist("file")
+#             if files:
+#                 instances = []
+#                 for file in files:
+#                     # Create a new instance for each file
+#                     instance = self.model(
+#                         career_page=form.cleaned_data["career_page"], file=file
+#                     )
+#                     if commit:
+#                         instance.save()
+#                     instances.append(instance)
+#                 return instances
+#         return super().save_new(form, commit)
+
+
+# class AdditionalDocumentInline(admin.TabularInline):
+#     model = AdditionalDocument
+#     formset = AdditionalDocumentFormSet
+#     extra = 1
+#     fields = ("file", "uploaded_at")
+#     readonly_fields = ("uploaded_at",)
+
+#     class Media:
+#         js = ("scripts/multiple_file_upload.js",)  # You'll need to create this JS file
+
+
+class AdditionalDocumentForm(ModelForm):
+    class Meta:
+        model = AdditionalDocument
+        fields = ["file"]
+
+
+class AdditionalDocumentFormSet(BaseInlineFormSet):
+    def clean(self):
+        """Handle multiple file uploads during cleaning"""
+        super().clean()
+
+        # Get the first form with files
+        forms_with_files = [f for f in self.forms if f.files]
+        if not forms_with_files:
+            return
+
+        form = forms_with_files[0]
+        files = form.files.getlist("file")
+
+        # If we have multiple files
+        if len(files) > 1:
+            # First file stays with the original form
+            form.cleaned_data = {"file": files[0], "career_page": self.instance}
+
+            # Create additional forms for remaining files
+            for file in files[1:]:
+                # Create a new form instance
+                new_form = self.form(
+                    {},
+                    {"file": file},
+                    prefix=f"{self.prefix}-{self.total_form_count()}",
+                    instance=self.model(),
+                )
+                # Set the cleaned data
+                new_form.is_valid()
+                new_form.cleaned_data = {"file": file, "career_page": self.instance}
+                self.forms.append(new_form)
+                # Update total forms count
+                self.total_form_count = lambda c=self.total_form_count() + 1: c
+
+    def save_new(self, form, commit=True):
+        """Save new instances"""
+        if not form.cleaned_data:
+            return None
+
+        instance = self.model(
+            career_page=self.instance, file=form.cleaned_data.get("file")
+        )
+        if commit:
+            instance.save()
+        return instance
+
+
+class AdditionalDocumentInline(admin.TabularInline):
+    model = AdditionalDocument
+    formset = AdditionalDocumentFormSet
+    form = AdditionalDocumentForm
+    extra = 1
+    fields = ("file", "uploaded_at")
+    readonly_fields = ("uploaded_at",)
+
+    class Media:
+        js = ("scripts/multiple_file_upload.js",)
+
+
 class CareerPageAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "first_name",
-        "last_name",
+        "full_name",
         "user_email",
         "phone_number",
         "resume_tag",
         "message_excerpt",
         "created_at",
+        "additional_documents_list",
     )
-    search_fields = ("first_name", "last_name", "user_email", "phone_number")
+    search_fields = ("full_name", "user_email", "phone_number")
     list_filter = ("created_at", "email_sent")
     ordering = ("-created_at",)
     list_per_page = 10
+    inlines = [AdditionalDocumentInline]
 
     def resume_tag(self, obj):
         if obj.resume:
@@ -418,14 +566,87 @@ class CareerPageAdmin(admin.ModelAdmin):
             )
         return "No Resume Uploaded"
 
-    resume_tag.short_description = "Resume"
-
     def message_excerpt(self, obj):
-        return truncatechars(obj.message, 50)
+        return truncatechars(obj.cover_letter, 50)
 
-    message_excerpt.short_description = "Message"
+    def additional_documents_list(self, obj):
+        docs = obj.additional_documents.all()
+        if docs:
+            return format_html(
+                "<br>".join(
+                    [
+                        f'<a href="{doc.file.url}" target="_blank">Document {index + 1}</a>'
+                        for index, doc in enumerate(docs)
+                    ]
+                )
+            )
+        return "No Additional Documents"
 
 
+class CareerOpeningsAdmin(admin.ModelAdmin):
+    # Fields to display in the list view
+    list_display = (
+        "position_name",
+        "category",
+        "available_pos",
+        "status",
+        "created_at",
+    )
+
+    # Add filters to the admin sidebar
+    list_filter = ("status", "category")
+
+    # Add search functionality
+    search_fields = ("position_name", "category")
+
+    # Fields to be editable directly in the list view
+    list_editable = ("status", "available_pos")
+
+    # Fields to display in the detail view
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "position_name",
+                    "position_desc",
+                    "category",
+                    "available_pos",
+                    "status",
+                )
+            },
+        ),
+        (
+            "Dates",
+            {
+                "fields": ("created_at",),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    # Controls the ordering of the list view
+    ordering = ("created_at",)
+
+    # Controls what fields are shown when adding a new entry
+    add_fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "position_name",
+                    "position_desc",
+                    "category",
+                    "available_pos",
+                    "status",
+                )
+            },
+        ),
+    )
+
+
+# Register the CareerOpenings model with the custom admin interface
+admin.site.register(CareerOpenings, CareerOpeningsAdmin)
 admin.site.register(Services, ServicesAdmin)
 admin.site.register(healthcareCategories, healthcareCategoriesAdmin)
 admin.site.register(healthcarePackages, healthcarePackagesAdmin)
@@ -434,3 +655,4 @@ admin.site.register(Faqs, faqsAdmin)
 # admin.site.register(Journey, journeyAdmin)
 admin.site.register(NewsletterSubscription, NewsletterSubscriptionAdmin)
 admin.site.register(CareerPage, CareerPageAdmin)
+admin.site.register(AdditionalDocument, AdditionalDocumentAdmin)

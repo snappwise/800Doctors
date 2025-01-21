@@ -3082,6 +3082,10 @@ input[type="file"]::-webkit-file-upload-button:hover{
   margin-bottom: 0.5rem;
 }
 
+.mb-2{
+  margin-bottom: 0.5rem;
+}
+
 .mb-8{
   margin-bottom: 2rem;
 }
@@ -3124,18 +3128,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .mt-\[72px\]{
   margin-top: 72px;
-}
-
-.mb-2{
-  margin-bottom: 0.5rem;
-}
-
-.mb-5{
-  margin-bottom: 1.25rem;
-}
-
-.mb-3{
-  margin-bottom: 0.75rem;
 }
 
 .block{
@@ -3361,11 +3353,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
   border-color: rgb(134 239 172 / var(--tw-border-opacity, 1));
 }
 
-.border-primary-800{
-  --tw-border-opacity: 1;
-  border-color: rgb(8 74 197 / var(--tw-border-opacity, 1));
-}
-
 .bg-green-100{
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
@@ -3386,6 +3373,11 @@ input[type="file"]::-webkit-file-upload-button:hover{
   background-color: rgb(255 237 213 / var(--tw-bg-opacity, 1));
 }
 
+.bg-primary-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 248 255 / var(--tw-bg-opacity, 1));
+}
+
 .bg-red-100{
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
@@ -3393,11 +3385,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .bg-transparent{
   background-color: transparent;
-}
-
-.bg-primary-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(237 248 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-hero-bg-mobile{
@@ -3422,9 +3409,19 @@ input[type="file"]::-webkit-file-upload-button:hover{
      object-fit: cover;
 }
 
+.px-3{
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-2{
@@ -3435,21 +3432,6 @@ input[type="file"]::-webkit-file-upload-button:hover{
 .py-8{
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-2{
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.py-1{
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
-
-.px-3{
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
 }
 
 .pt-16{
@@ -3500,25 +3482,22 @@ input[type="file"]::-webkit-file-upload-button:hover{
   font-weight: 700;
 }
 
-.font-semibold{
-  font-weight: 600;
-}
-
 .font-medium{
   font-weight: 500;
 }
 
-.uppercase{
-  text-transform: uppercase;
-}
-
-.tracking-wider{
-  letter-spacing: 0.05em;
+.font-semibold{
+  font-weight: 600;
 }
 
 .text-black{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-900{
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
 
 .text-green-500{
@@ -3561,6 +3540,11 @@ input[type="file"]::-webkit-file-upload-button:hover{
   color: rgb(13 67 155 / var(--tw-text-opacity, 1));
 }
 
+.text-primary-950{
+  --tw-text-opacity: 1;
+  color: rgb(14 41 93 / var(--tw-text-opacity, 1));
+}
+
 .text-red-500{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
@@ -3581,19 +3565,9 @@ input[type="file"]::-webkit-file-upload-button:hover{
   color: rgb(250 204 21 / var(--tw-text-opacity, 1));
 }
 
-.text-primary-950{
+.text-gray-600{
   --tw-text-opacity: 1;
-  color: rgb(14 41 93 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-950{
-  --tw-text-opacity: 1;
-  color: rgb(3 7 18 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-900{
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
 }
 
 .underline{
@@ -3695,48 +3669,16 @@ input[type="file"]::-webkit-file-upload-button:hover{
     grid-column-start: 3;
   }
 
-  .lg\:col-start-8{
-    grid-column-start: 8;
-  }
-
-  .lg\:col-start-2{
-    grid-column-start: 2;
-  }
-
   .lg\:col-start-7{
     grid-column-start: 7;
-  }
-
-  .lg\:col-start-9{
-    grid-column-start: 9;
   }
 
   .lg\:col-end-11{
     grid-column-end: 11;
   }
 
-  .lg\:col-end-5{
-    grid-column-end: 5;
-  }
-
-  .lg\:col-end-6{
-    grid-column-end: 6;
-  }
-
   .lg\:col-end-7{
     grid-column-end: 7;
-  }
-
-  .lg\:col-end-1{
-    grid-column-end: 1;
-  }
-
-  .lg\:col-end-12{
-    grid-column-end: 12;
-  }
-
-  .lg\:col-end-13{
-    grid-column-end: 13;
   }
 
   .lg\:block{
