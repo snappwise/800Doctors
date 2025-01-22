@@ -4,8 +4,11 @@ from ckeditor.fields import RichTextField
 from django.db.models.signals import pre_delete, post_init, post_save
 from django.dispatch.dispatcher import receiver
 from django.utils.text import slugify
+from storages.backends.s3boto3 import S3Boto3Storage
 from django.core.exceptions import ValidationError
 from content.models import validate_image_size
+from django.conf import settings
+import boto3
 
 
 class seoBase(models.Model):
@@ -308,6 +311,56 @@ additional_job_categories = (
 )
 
 
+# class PrivateS3Boto3Storage(S3Boto3Storage):
+#     def __init__(self, *args, **kwargs):
+#         kwargs["custom_domain"] = False  # Disable public URL generation
+#         kwargs["file_overwrite"] = (
+#             False  # Ensure that existing files aren't overwritten without renaming
+#         )
+#         super().__init__(*args, **kwargs)
+
+
+class PrivateS3Boto3Storage(S3Boto3Storage):
+    def __init__(self, *args, **kwargs):
+        kwargs.update(
+            {
+                "custom_domain": False,
+                "file_overwrite": False,
+                "default_acl": "private",
+                "querystring_auth": True,
+                "location": "media",  # Add this if you want files in a media subfolder
+            }
+        )
+        super().__init__(*args, **kwargs)
+
+    def url(self, name, parameters=None, expire=3600):
+        """Override url method to ensure proper URL generation"""
+        name = str(name).strip()
+        if not name:
+            return None
+
+        try:
+            s3_client = boto3.client(
+                "s3",
+                aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+                region_name=settings.AWS_S3_REGION_NAME,
+            )
+
+            key = self._normalize_name(name)
+            print(f"Generating URL for key: {key}")  # Debug print
+
+            url = s3_client.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": settings.AWS_STORAGE_BUCKET_NAME, "Key": key},
+                ExpiresIn=expire,
+            )
+            return url
+        except Exception as e:
+            print(f"Error in storage url method: {e}")
+            return None
+
+
 class CareerPage(models.Model):
     """
     This model is used to store the career page form data.
@@ -336,7 +389,9 @@ class CareerPage(models.Model):
     )  # Optional
     nationality = models.CharField(max_length=400)
     date_of_birth = models.DateField()  # Use DateField for better validation
-    resume = models.FileField(upload_to="resumes/")
+    resume = models.FileField(
+        upload_to="resumes/", storage=PrivateS3Boto3Storage()
+    )  # Custom S3 storage
     cover_letter = models.TextField()
     agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -358,19 +413,25 @@ class CareerPage(models.Model):
 @receiver(pre_delete, sender=CareerPage)
 def delete_resume_file(sender, instance, **kwargs):
     if instance.resume and hasattr(instance.resume, "delete"):
-        instance.resume.delete(False)
+        # Delete the file from S3
+        storage = instance.resume.storage
+        storage.delete(instance.resume.name)
 
 
 @receiver(post_init, sender=CareerPage)
 def backup_resume_path(sender, instance, **kwargs):
+    # Backup the current resume file path
     instance._current_resume_file = instance.resume
 
 
 @receiver(post_save, sender=CareerPage)
 def delete_old_resume(sender, instance, **kwargs):
     if hasattr(instance, "_current_resume_file"):
+        # If the file has been replaced, delete the old file
         if instance._current_resume_file != instance.resume:
-            instance._current_resume_file.delete(save=False)
+            # Delete the old file from S3
+            storage = instance._current_resume_file.storage
+            storage.delete(instance._current_resume_file.name)
 
 
 class AdditionalDocument(models.Model):
@@ -382,7 +443,9 @@ class AdditionalDocument(models.Model):
     career_page = models.ForeignKey(
         CareerPage, related_name="additional_documents", on_delete=models.CASCADE
     )
-    file = models.FileField(upload_to="additional_docs/")
+    file = models.FileField(
+        upload_to="additional_docs/", storage=PrivateS3Boto3Storage()
+    )  # Custom S3 storage
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -394,23 +457,25 @@ class AdditionalDocument(models.Model):
 @receiver(pre_delete, sender=AdditionalDocument)
 def delete_additional_document_file(sender, instance, **kwargs):
     if instance.file and hasattr(instance.file, "delete"):
-        instance.file.delete(False)
+        # Delete the file from S3
+        storage = instance.file.storage
+        storage.delete(instance.file.name)
 
 
-# Signal to back up the current file path during initialization
 @receiver(post_init, sender=AdditionalDocument)
 def backup_additional_document_path(sender, instance, **kwargs):
-    # Store the current file path
+    # Backup the current file path
     instance._current_additional_doc_file = instance.file
 
 
-# Signal to delete old additional document files if the file has been replaced
 @receiver(post_save, sender=AdditionalDocument)
 def delete_old_additional_document(sender, instance, **kwargs):
     if hasattr(instance, "_current_additional_doc_file"):
         # If the file has been replaced, delete the old file
         if instance._current_additional_doc_file != instance.file:
-            instance._current_additional_doc_file.delete(save=False)
+            # Delete the old file from S3
+            storage = instance._current_additional_doc_file.storage
+            storage.delete(instance._current_additional_doc_file.name)
 
 
 career_status = (("open", "open"), ("closed", "closed"))

@@ -83,18 +83,14 @@ MIDDLEWARE = [
 ]
 
 
-DEFAULT_RENDERER_CLASSES = (
-    'rest_framework.renderers.JSONRenderer',
-)
+DEFAULT_RENDERER_CLASSES = ("rest_framework.renderers.JSONRenderer",)
 
 if not production_level:
     DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        "rest_framework.renderers.BrowsableAPIRenderer",
     )
 
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
-}
+REST_FRAMEWORK = {"DEFAULT_RENDERER_CLASSES": DEFAULT_RENDERER_CLASSES}
 
 ROOT_URLCONF = "backend.urls"
 
@@ -258,7 +254,13 @@ SERVER_EMAIL = EMAIL_HOST_USER
 ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 EMAIL_USE_TLS = True
 
-INTERNAL_IPS = ["localhost", "127.0.0.1", "52.8.40.24", "172.31.0.244", "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"]
+INTERNAL_IPS = [
+    "localhost",
+    "127.0.0.1",
+    "52.8.40.24",
+    "172.31.0.244",
+    "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com",
+]
 
 
 if production_level:
@@ -271,12 +273,29 @@ if production_level:
         "http://52.8.40.24",
         "https://*.800doctor.com",
         "http://127.0.0.1:8000/",
-        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"
+        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com",
     ]
     SECURE_CROSS_ORIGIN_OPENER_POLICY = None
     CSRF_ALLOWED_ORIGINS = [
         "http://52.8.40.24",
         "https://*.800doctor.com",
-        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com"
+        "http://800doctorBalancer-833000389.us-west-1.elb.amazonaws.com",
     ]
     # SESSION_COOKIE_SECURE = True
+
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+
+# Prevent public access to files by default
+AWS_S3_FILE_OVERWRITE = (
+    False  # To ensure that files are not overwritten without renaming
+)
+AWS_DEFAULT_ACL = None  # No default ACL will be applied (private by default)
+
+# Enable private file access
+AWS_S3_SIGNATURE_VERSION = "s3v4"

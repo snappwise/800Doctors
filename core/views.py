@@ -314,6 +314,7 @@ class CareerPageEnquiryView(APIView):
 
                 # Handle multiple PDF uploads for Additional Documents
                 additional_documents = request.FILES.getlist("additional_documents")
+                # print("number of add. docs: ", len(additional_documents))
                 for document in additional_documents:
                     AdditionalDocument.objects.create(
                         career_page=career_page_instance, file=document

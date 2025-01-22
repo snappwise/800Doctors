@@ -14,8 +14,52 @@ from core.models import (
 from django.utils.html import format_html
 from django.forms import BaseInlineFormSet
 from django import forms
+import boto3
+from botocore.exceptions import NoCredentialsError
 from django.forms import ModelForm
 from django.template.defaultfilters import truncatechars
+from django.conf import settings
+
+
+def generate_signed_url(file_object):
+    """
+    Generate a signed URL for downloading files from S3
+    Args:
+        file_object: Django FieldFile object (e.g., instance.resume)
+    """
+    if not file_object or not file_object.name:
+        return None
+
+    s3_client = boto3.client(
+        "s3",
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        region_name=settings.AWS_S3_REGION_NAME,
+    )
+
+    try:
+        # Get the complete file path including any prefix/folder structure
+        file_path = str(file_object.name).strip()
+        if not file_path:
+            return None
+
+        # Ensure the file path starts with the media location if needed
+        if hasattr(file_object.storage, "location"):
+            location = file_object.storage.location.strip("/")
+            if location and not file_path.startswith(location):
+                file_path = f"{location}/{file_path}"
+
+        print(f"Generating signed URL for key: {file_path}")  # Debug print
+
+        url = s3_client.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": settings.AWS_STORAGE_BUCKET_NAME, "Key": file_path},
+            ExpiresIn=3600,
+        )
+        return url
+    except Exception as e:
+        print(f"Error generating signed URL: {e}")
+        return None
 
 
 class ServicesAdmin(admin.ModelAdmin):
@@ -408,73 +452,26 @@ class AdditionalDocumentAdmin(admin.ModelAdmin):
     list_per_page = 10
 
     def document_tag(self, obj):
-        if obj.file:
-            return format_html(
-                '<a href="{}" target="_blank">View Document</a>', obj.file.url
-            )
-        return "No Document Uploaded"
+        if not obj.file:
+            return "No document available"
+
+        try:
+            # Debug prints
+            print(f"document name: {obj.file.name}")
+            print(f"document url: {obj.file.url}")
+            print(f"document storage: {obj.file.storage}")
+
+            url = generate_signed_url(obj.file)
+            if url:
+                return format_html(
+                    '<a href="{}" target="_blank">Download Document</a>', url
+                )
+            return "URL generation failed"
+        except Exception as e:
+            print(f"Error in document_url: {e}")
+            return f"Error: {str(e)}"
 
     document_tag.short_description = "Document"
-
-
-# class CareerPageAdmin(admin.ModelAdmin):
-#     list_display = (
-#         "id",
-#         "full_name",
-#         "user_email",
-#         "phone_number",
-#         "resume_tag",
-#         "message_excerpt",
-#         "created_at",
-#     )
-#     search_fields = ("full_name", "user_email", "phone_number")
-#     list_filter = ("created_at", "email_sent")
-#     ordering = ("-created_at",)
-#     list_per_page = 10
-
-#     def resume_tag(self, obj):
-#         if obj.resume:
-#             return format_html(
-#                 '<a href="{}" target="_blank">View Resume</a>', obj.resume.url
-#             )
-#         return "No Resume Uploaded"
-
-#     resume_tag.short_description = "Resume"
-
-#     def message_excerpt(self, obj):
-#         return truncatechars(obj.cover_letter, 50)
-
-#     message_excerpt.short_description = "Cover Letter"
-
-
-# class AdditionalDocumentFormSet(BaseInlineFormSet):
-#     def save_new(self, form, commit=True):
-#         # Get the files from the request
-#         if form.files:
-#             files = form.files.getlist("file")
-#             if files:
-#                 instances = []
-#                 for file in files:
-#                     # Create a new instance for each file
-#                     instance = self.model(
-#                         career_page=form.cleaned_data["career_page"], file=file
-#                     )
-#                     if commit:
-#                         instance.save()
-#                     instances.append(instance)
-#                 return instances
-#         return super().save_new(form, commit)
-
-
-# class AdditionalDocumentInline(admin.TabularInline):
-#     model = AdditionalDocument
-#     formset = AdditionalDocumentFormSet
-#     extra = 1
-#     fields = ("file", "uploaded_at")
-#     readonly_fields = ("uploaded_at",)
-
-#     class Media:
-#         js = ("scripts/multiple_file_upload.js",)  # You'll need to create this JS file
 
 
 class AdditionalDocumentForm(ModelForm):
@@ -485,7 +482,7 @@ class AdditionalDocumentForm(ModelForm):
 
 class AdditionalDocumentFormSet(BaseInlineFormSet):
     def clean(self):
-        """Handle multiple file uploads during cleaning"""
+        """Handle multiple file uploads during cleaning."""
         super().clean()
 
         # Get the first form with files
@@ -518,7 +515,7 @@ class AdditionalDocumentFormSet(BaseInlineFormSet):
                 self.total_form_count = lambda c=self.total_form_count() + 1: c
 
     def save_new(self, form, commit=True):
-        """Save new instances"""
+        """Save new instances."""
         if not form.cleaned_data:
             return None
 
@@ -542,13 +539,79 @@ class AdditionalDocumentInline(admin.TabularInline):
         js = ("scripts/multiple_file_upload.js",)
 
 
+# class AdditionalDocumentForm(ModelForm):
+#     class Meta:
+#         model = AdditionalDocument
+#         fields = ["file"]
+
+
+# class AdditionalDocumentFormSet(BaseInlineFormSet):
+#     def clean(self):
+#         """Handle multiple file uploads during cleaning"""
+#         super().clean()
+
+#         # Get the first form with files
+#         forms_with_files = [f for f in self.forms if f.files]
+#         if not forms_with_files:
+#             return
+
+#         form = forms_with_files[0]
+#         files = form.files.getlist("file")
+
+#         # If we have multiple files
+#         if len(files) > 1:
+#             # First file stays with the original form
+#             form.cleaned_data = {"file": files[0], "career_page": self.instance}
+
+#             # Create additional forms for remaining files
+#             for file in files[1:]:
+#                 # Create a new form instance
+#                 new_form = self.form(
+#                     {},
+#                     {"file": file},
+#                     prefix=f"{self.prefix}-{self.total_form_count()}",
+#                     instance=self.model(),
+#                 )
+#                 # Set the cleaned data
+#                 new_form.is_valid()
+#                 new_form.cleaned_data = {"file": file, "career_page": self.instance}
+#                 self.forms.append(new_form)
+#                 # Update total forms count
+#                 self.total_form_count = lambda c=self.total_form_count() + 1: c
+
+#     def save_new(self, form, commit=True):
+#         """Save new instances"""
+#         if not form.cleaned_data:
+#             return None
+
+#         instance = self.model(
+#             career_page=self.instance, file=form.cleaned_data.get("file")
+#         )
+#         if commit:
+#             instance.save()
+#         return instance
+
+
+# class AdditionalDocumentInline(admin.TabularInline):
+#     model = AdditionalDocument
+#     formset = AdditionalDocumentFormSet
+#     form = AdditionalDocumentForm
+#     extra = 1
+#     fields = ("file", "uploaded_at")
+#     readonly_fields = ("uploaded_at",)
+
+#     class Media:
+#         js = ("scripts/multiple_file_upload.js",)
+
+
 class CareerPageAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "full_name",
         "user_email",
         "phone_number",
-        "resume_tag",
+        # "resume_tag",
+        "resume_url",
         "message_excerpt",
         "created_at",
         "additional_documents_list",
@@ -558,6 +621,28 @@ class CareerPageAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_per_page = 10
     inlines = [AdditionalDocumentInline]
+
+    def resume_url(self, obj):
+        if not obj.resume:
+            return "No resume available"
+
+        try:
+            # Debug prints
+            print(f"Resume name: {obj.resume.name}")
+            print(f"Resume url: {obj.resume.url}")
+            print(f"Resume storage: {obj.resume.storage}")
+
+            url = generate_signed_url(obj.resume)
+            if url:
+                return format_html(
+                    '<a href="{}" target="_blank">Download Resume</a>', url
+                )
+            return "URL generation failed"
+        except Exception as e:
+            print(f"Error in resume_url: {e}")
+            return f"Error: {str(e)}"
+
+    resume_url.short_description = "Resume Link"
 
     def resume_tag(self, obj):
         if obj.resume:
@@ -571,6 +656,7 @@ class CareerPageAdmin(admin.ModelAdmin):
 
     def additional_documents_list(self, obj):
         docs = obj.additional_documents.all()
+        print("\n number of additional documents: ", docs)
         if docs:
             return format_html(
                 "<br>".join(
