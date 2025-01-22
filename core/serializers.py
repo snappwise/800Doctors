@@ -8,6 +8,7 @@ from core.models import (
     NewsletterSubscription,
     # Journey,
     CareerPage,
+    CareerOpenings,
 )
 
 
@@ -96,6 +97,18 @@ class CareerPageSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return CareerPage.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class CareerOpeningsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CareerOpenings
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return CareerOpenings.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)

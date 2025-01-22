@@ -283,12 +283,28 @@ job_categories = (
         "Support Staff (Driver, Housekeeping, Babysitter)",
         "Support Staff (Driver, Housekeeping, Babysitter)",
     ),
+    (
+        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
+        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
+    ),
 )
 
 license_choices = (
     ("DHA Eligibility", "DHA Eligibility"),
     ("MOH Evaluation", "MOH Evaluation"),
     ("License", "License"),
+)
+additional_job_categories = (
+    ("HR", "HR"),
+    ("Admin", "Admin"),
+    ("Operations", "Operations"),
+    ("Customer Care", "Customer Care"),
+    ("Clerical", "Clerical"),
+    ("Housekeeping", "Housekeeping"),
+    ("Procurement", "Procurement"),
+    ("Inventory", "Inventory"),
+    ("Accounts", "Accounts"),
+    ("Finance", "Finance"),
 )
 
 
@@ -305,7 +321,9 @@ class CareerPage(models.Model):
     location = models.CharField(max_length=500)
     total_exp = models.CharField(max_length=250)
     user_email = models.EmailField()
-    job_category = models.CharField(choices=job_categories, max_length=300)
+    job_category = models.CharField(
+        choices=job_categories + additional_job_categories, max_length=300
+    )
     phone_number = models.CharField(max_length=15)
     position_apply = models.CharField(max_length=300)
     notice_period = models.CharField(max_length=300)
@@ -396,19 +414,6 @@ def delete_old_additional_document(sender, instance, **kwargs):
 
 
 career_status = (("open", "open"), ("closed", "closed"))
-
-additional_job_categories = (
-    ("HR", "HR"),
-    ("Admin", "Admin"),
-    ("Operations", "Operations"),
-    ("Customer Care", "Customer Care"),
-    ("Clerical", "Clerical"),
-    ("Housekeeping", "Housekeeping"),
-    ("Procurement", "Procurement"),
-    ("Inventory", "Inventory"),
-    ("Accounts", "Accounts"),
-    ("Finance", "Finance"),
-)
 
 
 class CareerOpenings(models.Model):

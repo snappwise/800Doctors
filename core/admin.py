@@ -591,6 +591,7 @@ class CareerOpeningsAdmin(admin.ModelAdmin):
         "available_pos",
         "status",
         "created_at",
+        "image_preview",
     )
 
     # Add filters to the admin sidebar
@@ -613,7 +614,16 @@ class CareerOpeningsAdmin(admin.ModelAdmin):
                     "category",
                     "available_pos",
                     "status",
+                    "position_image",
+                    "image_preview",
                 )
+            },
+        ),
+        (
+            "Content",
+            {
+                "fields": ("position_page_info",),
+                "classes": ("wide",),
             },
         ),
         (
@@ -625,24 +635,26 @@ class CareerOpeningsAdmin(admin.ModelAdmin):
         ),
     )
 
-    # Controls the ordering of the list view
-    ordering = ("created_at",)
-
-    # Controls what fields are shown when adding a new entry
-    add_fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    "position_name",
-                    "position_desc",
-                    "category",
-                    "available_pos",
-                    "status",
-                )
-            },
-        ),
+    # Mark fields as read-only
+    readonly_fields = (
+        "created_at",
+        "image_preview",
     )
+
+    # Controls the ordering of the list view
+    ordering = ("-created_at",)
+
+    # Add image preview for the position image
+    def image_preview(self, obj):
+        if obj.position_image:
+            return format_html(
+                '<img src="{}" style="width: 100px; height: auto;" alt="{}">',
+                obj.position_image.url,
+                obj.position_name,
+            )
+        return "No image uploaded"
+
+    image_preview.short_description = "Image Preview"
 
 
 # Register the CareerOpenings model with the custom admin interface

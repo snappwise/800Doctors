@@ -1,4 +1,4 @@
-{%load static%}
+<!-- {%load static%}
 {% load custom_filters %}
 
 <!DOCTYPE html>
@@ -32,25 +32,27 @@
                 <p>Find the role suited for you</p>
             </div>
             <div class="service-cards-container">
+
+                {% for job in all_job_openings %}
+
                 <div class="service-page-card card-shadow">
-                    <img src="" alt="" />
+                    <img src="{{job.position_image.url}}" alt="{{job.position_name}} Image" />
                     <div class="service-page-card-content">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <h5 class="card-heading">Position Name</h5>
+                            <h5 class="card-heading">{{job.position_name}}</h5>
                             <span
-                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">Category</span>
+                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">{{job.category}}</span>
                         </div>
-                        <p class="service-page-card-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Explicabo cupiditate unde recusandae ipsum consequuntur, error dolore suscipit ab iusto.
-                            Quasi totam reiciendis voluptatem explicabo quod recusandae necessitatibus nisi expedita
-                            aut?</p>
+                        <p class="service-page-card-desc">{{job.position_desc}}</p>
                         <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
                             <i class="bi bi-person-fill text-xl"></i>
-                            <span>Available Positions: 2</span>
+                            <span>Available Positions: {{job.available_pos}}</span>
                         </div>
-                        <a class="cta-primary" href="">Apply Now</a>
+                        <a class="cta-primary" href="/careers/{{job.id}}">Apply Now</a>
                     </div>
                 </div>
+
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -158,6 +160,347 @@
 
     </script>
 
+
+    {% include 'footer.html' %}
+    <script src="{% static 'scripts/whatsapp.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'scripts/swiper.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</body>
+
+</html> -->
+
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'gahead.html' %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    {% include 'favicon.html' %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{% static 'stylesheets/output.css' %}">
+    <title>Careers</title>
+</head>
+
+<body>
+    {% include 'gabody.html' %}
+    {% include 'alerts.html' %}
+
+    {% include 'whatsapp.html' %}
+
+    {% include 'navbar.html' %}
+    <section id="opportunities" class="pt-16 lg:pt-20">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-heading text-center">All Openings</h2>
+                <p>Find the role suited for you</p>
+            </div>
+            <div id="job-cards-container" class="service-cards-container">
+                <!-- Job cards will be dynamically inserted here -->
+            </div>
+        </div>
+        <nav aria-label="pagination" class="mt-20 mx-auto w-fit">
+            <ul id="pagination-container" class="pagination-container">
+                <!-- Pagination buttons will be dynamically inserted here -->
+            </ul>
+        </nav>
+    </section>
+
+    <!-- <script>
+        const jobsPerPage = 1;
+        let currentPage = 1;
+        let totalPages = 0;
+
+        function fetchJobs(page) {
+            fetch(`/api/job-openings/?page=${page}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderJobs(data.results);
+                    const pagination = getPagination(data);
+                    renderPagination(pagination);
+                })
+                .catch(error => {
+                    console.error('Error fetching job openings:', error);
+                });
+        }
+
+        function renderJobs(jobs) {
+            const jobContainer = document.getElementById('job-cards-container');
+            jobContainer.innerHTML = '';
+
+            jobs.forEach(job => {
+                const jobCard = `
+                    <div class="service-page-card card-shadow">
+                        <img src="${job.position_image}" alt="${job.position_name} Image" />
+                        <div class="service-page-card-content">
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <h5 class="card-heading">${job.position_name}</h5>
+                                <span class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">${job.category}</span>
+                            </div>
+                            <p class="service-page-card-desc">${job.position_desc}</p>
+                            <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
+                                <i class="bi bi-person-fill text-xl"></i>
+                                <span>Available Positions: ${job.available_pos}</span>
+                            </div>
+                            <a class="cta-primary" href="/careers/${job.id}">Apply Now</a>
+                        </div>
+                    </div>
+                `;
+                jobContainer.insertAdjacentHTML('beforeend', jobCard);
+            });
+        }
+
+        // function renderPagination(pagination) {
+        //     const paginationContainer = document.getElementById('pagination-container');
+        //     paginationContainer.innerHTML = '';
+
+        //     totalPages = pagination.total_pages;
+        //     currentPage = pagination.current_page;
+
+        //     const prevButton = `
+        //         <li>
+        //             <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${!pagination.has_previous ? 'disabled' : ''}" data-page="${currentPage - 1}">
+        //                 <span class="sr-only">Previous</span>
+        //                 <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        //                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+        //                 </svg>
+        //             </a>
+        //         </li>
+        //     `;
+        //     paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+
+
+        //     const nextButton = `
+        //         <li>
+        //             <a href="#" class="pagination-link rounded-e-lg ${!pagination.has_next ? 'disabled' : ''}" data-page="${currentPage + 1}">
+        //                 <span class="sr-only">Next</span>
+        //                 <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+        //                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        //                 </svg>
+        //             </a>
+        //         </li>
+        //     `;
+        //     paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+        // }
+
+
+        function renderPagination(pagination) {
+            console.log(pagination); // Add this line to check the pagination data
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+
+            totalPages = pagination.total_pages;
+            currentPage = pagination.current_page;
+
+            const prevButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${!pagination.has_previous ? 'disabled' : ''}" data-page="${currentPage - 1}">
+                        <span class="sr-only">Previous</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = `
+                    <li>
+                        <a href="#" class="pagination-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>
+                    </li>
+                `;
+                paginationContainer.insertAdjacentHTML('beforeend', pageButton);
+            }
+
+            const nextButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-e-lg ${!pagination.has_next ? 'disabled' : ''}" data-page="${currentPage + 1}">
+                        <span class="sr-only">Next</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+        }
+        function handlePaginationClick(e) {
+            const link = e.target.closest('a.pagination-link');
+            if (!link) return;
+
+            const page = Number(link.getAttribute('data-page'));
+
+            if (!isNaN(page) && page >= 1 && page <= totalPages) {
+                currentPage = page;
+                fetchJobs(currentPage);
+            }
+        }
+
+        document.getElementById('pagination-container').addEventListener('click', handlePaginationClick);
+
+        // Initialize with the first page
+        fetchJobs(currentPage);
+
+    </script> -->
+
+    <script>
+        const jobsPerPage = 9;
+        let currentPage = 1;
+        let totalPages = 0;
+    
+        // Function to fetch job openings
+        function fetchJobs(page) {
+            fetch(`/api/job-openings/?page=${page}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    renderJobs(data.results);
+                    const pagination = getPagination(data);
+                    renderPagination(pagination);
+                })
+                .catch(error => {
+                    console.error('Error fetching job openings:', error);
+                });
+        }
+    
+        // Function to render job data
+        function renderJobs(jobs) {
+            const jobContainer = document.getElementById('job-cards-container');
+            jobContainer.innerHTML = '';
+    
+            jobs.forEach(job => {
+                const jobCard = `
+                    <div class="service-page-card card-shadow">
+                        <img src="${job.position_image}" alt="${job.position_name} Image" />
+                        <div class="service-page-card-content">
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <h5 class="card-heading">${job.position_name}</h5>
+                                <span class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">${job.category}</span>
+                            </div>
+                            <p class="service-page-card-desc">${job.position_desc}</p>
+                            <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
+                                <i class="bi bi-person-fill text-xl"></i>
+                                <span>Available Positions: ${job.available_pos}</span>
+                            </div>
+                            <a class="cta-primary" href="/careers/${job.id}">Apply Now</a>
+                        </div>
+                    </div>
+                `;
+                jobContainer.insertAdjacentHTML('beforeend', jobCard);
+            });
+        }
+    
+        // Function to extract pagination data from the API response
+        function getPagination(data) {
+            const currentPage = data.next ? new URL(data.next).searchParams.get('page') : 1;
+            const totalPages = Math.ceil(data.count / jobsPerPage);
+            const hasPrevious = data.previous !== null;
+            const hasNext = data.next !== null;
+    
+            return {
+                current_page: Number(currentPage),
+                total_pages: totalPages,
+                has_previous: hasPrevious,
+                has_next: hasNext,
+            };
+        }
+    
+        // Function to render pagination
+        function renderPagination(pagination) {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+    
+            totalPages = pagination.total_pages;
+            currentPage = pagination.current_page;
+    
+            // Previous button
+            const prevButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${!pagination.has_previous ? 'disabled' : ''}" data-page="${currentPage - 1}">
+                        <span class="sr-only">Previous</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+    
+            // Page number buttons
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+    
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = `
+                <li>
+                    <a href="#" class="pagination-link ${i === currentPage ? 'active bg-blue-500 text-white' : ''}" data-page="${i}">${i}</a>
+                </li>
+            `;
+                paginationContainer.insertAdjacentHTML('beforeend', pageButton);
+            }
+    
+            // Next button
+            const nextButton = `
+                <li>
+                    <a href="#" class="pagination-link rounded-e-lg ${!pagination.has_next ? 'disabled' : ''}" data-page="${currentPage + 1}">
+                        <span class="sr-only">Next</span>
+                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
+                    </a>
+                </li>
+            `;
+            paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+        }
+
+
+        function handlePaginationClick(e) {
+            const link = e.target.closest('a.pagination-link');
+            if (!link) return;
+
+            const page = Number(link.getAttribute('data-page'));
+
+            // If the link is disabled (due to no previous or next page), don't do anything
+            if (link.classList.contains('disabled')) return;
+
+            // Ensure the page is valid and within range
+            if (!isNaN(page) && page >= 1 && page <= totalPages) {
+                currentPage = page;
+                fetchJobs(currentPage);
+            }
+        }
+
+    
+        // Adding event listener for pagination click
+        document.getElementById('pagination-container').addEventListener('click', handlePaginationClick);
+    
+        // Initialize with the first page
+        fetchJobs(currentPage);
+    </script>
+    
 
     {% include 'footer.html' %}
     <script src="{% static 'scripts/whatsapp.js' %}"></script>

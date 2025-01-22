@@ -61,17 +61,18 @@
         <div class="section-container">
             <div class="service-info-container">
                 <div class="service-info-description">
-                    <h1 class="section-heading">{{service.service_name}}</h1>
+                    <h1 class="section-heading">{{career_opening.position_name}}</h1>
                     <div class="service-description">
-                        <img src="{{ service.service_photo.url }}" alt="{{ service.service_name }}" />
-                        <div id="rte">{{ service.service_details|safe }}</div>
+                        <img src="{{ career_opening.position_image.url }}" alt="{{ career_opening.position_name }}" />
+                        <div id="rte">{{ career_opening.position_page_info|safe }}</div>
                     </div>
                 </div>
                 <form class="form-container" id="careerPageForm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="job-id" value="{{career_opening.id}}">
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="name">Name</label>
-                            <input id="name" name="name" placeholder="Your Full Name" type="text" required>
+                            <input id="name" name="full_name" placeholder="Your Full Name" type="text" required>
                         </div>
                         <div class="input-container">
                             <label for="location">Location</label>
@@ -82,20 +83,21 @@
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="email">Email ID</label>
-                            <input id="email" name="email" placeholder="you@company.com" type="email" required>
+                            <input id="email" name="user_email" placeholder="you@company.com" type="email" required>
                         </div>
 
                         <div class="input-container">
                             <label for="mobile_number">Mobile Number</label>
-                            <input id="mobile_number" name="mobile_number" placeholder="123456789" type="number"
+                            <input id="mobile_number" name="phone_number" placeholder="123456789" type="number"
                                 required>
                         </div>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="experience">Total Years of Experience</label>
-                            <input id="experience" name="experience" placeholder="e.g., 5 years" type="text" required>
+                            <input id="experience" name="total_exp" placeholder="e.g., 5 years" type="text" required>
                         </div>
+                        {% if career_opening.category == "Physicians (DHA, MOH)" or career_opening.category == "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)" or career_opening.category == "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)" %}
                         <div class="input-container">
                             <label for="license_status">License Status</label>
                             <select id="license_status" name="license_status" required>
@@ -105,6 +107,7 @@
                                 <option value="License">License</option>
                             </select>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
@@ -133,12 +136,12 @@
                         </div>
                         <div class="input-container">
                             <label for="dob">Date of Birth</label>
-                            <input id="dob" name="dob" type="date" required>
+                            <input id="dob" name="date_of_birth" type="date" required>
                         </div>
                     </div>
                     <div class="input-container">
                         <label for="cv">Upload CV</label>
-                        <input id="cv" name="cv" type="file" accept=".txt, .doc, .docx, .pdf" required>
+                        <input id="cv" name="resume" type="file" accept=".txt, .doc, .docx, .pdf" required>
                         <p id="cv_error" class="text-red-600 text-sm"></p>
                     </div>
                     <div class="input-container">
@@ -173,12 +176,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('serviceEnquiryForm');
+            const form = document.getElementById('careerPageForm');
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
+                // Validate reCAPTCHA
                 const recaptchaResponse = grecaptcha.getResponse();
-
                 if (!recaptchaResponse) {
                     document.querySelector('.form-warning').classList.remove('hidden');
 
@@ -192,68 +195,67 @@
                     return;
                 }
 
+                // Create FormData object directly from the form
+                const formData = new FormData(form);
+                
+                // Add any additional fields if needed
+                formData.append('career_opening', '{{ career_opening.id }}');
+                formData.append('job_category', '{{ career_opening.category }}');
+                formData.append('position_apply', '{{career_opening.position_name}}');
+                formData.append('g-recaptcha-response', recaptchaResponse);
+                formData.append('agreement', formData.get('terms') === 'on');
+                var languages_spoken= formData.getAll('languages[]').join(', ');
+                formData.append('languages_spoken', languages_spoken);
+
+                // Add CSRF token for Django
+                const csrftoken = Cookies.get('csrftoken');
+
+                // Show loader (optional UI handling)
                 document.querySelector('.loader').classList.remove('hidden');
 
-                const formData = new FormData(form);
-                const data = {
-                    first_name: formData.get('first_name'),
-                    last_name: formData.get('last_name'),
-                    user_email: formData.get('email'),
-                    phone_number: formData.get('phone_number'),
-                    source: formData.get('source'),
-                    message: formData.get('message'),
-                    terms: formData.get('terms') === 'on', // Checkbox value is 'on' if checked
-                    service: formData.get('service'), // Get the hidden service ID
-                    'g-recaptcha-response': recaptchaResponse // Add reCAPTCHA response token
-                };
-                var csrftoken = Cookies.get('csrftoken');
-                fetch('{% url "service-enquiry" %}', { // Use Django template tag to insert the URL
+                fetch('{% url "career-enquiry" %}', {
                     method: 'POST',
-                    body: JSON.stringify(data),
+                    body: formData,  // Send FormData directly
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
+                        'X-CSRFToken': csrftoken
+                        // Remove 'Content-Type' header - it will be set automatically with boundary
                     }
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        grecaptcha.reset();
-                        if (data.status === 'success') {
-                            form.reset();
-                            document.querySelector('.loader').classList.add('hidden');
+                .then(response => response.json())
+                .then(responseData => {
+                    grecaptcha.reset();
+                    document.querySelector('.loader').classList.add('hidden');
 
-                            document.querySelector('.form-success').classList.remove('hidden');
-
-                            setTimeout(() => {
-                                document.querySelector('.form-success').classList.add('hidden');
-                            }, 5000);
-
-                        } else {
-
-                            document.querySelector('.loader').classList.add('hidden');
-
-                            document.querySelector('.form-error').classList.remove('hidden');
-                            const toastErrorElement = document.getElementById('toast2');
-                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
-
-                            setTimeout(() => {
-                                document.querySelector('.form-error').classList.add('hidden');
-                            }, 5000);
-                        }
-                    })
-                    .catch(error => {
+                    if (responseData.status === 'success') {
+                        form.reset();
                         document.querySelector('.loader').classList.add('hidden');
-                        grecaptcha.reset();
+                        document.querySelector('.form-success').classList.remove('hidden');
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+                    } else {
+                        document.querySelector('.loader').classList.add('hidden');
+
                         document.querySelector('.form-error').classList.remove('hidden');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
 
                         setTimeout(() => {
                             document.querySelector('.form-error').classList.add('hidden');
                         }, 5000);
-                    });
+                    }
+                })
+                .catch(error => {
+                    grecaptcha.reset();
+                    document.querySelector('.loader').classList.add('hidden');
+                    document.querySelector('.form-error').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
+                });
             });
-        });    
+        });
     </script>
-
     <script>
         // Function to populate the languages dropdown
         async function populateLanguages() {
@@ -373,80 +375,6 @@
     </section>
 
     {% include 'footer.html' %}
-
-
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('careerPageForm');
-
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-
-
-                const formData = new FormData(form);
-                formData.append('agreement', formData.get('terms') === 'on');
-                const recaptchaResponse = formData.get('g-recaptcha-response');
-
-                if (!recaptchaResponse) {
-                    document.querySelector('.form-warning').classList.remove('hidden');
-
-                    const toastErrorElement = document.getElementById('toast3');
-                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
-
-                    setTimeout(() => {
-                        document.querySelector('.form-warning').classList.add('hidden');
-                    }, 3000);
-
-                    return;
-                }
-                var csrftoken = Cookies.get('csrftoken');
-                document.querySelector('.loader').classList.remove('hidden');
-                fetch('{% url "career-enquiry" %}', { // Use Django template tag to insert the URL
-                    method: 'POST',
-                    body: formData, // Send FormData object including file
-                    headers: {
-                        'X-CSRFToken': csrftoken // Include CSRF token for Django security
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        grecaptcha.reset();
-                        if (data.status === 'success') {
-                            form.reset();
-                            document.querySelector('.loader').classList.add('hidden');
-
-                            document.querySelector('.form-success').classList.remove('hidden');
-
-                            setTimeout(() => {
-                                document.querySelector('.form-success').classList.add('hidden');
-                            }, 5000);
-
-                        } else {
-
-                            document.querySelector('.loader').classList.add('hidden');
-
-                            document.querySelector('.form-error').classList.remove('hidden');
-                            const toastErrorElement = document.getElementById('toast2');
-                            toastErrorElement.querySelector('.toast-msg').textContent = data.message;
-
-                            setTimeout(() => {
-                                document.querySelector('.form-error').classList.add('hidden');
-                            }, 5000);
-                        }
-                    })
-                    .catch(error => {
-                        grecaptcha.reset();
-                        document.querySelector('.loader').classList.add('hidden');
-
-                        document.querySelector('.form-error').classList.remove('hidden');
-
-                        setTimeout(() => {
-                            document.querySelector('.form-error').classList.add('hidden');
-                        }, 5000);
-                    });
-            });
-        });
-    </script> -->
 
     <script>
         // Function to validate file size

@@ -3,19 +3,22 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import requests
 from django.views.generic import ListView, DetailView, TemplateView
 from django.templatetags.static import static
 from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 from inquiries.views import get_client_ip, send_alert_email
+from rest_framework.pagination import PageNumberPagination
 
 from core.models import (
     Services,
     healthcarePackages,
     Faqs,
     Testimonials,
+    CareerOpenings,
+    AdditionalDocument,
     # Journey,
 )
 from core.serializers import (
@@ -26,6 +29,7 @@ from core.serializers import (
     NewsletterSubscriptionSerializer,
     # JourneySerializer,
     CareerPageSerializer,
+    CareerOpeningsSerializer,
 )
 
 
@@ -184,9 +188,85 @@ class TestimonialsView(APIView):
 #             )
 
 
+# class CareerPageEnquiryView(APIView):
+#     """
+#     This view is used to store the career page enquiry information.
+#     """
+
+#     def post(self, request):
+#         try:
+#             data = request.data.copy()
+#             recaptcha_response = data.get("g-recaptcha-response")
+
+#             # Verify reCAPTCHA
+#             recaptcha_secret_key = settings.RECAPTCHA_SECRET_KEY
+#             recaptcha_url = "https://www.google.com/recaptcha/api/siteverify"
+#             recaptcha_data = {
+#                 "secret": recaptcha_secret_key,
+#                 "response": recaptcha_response,
+#             }
+#             recaptcha_result = requests.post(
+#                 recaptcha_url, data=recaptcha_data, timeout=5
+#             ).json()
+
+#             if not recaptcha_result.get("success"):
+#                 return Response(
+#                     {
+#                         "status": "error",
+#                         "message": "reCAPTCHA verification failed.",
+#                     },
+#                     status=status.HTTP_400_BAD_REQUEST,
+#                 )
+
+#             # Additional data processing
+#             data["patient_ip"] = get_client_ip(request)
+#             data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
+
+#             emails_sent = send_alert_email(
+#                 "Career Enquiry Form Submission", data, "Career Enquiry"
+#             )
+#             data["email_sent"] = False
+#             if emails_sent == 1:
+#                 data["email_sent"] = True
+#                 print("Email sent successfully")
+
+#             # Create or update the CareerPage entry
+#             serializer = CareerPageSerializer(data=data)
+#             if serializer.is_valid():
+#                 serializer.save()
+#                 return Response(
+#                     {
+#                         "status": "success",
+#                         "message": "Career page enquiry submitted successfully.",
+#                         "data": serializer.data,
+#                     },
+#                     status=status.HTTP_201_CREATED,
+#                 )
+#             else:
+#                 print("Validation Errors:", serializer.errors)
+#                 return Response(
+#                     {
+#                         "status": "error",
+#                         "message": "Failed to submit enquiry.",
+#                         "errors": serializer.errors,
+#                     },
+#                     status=status.HTTP_400_BAD_REQUEST,
+#                 )
+
+#         except Exception as e:
+#             print("Error submitting career page enquiry:", e)
+#             return Response(
+#                 {
+#                     "status": "error",
+#                     "message": "Failed to submit career page enquiry.",
+#                 },
+#                 status=status.HTTP_400_BAD_REQUEST,
+#             )
+
+
 class CareerPageEnquiryView(APIView):
     """
-    This view is used to store the career page enquiry information.
+    This view is used to store the career page enquiry information with support for multiple PDF uploads.
     """
 
     def post(self, request):
@@ -218,18 +298,27 @@ class CareerPageEnquiryView(APIView):
             data["patient_ip"] = get_client_ip(request)
             data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
 
-            emails_sent = send_alert_email(
-                "Career Enquiry Form Submission", data, "Career Enquiry"
-            )
+            # Send alert email
+            # emails_sent = send_alert_email(
+            #     "Career Enquiry Form Submission", data, "Career Enquiry"
+            # )
+            emails_sent = 1
             data["email_sent"] = False
             if emails_sent == 1:
                 data["email_sent"] = True
-                print("Email sent successfully")
 
             # Create or update the CareerPage entry
             serializer = CareerPageSerializer(data=data)
             if serializer.is_valid():
-                serializer.save()
+                career_page_instance = serializer.save()
+
+                # Handle multiple PDF uploads for Additional Documents
+                additional_documents = request.FILES.getlist("additional_documents")
+                for document in additional_documents:
+                    AdditionalDocument.objects.create(
+                        career_page=career_page_instance, file=document
+                    )
+
                 return Response(
                     {
                         "status": "success",
@@ -239,7 +328,7 @@ class CareerPageEnquiryView(APIView):
                     status=status.HTTP_201_CREATED,
                 )
             else:
-                print("Validation Errors:", serializer.errors)
+                print("career ser. error: ", serializer.errors)
                 return Response(
                     {
                         "status": "error",
@@ -255,6 +344,7 @@ class CareerPageEnquiryView(APIView):
                 {
                     "status": "error",
                     "message": "Failed to submit career page enquiry.",
+                    "error": str(e),
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -513,21 +603,79 @@ class CareerPageView(TemplateView):
             raise ImproperlyConfigured("RECAPTCHA_SITE_KEY is not set in the settings.")
         context["recaptcha_site_key"] = recaptcha_site_key
 
+        # Retrieve the latest 3 job openings and pass them to the context
+        latest_job_openings = CareerOpenings.objects.filter(status="open").order_by(
+            "-created_at"
+        )[:3]
+        context["latest_job_openings"] = latest_job_openings
+
         return context
 
 
-def career_listing(request):
+class CareerListing(TemplateView):
     """
-    career listing page view.
+    Career listing page view.
     """
-    return render(request, "career-listing.html", status=200)
+
+    template_name = "career-listing.html"
+
+    def get_context_data(self, **kwargs):
+        # Get the base context from the parent class
+        context = super().get_context_data(**kwargs)
+        # Retrieve all job openings with the status "Open" and pass them to the context
+
+        return context
 
 
-def career_individual(request):
+class JobOpeningsPagination(PageNumberPagination):
     """
-    career individual page view.
+    Custom pagination class for job openings
     """
-    return render(request, "career-individual.html", status=200)
+
+    page_size = 9  # Matches jobsPerPage from frontend
+    page_size_query_param = "page_size"  # Optional query param for client control
+    max_page_size = 50  # Optional upper limit
+
+
+class JobOpeningsAPIView(APIView):
+    """
+    API View to return all job openings with pagination
+    """
+
+    def get(self, request, *args, **kwargs):
+        # Filter for open job openings
+        jobs = CareerOpenings.objects.filter(status="open").order_by("-created_at")
+
+        # Set up pagination
+        paginator = JobOpeningsPagination()
+        paginated_jobs = paginator.paginate_queryset(jobs, request)
+
+        # Serialize the paginated results
+        serializer = CareerOpeningsSerializer(paginated_jobs, many=True)
+
+        # Add pagination metadata to the response
+        return paginator.get_paginated_response(serializer.data)
+
+
+def career_individual(request, pk):
+    """
+    View to display details of a specific career opening.
+    """
+    # Retrieve the specific career opening or return a 404 error if not found
+    recaptcha_site_key = getattr(settings, "RECAPTCHA_SITE_KEY", None)
+    if not recaptcha_site_key:
+        raise ImproperlyConfigured("No recaptcha site key found.")
+    career_opening = get_object_or_404(CareerOpenings, id=pk)
+
+    # Pass the career opening object to the template
+    context = {
+        "career_opening": career_opening,
+    }
+
+    context["recaptcha_site_key"] = recaptcha_site_key
+
+    # Render the individual career opening page
+    return render(request, "career-individual.html", context)
 
 
 def notfound_page(request, exception):

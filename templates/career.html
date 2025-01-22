@@ -137,26 +137,28 @@
                 <p>Find the role suited for you</p>
             </div>
             <div class="service-cards-container">
+                {% for job in latest_job_openings %}
+
                 <div class="service-page-card card-shadow">
-                    <img src="" alt="" />
+                    <img src="{{job.position_image.url}}" alt="{{job.position_name}} Image" />
                     <div class="service-page-card-content">
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <h5 class="card-heading">Position Name</h5>
+                            <h5 class="card-heading">{{job.position_name}}</h5>
                             <span
-                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">Category</span>
+                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">{{job.category}}</span>
                         </div>
-                        <p class="service-page-card-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Explicabo cupiditate unde recusandae ipsum consequuntur, error dolore suscipit ab iusto.
-                            Quasi totam reiciendis voluptatem explicabo quod recusandae necessitatibus nisi expedita
-                            aut?</p>
+                        <p class="service-page-card-desc">{{job.position_desc}}</p>
                         <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
                             <i class="bi bi-person-fill text-xl"></i>
-                            <span>Available Positions: 2</span>
+                            <span>Available Positions: {{job.available_pos}}</span>
                         </div>
-                        <a class="cta-primary" href="">Apply Now</a>
+                        <a class="cta-primary" href="/careers/{{job.id}}">Apply Now</a>
                     </div>
                 </div>
+
+                {% endfor %}
             </div>
+            
             <div class="flex flex-row items-center justify-center">
                 <a href="{% url 'about-us' %}#getInTouch" class="cta-outline mt-12 mx-auto w-fit group">View All
                     Opportunities<i class="bi bi-arrow-right ml-2 group-hover:-rotate-45 transition-all"></i></a>
@@ -178,7 +180,7 @@
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="name">Name</label>
-                            <input id="name" name="name" placeholder="Your Full Name" type="text" required>
+                            <input id="name" name="full_name" placeholder="Your Full Name" type="text" required>
                         </div>
                         <div class="input-container">
                             <label for="location">Location</label>
@@ -189,37 +191,36 @@
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="experience">Total Years of Experience</label>
-                            <input id="experience" name="experience" placeholder="e.g., 5 years" type="text" required>
+                            <input id="experience" name="total_exp" placeholder="e.g., 5 years" type="text" required>
                         </div>
                         <div class="input-container">
                             <label for="mobile_number">Mobile Number</label>
-                            <input id="mobile_number" name="mobile_number" placeholder="123456789" type="number"
+                            <input id="mobile_number" name="phone_number" placeholder="123456789" type="number"
                                 required>
                         </div>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="email">Email ID</label>
-                            <input id="email" name="email" placeholder="you@company.com" type="email" required>
+                            <input id="email" name="user_email" placeholder="you@company.com" type="email" required>
                         </div>
                         <div class="input-container">
                             <label for="job_category">Job Category</label>
                             <select id="job_category" name="job_category" required>
                                 <option value="" disabled selected>Select Job Category</option>
-                                <option value="back_office">Back Office</option>
-                                <option value="business_dev">Business Development/Marketing</option>
-                                <option value="physicians">Physicians (DHA, MOH)</option>
-                                <option value="nursing">Nursing (DHA RN, DHA AN, MOH RN, MOH AN)</option>
-                                <option value="support_staff">Support Staff (Driver, Housekeeping, Babysitter)</option>
-                                <option value="allied_health">Allied Health Professionals (Physiotherapists, Dietitians,
-                                    Therapists, Health Care Assistant)</option>
+                                <option value="Back Office">Back Office</option>
+                                <option value="Business Development/Marketing">Business Development/Marketing</option>
+                                <option value="Physicians (DHA, MOH)">Physicians (DHA, MOH)</option>
+                                <option value="Nursing (DHA RN, DHA AN, MOH RN, MOH AN)">Nursing (DHA RN, DHA AN, MOH RN, MOH AN)</option>
+                                <option value="Support Staff (Driver, Housekeeping, Babysitter)">Support Staff (Driver, Housekeeping, Babysitter)</option>
+                                <option value="Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)">Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)</option>
                             </select>
                         </div>
                     </div>
                     <div class="dual-input">
                         <div class="input-container">
                             <label for="position">Position to Apply For</label>
-                            <input id="position" name="position" placeholder="e.g., HR Manager" type="text" required>
+                            <input id="position" name="position_apply" placeholder="e.g., HR Manager" type="text" required>
                         </div>
                         <div class="input-container">
                             <label for="notice_period">Notice Period</label>
@@ -245,12 +246,12 @@
                         </div>
                         <div class="input-container">
                             <label for="dob">Date of Birth</label>
-                            <input id="dob" name="dob" type="date" required>
+                            <input id="dob" name="date_of_birth" type="date" required>
                         </div>
                     </div>
                     <div class="input-container">
                         <label for="cv">Upload CV</label>
-                        <input id="cv" name="cv" type="file" accept=".txt, .doc, .docx, .pdf" required>
+                        <input id="cv" name="resume" type="file" accept=".txt, .doc, .docx, .pdf" required>
                         <p id="cv_error" class="text-red-600 text-sm"></p>
                     </div>
                     <div class="input-container">
@@ -270,13 +271,92 @@
                             <a class="underline" href="{% url 'privacy-policy' %}">Privacy Policy</a>
                         </label>
                     </div>
-                    <!-- Add reCAPTCHA widget here -->
+                   
                     <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                     <button type="submit" class="cta-primary">Send Application</button>
                 </form>
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('careerPageForm');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                // Validate reCAPTCHA
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    document.querySelector('.form-warning').classList.remove('hidden');
+
+                    const toastErrorElement = document.getElementById('toast3');
+                    toastErrorElement.querySelector('.toast-msg').textContent = 'Please complete the reCAPTCHA verification';
+
+                    setTimeout(() => {
+                        document.querySelector('.form-warning').classList.add('hidden');
+                    }, 3000);
+
+                    return;
+                }
+
+                // Create FormData object directly from the form
+                const formData = new FormData(form);
+                
+                formData.append('g-recaptcha-response', recaptchaResponse);
+                formData.append('agreement', formData.get('terms') === 'on');
+                var languages_spoken= formData.getAll('languages[]').join(', ');
+                formData.append('languages_spoken', languages_spoken);
+
+                // Add CSRF token for Django
+                const csrftoken = Cookies.get('csrftoken');
+
+                // Show loader (optional UI handling)
+                document.querySelector('.loader').classList.remove('hidden');
+
+                fetch('{% url "career-enquiry" %}', {
+                    method: 'POST',
+                    body: formData,  // Send FormData directly
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                        // Remove 'Content-Type' header - it will be set automatically with boundary
+                    }
+                })
+                .then(response => response.json())
+                .then(responseData => {
+                    grecaptcha.reset();
+                    document.querySelector('.loader').classList.add('hidden');
+
+                    if (responseData.status === 'success') {
+                        form.reset();
+                        document.querySelector('.loader').classList.add('hidden');
+                        document.querySelector('.form-success').classList.remove('hidden');
+                        setTimeout(() => {
+                            document.querySelector('.form-success').classList.add('hidden');
+                        }, 5000);
+                    } else {
+                        document.querySelector('.loader').classList.add('hidden');
+
+                        document.querySelector('.form-error').classList.remove('hidden');
+                        const toastErrorElement = document.getElementById('toast2');
+                        toastErrorElement.querySelector('.toast-msg').textContent = data.message;
+
+                        setTimeout(() => {
+                            document.querySelector('.form-error').classList.add('hidden');
+                        }, 5000);
+                    }
+                })
+                .catch(error => {
+                    grecaptcha.reset();
+                    document.querySelector('.loader').classList.add('hidden');
+                    document.querySelector('.form-error').classList.remove('hidden');
+                    setTimeout(() => {
+                        document.querySelector('.form-error').classList.add('hidden');
+                    }, 5000);
+                });
+            });
+        });
+    </script>
 
     <script>
         // Function to populate the languages dropdown
@@ -346,7 +426,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('careerPageForm');
 
@@ -417,7 +497,7 @@
                     });
             });
         });
-    </script>
+    </script> -->
 
     <script src="{% static 'scripts/whatsapp.js'%}"></script>
     <script>

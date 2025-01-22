@@ -11,6 +11,7 @@ from core.views import (
     AboutUsPageView,
     CareerPageView,
     CareerPageEnquiryView,
+    JobOpeningsAPIView,
     TermsAndConditionsView,
     PrivacyPolicyView,
     RightsView,
@@ -18,7 +19,7 @@ from core.views import (
     thank_you_view,
     NewsletterSubscriptionView,
     career_individual,
-    career_listing,
+    CareerListing,
 )
 from django.views.generic.base import RedirectView
 
@@ -47,6 +48,7 @@ if len(dynamic_pattern) == 0:
 urlpatterns = [
     # API services
     path("api/career-enquiry/", CareerPageEnquiryView.as_view(), name="career-enquiry"),
+    path("api/job-openings/", JobOpeningsAPIView.as_view(), name="job-openings-list"),
     # ----------------- FOR SEO -------------------
     re_path(
         r"^what-we-do/home-care-9e26fe/$",
@@ -100,6 +102,6 @@ urlpatterns = [
         NewsletterSubscriptionView.as_view(),
         name="newsletter-subscribe",
     ),
-    path("career-listing/", career_listing, name="career-listing"),
-    path("career-individual/", career_individual, name="career-individual"),
+    path("career-listing/", CareerListing.as_view(), name="career-listing"),
+    path("careers/<uuid:pk>", career_individual, name="career-individual"),
 ]

@@ -38,7 +38,7 @@ def send_alert_email(title, data, form_name):
         template_name = "email.html"
         context = {
             "title": title,
-            "message1": f"""Hello {data['first_name'] + ' ' + data['last_name']}!""",
+            "message1": f"""Hello {data['full_name']}!""",
             "message2": f"""Thank you for reaching out to 800DOCTOR. We have received your <span style="text-decoration: underline;"></span>{form_name}</span> and our team is reviewing the details.""",
             "message3": """<br>One of our representatives will get back to you shortly to assist with your request.<br>
                 If you need immediate assistance or have any urgent questions, please don't hesitate to contact us at +971 800 362867<br>""",
