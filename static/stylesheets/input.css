@@ -217,7 +217,7 @@
   }
 
   .navbar-container {
-    @apply max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-5 py-2 lg:px-4 w-full;
+    @apply max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-5 py-2 lg:px-8 w-full;
   }
 
   .navbar-logo {
@@ -354,13 +354,15 @@
   .working-cards-container,
   .healthcare-cards-container,
   .more-blogs-container,
-  .perks-card-container {
+  .perks-card-container,
+  .career-cards-container {
     @apply grid grid-cols-12 space-y-6 md:space-y-0 md:gap-6 lg:gap-8 items-start;
   }
 
   .service-card,
   .working-card,
   .service-page-card,
+  .career-page-card,
   .healthcare-package-card,
   .wellness-package-card,
   .blog-card,
@@ -368,7 +370,13 @@
     @apply col-span-12 md:col-span-6 lg:col-span-4 card-shadow p-6 md:p-8 rounded-xl bg-white flex flex-col gap-2;
   }
 
- 
+  .career-page-card .career-page-card-header{
+    @apply flex flex-col items-start gap-4 overflow-hidden;
+  }
+
+  .career-page-card-badge{
+    @apply bg-primary-50 rounded px-3 py-1 text-sm font-medium text-primary-950 truncate;
+  }
 
   .test-card{
     @apply col-span-12 md:col-span-6 lg:col-span-4 p-6 md:p-8 rounded-xl bg-white flex flex-col gap-4;
@@ -622,6 +630,7 @@
   }
 
   .service-page-card,
+  .career-page-card,
   .healthcare-package-card,
   .wellness-package-card,
   .blog-card {
@@ -629,12 +638,14 @@
   }
 
   .service-page-card img,
+  .career-page-card img,
   .healthcare-package-card img,
   .blog-card-img {
     @apply h-64 lg:h-72 object-cover rounded-t-xl object-top;
   }
 
   .service-page-card-content,
+  .career-page-card-content,
   .healthcare-package-card-content,
   .blog-card-content {
     @apply p-5 md:p-7 flex flex-col gap-2;

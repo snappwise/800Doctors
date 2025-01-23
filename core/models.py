@@ -276,28 +276,6 @@ class NewsletterSubscription(models.Model):
 
 job_categories = (
     ("Back Office", "Back Office"),
-    ("Business Development/Marketing", "Business Development/Marketing"),
-    ("Physicians (DHA, MOH)", "Physicians (DHA, MOH)"),
-    (
-        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
-        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
-    ),
-    (
-        "Support Staff (Driver, Housekeeping, Babysitter)",
-        "Support Staff (Driver, Housekeeping, Babysitter)",
-    ),
-    (
-        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
-        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
-    ),
-)
-
-license_choices = (
-    ("DHA Eligibility", "DHA Eligibility"),
-    ("MOH Evaluation", "MOH Evaluation"),
-    ("License", "License"),
-)
-additional_job_categories = (
     ("HR", "HR"),
     ("Admin", "Admin"),
     ("Operations", "Operations"),
@@ -308,6 +286,39 @@ additional_job_categories = (
     ("Inventory", "Inventory"),
     ("Accounts", "Accounts"),
     ("Finance", "Finance"),
+    ("Business Development/Marketing", "Business Development/Marketing"),
+    ("Physicians (DHA, MOH)", "Physicians (DHA, MOH)"),
+    ("DHA", "DHA"),
+    ("MOH", "MOH"),
+    (
+        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
+        "Nursing (DHA RN, DHA AN, MOH RN, MOH AN)",
+    ),
+    ("DHA RN", "DHA RN"),
+    ("DHA AN", "DHA AN"),
+    ("MOH RN", "MOH RN"),
+    ("MOH AN", "MOH AN"),
+    (
+        "Support Staff (Driver, Housekeeping, Babysitter)",
+        "Support Staff (Driver, Housekeeping, Babysitter)",
+    ),
+    ("Driver", "Driver"),
+    ("Housekeeping", "Housekeeping"),
+    ("Babysitter", "Babysitter"),
+    (
+        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
+        "Allied Health Professionals (Physiotherapists, Dietitians, Therapists, Health Care Assistant)",
+    ),
+    ("Physiotherapists", "Physiotherapists"),
+    ("Dietitians", "Dietitians"),
+    ("Therapists", "Therapists"),
+    ("Health Care Assistant", "Health Care Assistant"),
+)
+
+license_choices = (
+    ("DHA Eligibility", "DHA Eligibility"),
+    ("MOH Evaluation", "MOH Evaluation"),
+    ("License", "License"),
 )
 
 
@@ -374,9 +385,7 @@ class CareerPage(models.Model):
     location = models.CharField(max_length=500)
     total_exp = models.CharField(max_length=250)
     user_email = models.EmailField()
-    job_category = models.CharField(
-        choices=job_categories + additional_job_categories, max_length=300
-    )
+    job_category = models.CharField(choices=job_categories, max_length=300)
     phone_number = models.CharField(max_length=15)
     position_apply = models.CharField(max_length=300)
     notice_period = models.CharField(max_length=300)
@@ -491,9 +500,7 @@ class CareerOpenings(models.Model):
     position_name = models.CharField(max_length=400)
     position_desc = models.TextField()
     position_page_info = RichTextField()
-    category = models.CharField(
-        max_length=300, choices=job_categories + additional_job_categories
-    )
+    category = models.CharField(max_length=300, choices=job_categories)
     available_pos = models.IntegerField()
     status = models.CharField(choices=career_status, max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -39,8 +39,8 @@
                         Job Openings Available
                     </span>
                 </div>
-                <h1 class="main-heading">Work with us to <span class="text-primary-900">reform</span><br><span
-                        class="text-primary-900"> healthcare experience</span> in Dubai</h1>
+                <h4 class="main-heading">Work with us to <span class="text-primary-900">reform</span><br><span
+                        class="text-primary-900"> healthcare experience</span> in Dubai</h4>
                 <p class="max-w-xl">Join Us in Transforming Healthcare in Dubai—Be part of a passionate team delivering
                     personalized, high-quality medical care anytime, anywhere. Together, let's redefine the standards of
                     home healthcare services.</p>
@@ -66,7 +66,7 @@
                     <lord-icon src="https://cdn.lordicon.com/loeoyezs.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Pioneers in Home Healthcare</h1>
+                    <h4 class="card-heading">Pioneers in Home Healthcare</h4>
                     <p>Established in 2007, 800 DOCTOR is the UAE's first luxury home healthcare provider, setting
                         industry benchmarks in quality and patient care.</p>
                 </div>
@@ -74,7 +74,7 @@
                     <lord-icon src="https://cdn.lordicon.com/weloglbk.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Reputation of Excellence</h1>
+                    <h4 class="card-heading">Reputation of Excellence</h4>
                     <p>With over a decade of experience, we are trusted by families across the UAE for delivering
                         premium healthcare services in the comfort of their homes.</p>
                 </div>
@@ -82,7 +82,7 @@
                     <lord-icon src="https://cdn.lordicon.com/bznxubnn.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Luxury Healthcare Standards</h1>
+                    <h4 class="card-heading">Luxury Healthcare Standards</h4>
                     <p>We combine personalized care with state-of-the-art medical practices to ensure a superior patient
                         and employee experience.</p>
                 </div>
@@ -90,7 +90,7 @@
                     <lord-icon src="https://cdn.lordicon.com/fcyboqbm.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Career Growth Opportunities</h1>
+                    <h4 class="card-heading">Career Growth Opportunities</h4>
                     <p>Join a company that values professional development, offering extensive training programs and
                         clear career progression pathways.</p>
                 </div>
@@ -98,7 +98,7 @@
                     <lord-icon src="https://cdn.lordicon.com/wipwwnqj.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Diverse and Inclusive Workplace</h1>
+                    <h4 class="card-heading">Diverse and Inclusive Workplace</h4>
                     <p>Be part of a multicultural team that embraces diversity and fosters collaboration, innovation,
                         and respect.</p>
                 </div>
@@ -106,22 +106,22 @@
                     <lord-icon src="https://cdn.lordicon.com/xncgulpt.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Cutting-Edge Technology</h1>
+                    <h4 class="card-heading">Cutting-Edge Technology</h4>
                     <p>Work with the latest medical technologies and tools, ensuring you stay ahead in your field.</p>
                 </div>
-                <div class="perk-box lg:col-start-3 lg:col-end-7">
+                <div class="perk-box">
                     <lord-icon src="https://cdn.lordicon.com/cwtiedfa.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Join the Leaders in Healthcare Innovation</h1>
+                    <h4 class="card-heading">Join the Leaders in Healthcare Innovation</h4>
                     <p>Contribute to transforming the future of home healthcare in the UAE by working with a team that
                         is redefining the industry.</p>
                 </div>
-                <div class="perk-box lg:col-end-11 lg:col-start-7">
+                <div class="perk-box">
                     <lord-icon src="https://cdn.lordicon.com/oderoewi.json" trigger="hover" class="perk-card-icon"
                         colors="primary:#262626,secondary:#0D439B">
                     </lord-icon>
-                    <h1 class="card-heading">Strong Community Presence</h1>
+                    <h4 class="card-heading">Strong Community Presence</h4>
                     <p>Be part of a company deeply committed to community health and well-being, with initiatives that
                         make a difference.</p>
                 </div>
@@ -136,16 +136,17 @@
                 <h2 class="section-heading text-center">Current Openings</h2>
                 <p>Find the role suited for you</p>
             </div>
-            <div class="service-cards-container">
+            <div class="career-cards-container">
                 {% for job in latest_job_openings %}
 
-                <div class="service-page-card card-shadow">
+                <div class="career-page-card card-shadow">
                     <img src="{{job.position_image.url}}" alt="{{job.position_name}} Image" />
-                    <div class="service-page-card-content">
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <h5 class="card-heading">{{job.position_name}}</h5>
+                    <div class="career-page-card-content">
+                        <div class="career-page-card-header">
                             <span
-                                class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">{{job.category}}</span>
+                                class="career-page-card-badge">{{job.category}}</span>
+                            <h5 class="card-heading">{{job.position_name}}</h5>
+                            
                         </div>
                         <p class="service-page-card-desc">{{job.position_desc}}</p>
                         <div class="flex items-center gap-2 text-gray-900 font-medium my-2">

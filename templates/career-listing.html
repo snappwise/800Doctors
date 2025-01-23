@@ -205,7 +205,7 @@
                 <h2 class="section-heading text-center">All Openings</h2>
                 <p>Find the role suited for you</p>
             </div>
-            <div id="job-cards-container" class="service-cards-container">
+            <div id="job-cards-container" class="career-cards-container">
                 <!-- Job cards will be dynamically inserted here -->
             </div>
         </div>
@@ -393,12 +393,12 @@
     
             jobs.forEach(job => {
                 const jobCard = `
-                    <div class="service-page-card card-shadow">
+                    <div class="career-page-card card-shadow">
                         <img src="${job.position_image}" alt="${job.position_name} Image" />
                         <div class="service-page-card-content">
-                            <div class="flex items-center justify-between gap-2 mb-2">
+                            <div class="career-page-card-header">
+                                <span class="career-page-card-badge">${job.category}</span>
                                 <h5 class="card-heading">${job.position_name}</h5>
-                                <span class="category-badge bg-primary-50 rounded px-3 py-1 text-xs font-medium text-primary-950">${job.category}</span>
                             </div>
                             <p class="service-page-card-desc">${job.position_desc}</p>
                             <div class="flex items-center gap-2 text-gray-900 font-medium my-2">
@@ -415,16 +415,16 @@
     
         // Function to extract pagination data from the API response
         function getPagination(data) {
-            const currentPage = data.next ? new URL(data.next).searchParams.get('page') : 1;
             const totalPages = Math.ceil(data.count / jobsPerPage);
-            const hasPrevious = data.previous !== null;
-            const hasNext = data.next !== null;
+            const currentPage = data.next ? 
+                Number(new URL(data.next).searchParams.get('page')) - 1 : 
+                totalPages;
     
             return {
-                current_page: Number(currentPage),
+                current_page: currentPage,
                 total_pages: totalPages,
-                has_previous: hasPrevious,
-                has_next: hasNext,
+                has_previous: currentPage > 1,
+                has_next: currentPage < totalPages
             };
         }
     
@@ -433,25 +433,34 @@
             const paginationContainer = document.getElementById('pagination-container');
             paginationContainer.innerHTML = '';
     
+            // Hide pagination if total pages is 1 or less
+            if (pagination.total_pages <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+            }
+    
             totalPages = pagination.total_pages;
             currentPage = pagination.current_page;
     
-            // Previous button
-            const prevButton = `
-                <li>
-                    <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${!pagination.has_previous ? 'disabled' : ''}" data-page="${currentPage - 1}">
-                        <span class="sr-only">Previous</span>
-                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                        </svg>
-                    </a>
-                </li>
-            `;
-            paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+            // Only render prev/next and page numbers if more than 3 pages
+            if (totalPages > 3) {
+                // Previous button
+                const prevButton = `
+                    <li>
+                        <a href="#" class="pagination-link rounded-s-lg border-e-0 ms-0 ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">
+                            <span class="sr-only">Previous</span>
+                            <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                            </svg>
+                        </a>
+                    </li>
+                `;
+                paginationContainer.insertAdjacentHTML('beforeend', prevButton);
+            }
     
-            // Page number buttons
-            const startPage = Math.max(1, currentPage - 2);
-            const endPage = Math.min(totalPages, currentPage + 2);
+            // Page number buttons (show max 3 pages)
+            const startPage = Math.max(1, Math.min(currentPage - 1, totalPages - 2));
+            const endPage = Math.min(totalPages, startPage + 2);
     
             for (let i = startPage; i <= endPage; i++) {
                 const pageButton = `
@@ -462,37 +471,41 @@
                 paginationContainer.insertAdjacentHTML('beforeend', pageButton);
             }
     
-            // Next button
-            const nextButton = `
-                <li>
-                    <a href="#" class="pagination-link rounded-e-lg ${!pagination.has_next ? 'disabled' : ''}" data-page="${currentPage + 1}">
-                        <span class="sr-only">Next</span>
-                        <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                    </a>
-                </li>
-            `;
-            paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+            // Only render prev/next if more than 3 pages
+            if (totalPages > 3) {
+                // Next button
+                const nextButton = `
+                    <li>
+                        <a href="#" class="pagination-link rounded-e-lg ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">
+                            <span class="sr-only">Next</span>
+                            <svg class="pagination-arrow-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                            </svg>
+                        </a>
+                    </li>
+                `;
+                paginationContainer.insertAdjacentHTML('beforeend', nextButton);
+            }
+    
+            // Show pagination container
+            paginationContainer.style.display = 'flex';
         }
-
-
+    
         function handlePaginationClick(e) {
             const link = e.target.closest('a.pagination-link');
             if (!link) return;
-
+    
             const page = Number(link.getAttribute('data-page'));
-
-            // If the link is disabled (due to no previous or next page), don't do anything
+    
+            // If the link is disabled, don't do anything
             if (link.classList.contains('disabled')) return;
-
+    
             // Ensure the page is valid and within range
             if (!isNaN(page) && page >= 1 && page <= totalPages) {
                 currentPage = page;
                 fetchJobs(currentPage);
             }
         }
-
     
         // Adding event listener for pagination click
         document.getElementById('pagination-container').addEventListener('click', handlePaginationClick);

@@ -169,3 +169,5 @@ venv/
 media/*
 
 .vscode/
+
+node_modules/
