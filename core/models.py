@@ -372,6 +372,53 @@ class PrivateS3Boto3Storage(S3Boto3Storage):
             return None
 
 
+# class CareerPage(models.Model):
+#     """
+#     This model is used to store the career page form data.
+#     """
+
+#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, unique=True)
+#     career_opening = models.ForeignKey(
+#         "CareerOpenings", on_delete=models.SET_NULL, null=True, blank=True
+#     )
+#     full_name = models.CharField(max_length=300)
+#     location = models.CharField(max_length=500)
+#     total_exp = models.CharField(max_length=250)
+#     user_email = models.EmailField()
+#     job_category = models.CharField(choices=job_categories, max_length=300)
+#     phone_number = models.CharField(max_length=15)
+#     position_apply = models.CharField(max_length=300)
+#     notice_period = models.CharField(max_length=300)
+#     license_status = models.CharField(
+#         null=True, blank=True, max_length=300, choices=license_choices
+#     )
+#     visa_status = models.CharField(max_length=300, blank=True, null=True)  # Optional
+#     languages_spoken = models.CharField(
+#         max_length=500, blank=True, null=True
+#     )  # Optional
+#     nationality = models.CharField(max_length=400)
+#     date_of_birth = models.DateField()  # Use DateField for better validation
+#     resume = models.FileField(
+#         upload_to="resumes/", storage=PrivateS3Boto3Storage()
+#     )  # Custom S3 storage
+#     cover_letter = models.TextField()
+#     agreement = models.BooleanField(default=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     email_sent = models.BooleanField(default=False)
+
+#     def __str__(self):
+#         return f"{self.id} | {self.full_name}"
+
+#     def clean(self):
+#         # Ensure agreement is checked
+#         if not self.agreement:
+#             raise ValidationError("You must agree to the terms and conditions.")
+
+#     class Meta:
+#         verbose_name_plural = "Career Enquiries"
+#         indexes = [models.Index(fields=["created_at"])]
+
+
 class CareerPage(models.Model):
     """
     This model is used to store the career page form data.
@@ -382,26 +429,51 @@ class CareerPage(models.Model):
         "CareerOpenings", on_delete=models.SET_NULL, null=True, blank=True
     )
     full_name = models.CharField(max_length=300)
-    location = models.CharField(max_length=500)
-    total_exp = models.CharField(max_length=250)
+    location = models.CharField(
+        max_length=500, default="Not specified"
+    )  # Default value added
+    total_exp = models.CharField(
+        max_length=250, default="0 years"
+    )  # Default value added
     user_email = models.EmailField()
-    job_category = models.CharField(choices=job_categories, max_length=300)
-    phone_number = models.CharField(max_length=15)
-    position_apply = models.CharField(max_length=300)
-    notice_period = models.CharField(max_length=300)
-    license_status = models.CharField(
-        null=True, blank=True, max_length=300, choices=license_choices
+    job_category = models.CharField(
+        choices=job_categories,
+        max_length=300,
+        default="Back Office",  # Default value added
     )
-    visa_status = models.CharField(max_length=300, blank=True, null=True)  # Optional
+    phone_number = models.CharField(
+        max_length=15, default="Not provided"
+    )  # Default value added
+    position_apply = models.CharField(
+        max_length=300, default="Not specified"
+    )  # Default value added
+    notice_period = models.CharField(
+        max_length=300, default="Not specified"
+    )  # Default value added
+    license_status = models.CharField(
+        null=True,
+        blank=True,
+        max_length=300,
+        choices=license_choices,
+        default="License",  # Default value added
+    )
+    visa_status = models.CharField(
+        max_length=300, blank=True, null=True, default="Not applicable"
+    )  # Default value added
     languages_spoken = models.CharField(
-        max_length=500, blank=True, null=True
-    )  # Optional
-    nationality = models.CharField(max_length=400)
+        max_length=500,
+        blank=True,
+        null=True,
+        default="Not specified",  # Default value added
+    )
+    nationality = models.CharField(
+        max_length=400, default="Not specified"
+    )  # Default value added
     date_of_birth = models.DateField()  # Use DateField for better validation
     resume = models.FileField(
         upload_to="resumes/", storage=PrivateS3Boto3Storage()
     )  # Custom S3 storage
-    cover_letter = models.TextField()
+    cover_letter = models.TextField(default="")  # Default value added
     agreement = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     email_sent = models.BooleanField(default=False)
