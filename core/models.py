@@ -428,14 +428,14 @@ class CareerPage(models.Model):
     career_opening = models.ForeignKey(
         "CareerOpenings", on_delete=models.SET_NULL, null=True, blank=True
     )
-    full_name = models.CharField(max_length=300)
+    full_name = models.CharField(max_length=300, default="Not specified")
     location = models.CharField(
         max_length=500, default="Not specified"
     )  # Default value added
     total_exp = models.CharField(
         max_length=250, default="0 years"
     )  # Default value added
-    user_email = models.EmailField()
+    user_email = models.EmailField(null=True, blank=True)
     job_category = models.CharField(
         choices=job_categories,
         max_length=300,
@@ -469,9 +469,11 @@ class CareerPage(models.Model):
     nationality = models.CharField(
         max_length=400, default="Not specified"
     )  # Default value added
-    date_of_birth = models.DateField()  # Use DateField for better validation
+    date_of_birth = models.DateField(
+        null=True, blank=True
+    )  # Use DateField for better validation
     resume = models.FileField(
-        upload_to="resumes/", storage=PrivateS3Boto3Storage()
+        null=True, blank=True, upload_to="resumes/", storage=PrivateS3Boto3Storage()
     )  # Custom S3 storage
     cover_letter = models.TextField(default="")  # Default value added
     agreement = models.BooleanField(default=False)
