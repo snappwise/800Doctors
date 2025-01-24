@@ -299,9 +299,9 @@ class CareerPageEnquiryView(APIView):
             data["user_agent"] = request.META.get("HTTP_USER_AGENT", "not found")
 
             # Send alert email
-            # emails_sent = send_alert_email(
-            #     "Career Enquiry Form Submission", data, "Career Enquiry"
-            # )
+            emails_sent = send_alert_email(
+                "Career Enquiry Form Submission", data, "Career Enquiry"
+            )
             emails_sent = 1
             data["email_sent"] = False
             if emails_sent == 1:
